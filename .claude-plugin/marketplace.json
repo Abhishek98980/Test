@@ -1,0 +1,5 @@
+{
+  "name": "abhishek-mods",
+  "owner": { "name": "abhishek98980" },
+  "plugins": [{ "name": "project-tracker", "source": "./project-tracker" }]
+}

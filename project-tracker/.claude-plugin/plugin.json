@@ -1,0 +1,9 @@
+{
+  "name": "project-tracker",
+  "version": "0.1.0",
+  "description": "Keeps a live tracker of every project: what's in progress, done, pending, blocked, and skipped (with why).",
+  "author": {
+    "name": "abhishek98980"
+  },
+  "types": "./types/index.d.ts"
+}
