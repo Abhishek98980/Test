@@ -1,0 +1,14 @@
+stateDiagram-v2
+  direction TB
+  [*] --> Requested: F1 customer request or system-initiated
+  Requested --> UnderReview: F2 support picks it up
+  Requested --> Approved: F3 auto-approval rule (only if enabled)
+  Requested --> Withdrawn: F4 customer withdraws
+  UnderReview --> Rejected: F5 not eligible under published policy
+  UnderReview --> Approved: F6 full or partial amount approved
+  Approved --> Processing: F7 refund sent to gateway or finance
+  Processing --> Completed: F8 refund confirmed
+  Processing --> Failed: F9 refund failed
+  Failed --> Processing: F10 retry
+  Failed --> ManualResolution: F11 needs off-gateway handling
+  ManualResolution --> Completed: F12 resolved and evidenced

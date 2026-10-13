@@ -1,0 +1,21 @@
+stateDiagram-v2
+  direction TB
+  [*] --> Draft
+  Draft --> PendingConfirmation: O1 checkout submitted
+  PendingConfirmation --> Confirmed: O2 payment verified / COD confirmed / transfer verified
+  PendingConfirmation --> ReviewRequired: O3 ambiguous or late payment
+  PendingConfirmation --> Cancelled: O4 failed, expired or abandoned
+  ReviewRequired --> Confirmed: O5 payment, stock and slot reconciled
+  ReviewRequired --> Cancelled: O6 payment failed or cannot fulfil
+  Confirmed --> Packing: O7 packing batch starts
+  Confirmed --> Cancelled: O8 cancelled before packing
+  Packing --> Packed: O9 every line packed or resolved
+  Packing --> Cancelled: O10 nothing can be fulfilled
+  Packed --> OutForDelivery: O11 dispatched
+  OutForDelivery --> Delivered: O12 delivery confirmed
+  OutForDelivery --> DeliveryFailed: O13 attempt failed
+  DeliveryFailed --> OutForDelivery: O14 re-attempt in agreed slot
+  DeliveryFailed --> Returned: O15 no re-attempt, goods back at hub
+  Delivered --> [*]
+  Returned --> [*]
+  Cancelled --> [*]

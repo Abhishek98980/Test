@@ -1,0 +1,8 @@
+flowchart TD
+  b1["Customer selects bank transfer"] --> b2["Order Pending confirmation · stock + slot Extended for the transfer window (OD-25)"]
+  b2 --> b3["Customer shown bank details + unique payment reference"]
+  b3 --> b4{"Credit seen in bank statement within window?"}
+  b4 -- Yes --> b5["Finance verifies amount + reference → payment Paid → order Confirmed"]
+  b4 -- No --> b6["Window expires → order Cancelled · holds released"]
+  b6 --> b7["Credit arrives later → ReviewRequired → refund, or reinstate with customer"]
+  b2 -. "authorized exception only" .-> b8["Pack before verification: approver + reason recorded"]

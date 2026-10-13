@@ -1,0 +1,9 @@
+flowchart TD
+  c1["Customer selects COD"] --> c2{"Eligible?<br/>(server rules, OD-06)"}
+  c2 -- No --> c3["COD not offered; other methods shown"]
+  c2 -- Yes --> c4["COD confirmation rule (OD-49)"]
+  c4 --> c5["Order Confirmed · payment Pending collection"]
+  c5 --> c6{"Delivered?"}
+  c6 -- Yes --> c7["Driver records cash / UPI collected → payment Paid"]
+  c7 --> c8["Driver hands over cash → finance reconciles daily"]
+  c6 -- "No: failed or refused" --> c9["Nothing collected → failed-delivery flow"]

@@ -1,0 +1,16 @@
+flowchart TD
+  A["Customer enters delivery address / PIN code"] --> B{"In service area?"}
+  B -- No --> B1["Explain the area is not served; show no slots"]
+  B -- Yes --> C["Show zone's slots: before cutoff, open, regular capacity left"]
+  C --> D["Customer selects a slot"]
+  D --> E{"Atomic hold succeeds?"}
+  E -- "No: slot just filled" --> C
+  E -- Yes --> F["Slot reservation Active — check + hold done in ONE step; own expiry timer"]
+  F --> G["Checkout and payment"]
+  G --> H{"Outcome"}
+  H -- Confirmed --> I["Slot allocation Confirmed → packing + delivery plan"]
+  H -- "Failed / abandoned / expired" --> K["Release or expire the hold"]
+  H -- "Payment ambiguous" --> L["Keep slot in review until the slot's cutoff"]
+  L --> M{"Paid before cutoff?"}
+  M -- Yes --> I
+  M -- No --> N["Exception case: customer picks a new slot — never moved silently"]

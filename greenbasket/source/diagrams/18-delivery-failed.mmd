@@ -1,0 +1,13 @@
+flowchart TD
+  A["Order Packed → assign driver + route"] --> C["Out for delivery"]
+  C --> D{"Handed over?"}
+  D -- Yes --> E["Proof of delivery (OD-40) · COD collected if due → Delivered"]
+  D -- No --> G["Record failed attempt: reason, time, proof · notify customer"]
+  G --> I{"Re-attempt allowed? (OD-16)"}
+  I -- "Yes + customer agrees slot" --> J["Reserve new slot atomically"] --> C
+  I -- No --> K["Return goods to hub"]
+  K --> L{"Still sellable?"}
+  L -- Yes --> M["Restock movement"]
+  L -- No --> N["Waste movement"]
+  M --> O["Returned · refund or charges per policy (OD-16)"]
+  N --> O

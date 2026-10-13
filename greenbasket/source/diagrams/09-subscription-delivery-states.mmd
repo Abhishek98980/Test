@@ -1,0 +1,12 @@
+stateDiagram-v2
+  direction TB
+  [*] --> Scheduled: V1 delivery scheduled for a paid or due period
+  Scheduled --> Skipped: V2 customer skips before cutoff
+  Scheduled --> Cancelled: V3 subscription paused or cancelled before cutoff
+  Scheduled --> Frozen: V4 cutoff reached — basket version frozen
+  Frozen --> Exception: V5 basket invalid, short stock, slot or payment issue
+  Exception --> Frozen: V6 resolved with customer
+  Exception --> Skipped: V7 customer agrees to skip
+  Frozen --> OrderGenerated: V8 delivery order created (idempotent)
+  OrderGenerated --> Delivered: V9 order delivered
+  OrderGenerated --> NotDelivered: V10 order returned or cancelled

@@ -1,0 +1,21 @@
+stateDiagram-v2
+  direction TB
+  [*] --> Pending
+  Pending --> Paid: P1 verified success
+  Pending --> Authorized: P2 verified authorization (if supported)
+  Authorized --> Paid: P3 capture confirmed
+  Authorized --> Voided: P4 voided or authorization expired
+  Pending --> Failed: P5 confirmed failure
+  Pending --> ReviewRequired: P6 timeout, mismatch or late result
+  Authorized --> ReviewRequired: P6 capture result unclear
+  ReviewRequired --> Paid: P7 reconciled success
+  ReviewRequired --> Failed: P8 reconciled failure
+  Failed --> ReviewRequired: P9 late success or debit reported
+  Paid --> PartiallyRefunded: P10 partial refund completed
+  PartiallyRefunded --> PartiallyRefunded: P11 another partial refund
+  Paid --> Refunded: P12 full refund completed
+  PartiallyRefunded --> Refunded: P12 remaining amount refunded
+  Paid --> Disputed: P13 dispute raised
+  PartiallyRefunded --> Disputed: P13 dispute raised
+  Disputed --> Paid: P14 dispute won (back to previous state)
+  Disputed --> Refunded: P15 dispute lost

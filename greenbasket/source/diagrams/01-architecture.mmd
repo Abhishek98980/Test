@@ -1,0 +1,13 @@
+flowchart TB
+  PR["<b>Presentation</b> — Blocksy + Elementor Free + extension screens<br/>Retail · Farm Box builder · Wholesale · Subscriptions + My Account · Cart + checkout · Staff screens"]
+  WC["<b>WooCommerce core</b> — system of record for commerce<br/>Products + variations · Customers · Cart + checkout · Orders · Coupons + tax"]
+  GB["<b>Greenbasket extension</b> — one modular plugin for domain rules<br/>Pricing engine · Stock ledger + reservations · Slot capacity · Subscription scheduler<br/>Payment reconciliation · Packing + delivery · Audit log · Notification jobs"]
+  DB[("<b>One MySQL database</b><br/>WooCommerce tables + Greenbasket tables<br/>(ledger, reservations, subscriptions, slots, audit, idempotency)")]
+  EX["<b>External services</b><br/>Payment gateway · Email / WhatsApp / SMS · GA4 + Search Console"]
+  OPS["<b>Operations</b><br/>Server cron + job queue · Monitoring + alerts · Backups + restore tests · Staging + deployment"]
+  PR --> WC
+  WC --> GB
+  GB --> DB
+  WC --> DB
+  GB <--> EX
+  OPS -.-> GB

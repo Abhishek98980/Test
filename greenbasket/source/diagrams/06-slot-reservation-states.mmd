@@ -1,0 +1,12 @@
+stateDiagram-v2
+  direction TB
+  [*] --> Active: L1 atomic capacity hold
+  Active --> Confirmed: L2 order confirmed
+  Active --> Expired: L3 slot hold timeout
+  Active --> Released: L4 payment failed, slot changed, cancelled
+  Active --> ReviewRequired: L5 payment ambiguous
+  Expired --> ReviewRequired: L6 late successful payment
+  ReviewRequired --> Confirmed: L7 reconciled and capacity held before cutoff
+  ReviewRequired --> Released: L8 failed, or cutoff passed (exception case)
+  Confirmed --> Released: L9 cancelled or rescheduled before cutoff
+  Confirmed --> Used: L10 delivery attempted in this slot
