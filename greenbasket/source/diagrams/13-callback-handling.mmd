@@ -1,0 +1,18 @@
+flowchart TD
+  A["Gateway callback received"] --> B{"Signature valid?"}
+  B -- No --> B1["Reject; security alert; no state change"]
+  B -- Yes --> C{"Already processed?"}
+  C -- "Yes (same idempotency key)" --> C1["Acknowledge; do nothing"]
+  C -- No --> D["Lock the payment-attempt record"]
+  D --> E{"Event type"}
+  E -- Failure --> E1["Payment Failed; release holds; customer may retry with a new attempt"]
+  E -- Success --> F{"Matches snapshot?<br/>amount · currency · order"}
+  F -- No --> F1["Payment ReviewRequired; exception case"]
+  F -- Yes --> G{"Order + holds still valid?"}
+  G -- "No: expired / cancelled" --> G1["Payment Paid; reservation ReviewRequired; late-payment case"]
+  G -- Yes --> H["ONE database transaction: payment Paid · order Confirmed<br/>· reservations Confirmed · idempotency record saved"]
+  H --> I["Queue notifications — a failure never rolls back the order"]
+  E1 --> J["Acknowledge gateway"]
+  F1 --> J
+  G1 --> J
+  I --> J

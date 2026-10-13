@@ -1,0 +1,15 @@
+stateDiagram-v2
+  direction TB
+  [*] --> PendingSetup
+  PendingSetup --> Active: S1 first payment and renewal setup succeeded
+  PendingSetup --> Cancelled: S2 setup abandoned or failed
+  Active --> PastDue: S3 renewal payment failed
+  PastDue --> Active: S4 retry or manual payment succeeded
+  PastDue --> Paused: S5 retries exhausted
+  Active --> Paused: S6 customer pauses
+  Paused --> Active: S7 customer resumes and period is paid
+  Active --> CancelPending: S8 customer cancels
+  Paused --> CancelPending: S8 customer cancels
+  PastDue --> CancelPending: S8 customer cancels
+  CancelPending --> Cancelled: S9 committed deliveries finished
+  Active --> Completed: S10 fixed term ended (only if plans have a term)

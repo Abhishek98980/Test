@@ -1,0 +1,78 @@
+{
+  "01-architecture.png": {
+    "width": 618,
+    "height": 859
+  },
+  "02-delivery-plan.png": {
+    "width": 939,
+    "height": 1135
+  },
+  "03-order-states.png": {
+    "width": 916,
+    "height": 1073
+  },
+  "04-payment-states.png": {
+    "width": 1300,
+    "height": 797
+  },
+  "05-stock-reservation-states.png": {
+    "width": 1354,
+    "height": 718
+  },
+  "06-slot-reservation-states.png": {
+    "width": 894,
+    "height": 600
+  },
+  "07-slot-booking-flow.png": {
+    "width": 850,
+    "height": 1556
+  },
+  "08-subscription-states.png": {
+    "width": 1202,
+    "height": 689
+  },
+  "09-subscription-delivery-states.png": {
+    "width": 1167,
+    "height": 537
+  },
+  "10-refund-states.png": {
+    "width": 696,
+    "height": 829
+  },
+  "11-pricing-flow.png": {
+    "width": 1311,
+    "height": 1307
+  },
+  "12-checkout-sequence.png": {
+    "width": 882,
+    "height": 1448
+  },
+  "13-callback-handling.png": {
+    "width": 1218,
+    "height": 1672
+  },
+  "14-cod-flow.png": {
+    "width": 756,
+    "height": 925
+  },
+  "14b-bank-transfer-flow.png": {
+    "width": 768,
+    "height": 933
+  },
+  "15-subscription-cycle.png": {
+    "width": 1287,
+    "height": 1268
+  },
+  "16-renewal-retry.png": {
+    "width": 1079,
+    "height": 966
+  },
+  "17-packing-shortage.png": {
+    "width": 1052,
+    "height": 1206
+  },
+  "18-delivery-failed.png": {
+    "width": 968,
+    "height": 1220
+  }
+}

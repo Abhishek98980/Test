@@ -1,0 +1,29 @@
+sequenceDiagram
+  autonumber
+  actor C as Customer
+  participant W as Website (WooCommerce + extension)
+  participant R as Stock + slot services
+  participant G as Payment gateway
+  C->>W: Start checkout
+  W->>W: Re-price cart on server, start 15-min price lock
+  C->>W: Address and delivery slot
+  W->>R: Service-area check, atomic slot hold
+  W->>R: Atomic stock reservation for all lines
+  R-->>W: Reservations Active (own expiry timers)
+  C->>W: Choose payment method, place order
+  W->>W: Lock valid? Reservations active? Create order + payment attempt (idempotency key)
+  W->>G: Create payment for the exact snapshot amount
+  C->>G: Pays
+  G-->>C: Redirect back (NOT proof of payment)
+  G->>W: Signed server-to-server callback
+  W->>W: Verify signature, idempotency, amount
+  alt Verified success
+    W->>R: Confirm stock + slot reservations
+    W-->>C: Order confirmed (notifications sent asynchronously)
+  else Confirmed failure
+    W->>R: Release reservations
+    W-->>C: Payment failed — retry creates a new attempt
+  else No definitive result
+    W->>G: Server status lookup
+    W-->>C: "Payment being verified — do not pay again"
+  end

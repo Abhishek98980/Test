@@ -1,0 +1,13 @@
+flowchart TD
+  A["Renewal due"] --> A0["Renewal reminder; pre-debit notice if mandate rules require it"]
+  A0 --> B["Create billing period + payment attempt (idempotent)"]
+  B --> C{"Result"}
+  C -- Paid --> D["Period Paid; schedule its deliveries"]
+  C -- Ambiguous --> E["Review: no new charge until reconciled"]
+  E --> C
+  C -- Failed --> F["Subscription PastDue"]
+  F --> G{"Retries left?<br/>3 over 3 days"}
+  G -- Yes --> H["Before each retry: reconcile the previous attempt"]
+  H -- "Late success found" --> D
+  H -- "Still unpaid" --> I["Retry charge: new attempt, idempotent"] --> C
+  G -- No --> J["Pause future deliveries; notify customer"]

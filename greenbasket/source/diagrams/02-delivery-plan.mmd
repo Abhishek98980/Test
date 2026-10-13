@@ -1,0 +1,15 @@
+flowchart TB
+  TA["<b>Track A — Business + legal</b><br/>start now; needs no website<br/>FSSAI + GST · policies + grievance officer<br/>gateway KYC + bank account · SMS DLT + WhatsApp"]
+  P0["Phase 0 · Discovery + baseline audit"] --> P1["Phase 1 · Specification + solution options"]
+  P1 --> P2["Phase 2 · Catalogue + inventory foundation"]
+  P2 --> P3["Phase 3 · Pricing, checkout, payments, slot holds"]
+  P3 --> P4["Phase 4 · Subscription engine"]
+  P4 --> P5["Phase 5 · Delivery + operations"]
+  P5 --> P6["Phase 6 · Integrations + launch validation"]
+  P6 --> P7["Phase 7 · Production launch + hypercare"]
+  P7 --> P8["Ongoing maintenance"]
+  TB2["<b>Track B — Brand, design system, content</b><br/>after requirements are approved<br/>brand basics · tokens + components · wireframes<br/>product data sheet · photos + page copy"]
+  TB2 -. "product data sheet" .-> P2
+  TB2 -. "approved wireframes + components" .-> P3
+  TB2 -. "photos + copy" .-> P6
+  TA -. "policies, gateway KYC, DLT" .-> P6

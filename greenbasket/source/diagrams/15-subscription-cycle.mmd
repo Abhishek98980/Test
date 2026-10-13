@@ -1,0 +1,15 @@
+flowchart TD
+  A["Delivery Scheduled · protected slot capacity counted"] --> B{"Before cutoff"}
+  B -- "Customer edits" --> B1["Validate eligibility + allowance → save new basket version"] --> B
+  B -- "Customer skips" --> B2["Skipped · protected capacity released · charge unchanged"]
+  B -- "Cutoff reached" --> C["Cutoff job takes the latest saved version"]
+  C --> D{"Still valid?"}
+  D -- "No: ineligible / over allowance" --> D1["Exception: contact customer · no silent substitution (OD-24)"]
+  D -- Yes --> E["Freeze: snapshot basket, prices, allowance, rule versions"]
+  E --> F{"Period paid?"}
+  F -- "No: past due" --> F1["Hold per OD-21"]
+  F -- Yes --> G["Atomic stock reservation for every item"]
+  G -- "Short" --> H1["Shortage exception: pause item, contact customer"]
+  G -- "All reserved" --> I["Confirm protected slot allocation"]
+  H1 --> I
+  I --> J["Generate delivery order · idempotency key = delivery ID → packing flow"]

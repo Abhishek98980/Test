@@ -1,0 +1,18 @@
+flowchart TD
+  A["Pricing request: whole cart · channel per line · effective time"] --> B["Validate each line: product active · selling unit active and belongs to product<br/>· channel eligible · quantity min / max / increment"]
+  B -- fails --> X["Error with reason; line cannot be bought"]
+  B --> E["Resolve price rule + version at effective time"]
+  E --> F{"Line channel"}
+  F -- Retail --> G["Fixed selling-unit price × qty"]
+  F -- "Farm Box" --> H["Farm Box item price × qty<br/>(price source: OD-33)"]
+  F -- Wholesale --> I["Sum same product + unit across eligible lines<br/>→ tier → tier rate × all units → allocate to lines"]
+  F -- Subscription --> J["Price items at current rules<br/>basket ≤ allowance? charge = plan price"]
+  J -- "over allowance" --> X
+  G --> K["Cart level, in this order: promotions (channel rules) → minimum-order check<br/>→ delivery charge + free-delivery threshold → taxes on goods and delivery → rounding"]
+  H --> K
+  I --> K
+  J --> K
+  K --> P["Return line-level + order-level breakdown"]
+  P --> Q{"At checkout?"}
+  Q -- Yes --> R["Store snapshot + rule versions; start 15-min price lock"]
+  Q -- No --> S["Display only; nothing stored"]

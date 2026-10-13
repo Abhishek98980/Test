@@ -1,0 +1,18 @@
+stateDiagram-v2
+  direction TB
+  [*] --> Active: R1 created atomically
+  Active --> Extended: R2 authorized extension
+  Active --> Confirmed: R3 order confirmed
+  Extended --> Confirmed: R3 order confirmed
+  Active --> Expired: R4 timeout (default 15 min)
+  Extended --> Expired: R4 extended timeout
+  Active --> Released: R5 payment failed, cart changed, cancelled
+  Extended --> Released: R5 payment failed or cancelled
+  Active --> ReviewRequired: R6 payment ambiguous
+  Extended --> ReviewRequired: R6 payment ambiguous
+  Expired --> ReviewRequired: R7 late successful payment
+  ReviewRequired --> Confirmed: R8 stock re-secured and payment reconciled
+  ReviewRequired --> Released: R9 payment failed or cannot fulfil
+  ReviewRequired --> Expired: R10 review hold limit reached
+  Confirmed --> Consumed: R11 packed — nominal quantity deducted
+  Confirmed --> Released: R12 cancelled before packing, or shortage quantity

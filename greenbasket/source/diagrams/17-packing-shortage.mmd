@@ -1,0 +1,16 @@
+flowchart TD
+  A["Slot cutoff passes → packing list per slot"] --> C["Order Packing · pick each line"]
+  C --> D{"Enough stock?"}
+  D -- Yes --> E["Record packed nominal qty<br/>(actual weight optional)"]
+  D -- No --> F["Shortage: pause item,<br/>open case, contact customer"]
+  F --> H{"Customer decision"}
+  H -- "Remove / reduce" --> I["Adjust line; refund<br/>or reduce COD due"]
+  H -- "Substitute" --> J["Approved substitute<br/>(OD-43)"]
+  H -- "Cancel" --> K["Order Cancelled;<br/>refund if paid"]
+  H -- "Unreachable" --> L["Default action<br/>(OD-28)"]
+  E --> M{"All lines packed<br/>or resolved?"}
+  I --> M
+  J --> M
+  L --> M
+  M -- No --> C
+  M -- Yes --> N["Order Packed: packed qty consumed;<br/>shortage qty released + stock correction"]
