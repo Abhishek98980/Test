@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Sign up or sign in · Greeen Basket</title>
+<title>Create an account · Greeen Basket</title>
 <script src="./support.js"></script>
 <link rel="stylesheet" href="gb.css">
 </head>
@@ -31,7 +31,7 @@ body{margin:0}
       <sc-if value="{{isStep1}}" hint-placeholder-val="{{true}}">
         <form onSubmit="{{sendCode}}" noValidate style="display: flex; flex-direction: column; gap: 22px;">
           <div>
-            <h1 class="t-h1">Sign up or sign in</h1>
+            <h1 class="t-h1">Create your account</h1>
             <p class="t-lead t-muted" style="margin-top: 10px;">One account for the store, Farm Boxes, subscriptions and wholesale. No password to remember.</p>
           </div>
           <sc-if value="{{usePhone}}" hint-placeholder-val="{{true}}">
@@ -53,6 +53,8 @@ body{margin:0}
           </sc-if>
           <button type="submit" class="btn btn-primary btn-lg btn-block">Send code</button>
           <button type="button" class="btn btn-ghost" style="align-self: center;" onClick="{{toggleMode}}">{{toggleText}}</button>
+          <hr class="hr">
+          <p style="text-align: center;">Already have an account? <a href="Login.dc.html" style="font-weight: 600;">Log in</a></p>
           <p class="t-xs t-muted" style="text-align: center;">By continuing you agree to our <a href="Terms.dc.html">terms of service</a> and <a href="Privacy.dc.html">privacy policy</a>.</p>
         </form>
       </sc-if>

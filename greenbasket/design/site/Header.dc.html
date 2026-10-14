@@ -72,10 +72,19 @@ body{margin:0}
 
       <nav aria-label="Account and basket" style="display: flex; align-items: center; gap: 8px; margin-left: auto;">
         <sc-if value="{{full}}" hint-placeholder-val="{{true}}">
-          <a href="Account.dc.html" class="btn btn-ghost btn-sm">
-            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"></path></svg>
-            Account
-          </a>
+          <sc-if value="{{showAccount}}" hint-placeholder-val="{{true}}">
+            <a href="Account.dc.html" class="btn btn-ghost btn-sm">
+              <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"></path></svg>
+              Account
+            </a>
+          </sc-if>
+          <sc-if value="{{showLogin}}" hint-placeholder-val="{{false}}">
+            <a href="Login.dc.html" class="btn btn-ghost btn-sm">
+              <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"></path><path d="M10 16l4-4-4-4"></path><path d="M14 12H4"></path></svg>
+              Log in
+            </a>
+            <a href="Signup.dc.html" class="btn btn-outline btn-sm">Sign up</a>
+          </sc-if>
           <a href="Cart.dc.html" class="btn btn-ink btn-sm" aria-label="{{cartLabel}}">
             <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h18l-2 10H5z"></path><path d="M8 10l4-6 4 6"></path></svg>
             Basket
@@ -98,7 +107,7 @@ body{margin:0}
   </div>
 </header>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"active":{"editor":"enum","options":["none","veg","fruit","greens","exotic","farmbox","subscriptions","wholesale","offers"],"default":"none"},"variant":{"editor":"enum","options":["full","minimal"],"default":"full"},"dark":{"editor":"boolean","default":false},"cartCount":{"editor":null},"cartTotal":{"editor":null},"$preview":{"width":1440,"height":200}}'>
+<script type="text/x-dc" data-dc-script data-props='{"active":{"editor":"enum","options":["none","veg","fruit","greens","exotic","farmbox","subscriptions","wholesale","offers"],"default":"none"},"variant":{"editor":"enum","options":["full","minimal"],"default":"full"},"dark":{"editor":"boolean","default":false},"signedIn":{"editor":"boolean","default":true},"cartCount":{"editor":null},"cartTotal":{"editor":null},"$preview":{"width":1440,"height":200}}'>
 class Component extends DCLogic {
   constructor(...args) {
     super(...args);
@@ -110,6 +119,7 @@ class Component extends DCLogic {
     const active = this.props.active ?? 'none';
     const dark = this.props.dark ?? false;
     const variant = this.props.variant ?? 'full';
+    const signedIn = this.props.signedIn ?? true;
     const count = this.props.cartCount ?? 0;
     const items = [
       ['Tomato', 'टमाटर', '1 kg', '90234e112587bcb63afe69728f9038ca'],
@@ -161,6 +171,8 @@ class Component extends DCLogic {
       noSuggest: q.length > 0 && suggestions.length === 0,
       nav,
       cartCount: String(count),
+      showAccount: signedIn,
+      showLogin: !signedIn,
       cartLabel: 'Basket, ' + count + (count === 1 ? ' item' : ' items') + (this.props.cartTotal ? ', ' + this.props.cartTotal : '')
     };
   }

@@ -99,7 +99,7 @@
       "title": "Checkout 2 · Delivery slot",
       "w": 1440,
       "x": 1520,
-      "y": 1420
+      "y": 3640
     },
     "Checkout-3.dc.html": {
       "expand": "fill",
@@ -109,7 +109,7 @@
       "title": "Checkout 3 · Payment",
       "w": 1440,
       "x": 3040,
-      "y": 1420
+      "y": 3640
     },
     "Checkout-4.dc.html": {
       "expand": "fill",
@@ -119,7 +119,7 @@
       "title": "Checkout 4 · Review",
       "w": 1440,
       "x": 4560,
-      "y": 1420
+      "y": 3640
     },
     "Checkout-5.dc.html": {
       "expand": "fill",
@@ -129,7 +129,7 @@
       "title": "Checkout 5 · Order placed",
       "w": 1440,
       "x": 6080,
-      "y": 1420
+      "y": 3640
     },
     "Checkout-dark.dc.html": {
       "expand": "fill",
@@ -149,7 +149,7 @@
       "title": "Checkout 1 · Address",
       "w": 1440,
       "x": 0,
-      "y": 1420
+      "y": 3640
     },
     "Contact-dark.dc.html": {
       "expand": "fill",
@@ -323,40 +323,40 @@
       "h": 1300,
       "is_interactive": true,
       "page": "flows",
-      "title": "Sign-up 2 · Verify code",
+      "title": "Sign up 2 · Verify code",
       "w": 1440,
       "x": 1520,
-      "y": 0
+      "y": 1720
     },
     "Signup-3.dc.html": {
       "expand": "fill",
       "h": 1500,
       "is_interactive": true,
       "page": "flows",
-      "title": "Sign-up 3 · Details and address",
+      "title": "Sign up 3 · Details and address",
       "w": 1440,
       "x": 3040,
-      "y": 0
+      "y": 1720
     },
     "Signup-4.dc.html": {
       "expand": "fill",
       "h": 1300,
       "is_interactive": true,
       "page": "flows",
-      "title": "Sign-up 4 · Welcome",
+      "title": "Sign up 4 · Welcome",
       "w": 1440,
       "x": 4560,
-      "y": 0
+      "y": 1720
     },
     "Signup.dc.html": {
       "expand": "fill",
       "h": 1300,
       "is_interactive": true,
       "page": "flows",
-      "title": "Sign-up 1 · Phone number",
+      "title": "Sign up 1 · Mobile number or email",
       "w": 1440,
       "x": 0,
-      "y": 0
+      "y": 1720
     },
     "Subscriptions.dc.html": {
       "expand": "fill",
@@ -386,6 +386,36 @@
       "w": 1440,
       "x": 7600,
       "y": 0
+    },
+    "Login.dc.html": {
+      "expand": "fill",
+      "h": 1300,
+      "is_interactive": true,
+      "page": "flows",
+      "title": "Log in 1 · Mobile number or email",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "Login-2.dc.html": {
+      "expand": "fill",
+      "h": 1300,
+      "is_interactive": true,
+      "page": "flows",
+      "title": "Log in 2 · Enter code",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "Login-3.dc.html": {
+      "expand": "fill",
+      "h": 1300,
+      "is_interactive": true,
+      "page": "flows",
+      "title": "Log in 3 · Welcome back",
+      "w": 1440,
+      "x": 3040,
+      "y": 0
     }
   },
   "createdOnFiles": {
@@ -397,8 +427,54 @@
     "page": "site",
     "view": "canvas"
   },
-  "notes": {},
+  "notes": {
+    "t-login": {
+      "x": 0,
+      "y": -300,
+      "text": "Log in",
+      "kind": "title1",
+      "maxW": 4480,
+      "page": "flows"
+    },
+    "t-signup": {
+      "x": 0,
+      "y": 1420,
+      "text": "Sign up",
+      "kind": "title1",
+      "maxW": 5960,
+      "page": "flows"
+    },
+    "t-checkout": {
+      "x": 0,
+      "y": 3340,
+      "text": "Checkout",
+      "kind": "title1",
+      "maxW": 7520,
+      "page": "flows"
+    },
+    "t-account": {
+      "x": 0,
+      "y": -300,
+      "text": "My account",
+      "kind": "title1",
+      "maxW": 5960,
+      "page": "account"
+    },
+    "map": {
+      "x": -1007,
+      "y": -820,
+      "w": 1200,
+      "maxH": 640,
+      "size": "l",
+      "fill": "green",
+      "page": "site",
+      "text": "Where to find every screen\n• Pages (this page): Home, Product, Cart, Farm Box, Subscriptions, Wholesale, About, Contact us, FAQ, 404\n• Log in, sign up and checkout: Log in 1–3, Sign up 1–4, Checkout 1–5\n• My account: Overview, Orders, Subscription, Profile and settings\n• Policies: Cancellation and replacement, Terms, Privacy\n• Components: Header, Footer, Product card, Form kit\n• Dark mode: 8 screens in dark\nSwitch pages from the canvas page list. Press Play on Home to click through: Log in and Sign up sit in the header."
+    }
+  },
   "order": [
+    "Login-3.dc.html",
+    "Login-2.dc.html",
+    "Login.dc.html",
     "Signup.dc.html",
     "Signup-2.dc.html",
     "Signup-3.dc.html",
@@ -446,7 +522,7 @@
     },
     {
       "id": "flows",
-      "name": "Sign-up and checkout"
+      "name": "Log in, sign up and checkout"
     },
     {
       "id": "account",

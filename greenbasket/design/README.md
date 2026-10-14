@@ -23,11 +23,13 @@ The `.dc.html` files run inside the canvas. Their images point at `/_blob/<id>` 
 | Canvas page | Boards |
 |---|---|
 | Pages | Home, Product, Cart, Farm Box, Subscriptions, Wholesale, About, Contact us, FAQ, 404 |
-| Sign-up and checkout | Sign-up steps 1–4, Checkout steps 1–5 |
+| Log in, sign up and checkout | Log-in steps 1–3, Sign-up steps 1–4, Checkout steps 1–5 |
 | My account | Overview, Orders, Subscription, Profile and settings |
 | Policies | Cancellation and replacement, Terms of service, Privacy policy |
 | Components | Header, Footer, Product card, Product card states, Form kit |
 | Dark mode | Home, Product, Cart, Checkout, My account, Farm Box, Contact us, 404 |
+
+The canvas opens on the Pages page; switch canvas pages to find the rest. A green note above Home lists where every screen is. In Play, Home shows a visitor’s header with Log in and Sign up, and every other page shows the logged-in header with Account.
 
 Forms validate inline and announce errors to screen readers. The main forms (sign-up, checkout, account, subscriptions, Farm Box, wholesale quote, contact and refund request) also move focus to the first error on submit.
 

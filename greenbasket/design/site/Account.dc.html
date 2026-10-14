@@ -58,7 +58,7 @@ body{margin:0}
             </ul>
           </nav>
           <hr class="hr">
-          <button type="button" class="btn btn-ghost btn-sm" style="justify-content: flex-start; padding: 0 14px;" onClick="{{signOut}}">Sign out</button>
+          <button type="button" class="btn btn-ghost btn-sm" style="justify-content: flex-start; padding: 0 14px;" onClick="{{signOut}}">Log out</button>
         </div>
         <div class="well" style="padding: 16px 18px;">
           <p class="t-sm"><b class="t-strong">Need a hand?</b> WhatsApp us at <span class="ph">[SUPPORT PHONE]</span>, <span class="ph">[SUPPORT HOURS]</span>.</p>
@@ -77,7 +77,7 @@ body{margin:0}
             </div>
 
             <sc-if value="{{signedOut}}" hint-placeholder-val="{{false}}">
-              <p role="status" class="t-sm" style="padding: 12px 16px; border-radius: var(--r-md); background: var(--muted-bg);">In a real session you’d now be signed out and back on the home page. <a href="Main.dc.html">Go to home</a></p>
+              <p role="status" class="t-sm" style="padding: 12px 16px; border-radius: var(--r-md); background: var(--muted-bg);">In the live site you’d now be logged out and back on the home page. <a href="Main.dc.html">Go to home</a></p>
             </sc-if>
 
             <article aria-labelledby="acct-next" style="padding: clamp(24px, 3.5vw, 36px); border-radius: var(--r-xl); background: var(--band); color: var(--on-band); display: flex; flex-direction: column; gap: 22px;">
@@ -698,8 +698,8 @@ body{margin:0}
                 <div style="padding: 16px 18px; border: 1px solid var(--line-strong); border-radius: var(--r-md); display: flex; flex-direction: column; gap: 8px;">
                   <h3 class="t-sm" style="font-weight: 600; font-size: 16px; color: var(--text-strong);">Signed-in devices</h3>
                   <p class="t-sm t-muted">This phone and 1 other device.</p>
-                  <button type="button" class="btn btn-outline btn-sm" style="align-self: flex-start; margin-top: auto;" onClick="{{signOutAll}}">Sign out everywhere else</button>
-                  <p aria-live="polite" class="t-xs"><sc-if value="{{signedOutAll}}" hint-placeholder-val="{{false}}"><span class="ok">Done. Only this device is signed in now.</span></sc-if></p>
+                  <button type="button" class="btn btn-outline btn-sm" style="align-self: flex-start; margin-top: auto;" onClick="{{signOutAll}}">Log out everywhere else</button>
+                  <p aria-live="polite" class="t-xs"><sc-if value="{{signedOutAll}}" hint-placeholder-val="{{false}}"><span class="ok">Done. Only this device is logged in now.</span></sc-if></p>
                 </div>
               </div>
 
@@ -717,7 +717,7 @@ body{margin:0}
                       <li>Your Weekly veg plan is cancelled. Thursday’s delivery still comes.</li>
                       <li>₹45 of store credit is lost.</li>
                       <li>Invoices are kept for <span class="ph">[RETENTION PERIOD]</span>, because tax law needs them.</li>
-                      <li>You have <span class="ph">[GRACE PERIOD]</span> to change your mind by signing in again.</li>
+                      <li>You have <span class="ph">[GRACE PERIOD]</span> to change your mind by logging in again.</li>
                     </ul>
                     <div class="field" style="max-width: 320px;">
                       <label for="acct-del" class="label">Type DELETE to confirm</label>
@@ -730,7 +730,7 @@ body{margin:0}
                   </form>
                 </sc-if>
                 <sc-if value="{{deleted}}" hint-placeholder-val="{{false}}">
-                  <p role="status" class="t-sm" style="padding: 12px 14px; border-radius: var(--r-sm); background: var(--muted-bg);"><b class="t-strong">Request received.</b> Your account will be deleted after <span class="ph">[GRACE PERIOD]</span>. Sign in before then to cancel it.</p>
+                  <p role="status" class="t-sm" style="padding: 12px 14px; border-radius: var(--r-sm); background: var(--muted-bg);"><b class="t-strong">Request received.</b> Your account will be deleted after <span class="ph">[GRACE PERIOD]</span>. Log in before then to cancel it.</p>
                 </sc-if>
               </div>
               <p class="t-xs t-muted">Questions about your data? Write to our grievance officer at <span class="ph">[GRIEVANCE OFFICER EMAIL]</span>.</p>

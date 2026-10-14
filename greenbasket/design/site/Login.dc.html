@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Log in · Greeen Basket</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="gb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600&amp;family=Rubik:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div class="gb {{themeClass}}" style="min-height: 100%; background: var(--bg); color: var(--text); font-family: Rubik, 'Noto Sans Devanagari', system-ui, sans-serif;">
+  <dc-import name="Header" variant="minimal" dark="{{dark}}" hint-size="100%,80px"></dc-import>
+
+  <main id="main" class="wrap" style="padding-block: clamp(32px, 5vw, 64px) 80px; display: flex; flex-wrap: wrap; gap: 40px 72px; align-items: flex-start;">
+    <div style="flex: 1 1 460px; min-width: 0; max-width: 520px;">
+
+      <sc-if value="{{isStep1}}" hint-placeholder-val="{{true}}">
+        <form onSubmit="{{sendCode}}" noValidate style="display: flex; flex-direction: column; gap: 22px;">
+          <div>
+            <h1 class="t-h1">Log in</h1>
+            <p class="t-lead t-muted" style="margin-top: 10px;">Welcome back. Enter the mobile number or email on your account and we’ll send you a 6-digit code. No password needed.</p>
+          </div>
+          <sc-if value="{{usePhone}}" hint-placeholder-val="{{true}}">
+            <div class="field">
+              <label for="li-phone" class="label">Mobile number</label>
+              <div style="display: flex; gap: 8px;">
+                <span class="input num" aria-hidden="true" style="width: auto; display: inline-flex; align-items: center; color: var(--text-muted);">+91</span>
+                <input id="li-phone" class="input num" type="tel" name="tel-national" autocomplete="tel-national" inputmode="numeric" maxlength="11" spellcheck="false" placeholder="98765 43210…" value="{{phone}}" onChange="{{onPhone}}" aria-invalid="{{phoneInvalid}}" aria-describedby="li-phone-msg">
+              </div>
+              <p id="li-phone-msg" aria-live="polite"><sc-if value="{{phoneError}}" hint-placeholder-val="{{false}}"><span class="error">Enter a 10-digit mobile number that starts with 6, 7, 8 or 9.</span></sc-if></p>
+            </div>
+          </sc-if>
+          <sc-if value="{{useEmail}}" hint-placeholder-val="{{false}}">
+            <div class="field">
+              <label for="li-email" class="label">Email address</label>
+              <input id="li-email" class="input" type="email" name="email" autocomplete="email" inputmode="email" spellcheck="false" placeholder="you@example.com…" value="{{email}}" onChange="{{onEmail}}" aria-invalid="{{emailInvalid}}" aria-describedby="li-email-msg">
+              <p id="li-email-msg" aria-live="polite"><sc-if value="{{emailError}}" hint-placeholder-val="{{false}}"><span class="error">That email looks incomplete. Check it has an @ and a domain.</span></sc-if></p>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{notFound}}" hint-placeholder-val="{{false}}">
+            <div role="alert" style="display: flex; flex-direction: column; gap: 8px; padding: 14px 16px; border-radius: var(--r-md); background: var(--warning-soft); color: var(--warning);">
+              <p class="t-sm"><b>No account uses {{notFoundWhat}}.</b> Check it for typos, or create a new account with it.</p>
+              <a href="Signup.dc.html" class="t-sm" style="color: inherit; font-weight: 600;">Create an account</a>
+            </div>
+          </sc-if>
+
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Send code</button>
+          <button type="button" class="btn btn-ghost" style="align-self: center;" onClick="{{toggleMode}}">{{toggleText}}</button>
+          <hr class="hr">
+          <p style="text-align: center;">New to Greeen Basket? <a href="Signup.dc.html" style="font-weight: 600;">Create an account</a></p>
+          <details class="acc" style="border-top: 1px solid var(--line);">
+            <summary style="font-size: 15px; min-height: 52px;">Trouble logging in?</summary>
+            <div class="acc-body t-sm" style="display: grid; gap: 8px;">
+              <p><b class="t-strong">Changed your number?</b> Log in with your email instead, then update your number in My account.</p>
+              <p><b class="t-strong">No code arriving?</b> Wait for the timer, then resend. Check that SMS from unknown senders isn’t blocked.</p>
+              <p><b class="t-strong">Still stuck?</b> <a href="Contact.dc.html">Contact us</a> and a person will help.</p>
+            </div>
+          </details>
+        </form>
+      </sc-if>
+
+      <sc-if value="{{isStep2}}" hint-placeholder-val="{{false}}">
+        <form onSubmit="{{verify}}" noValidate style="display: flex; flex-direction: column; gap: 22px;">
+          <div>
+            <h1 class="t-h1">Enter your code</h1>
+            <p class="t-lead t-muted" style="margin-top: 10px;">We sent a 6-digit code to <b class="t-strong num">{{sentTo}}</b>. <button type="button" class="btn btn-ghost btn-sm" style="padding: 0 6px; min-height: 32px; vertical-align: baseline;" onClick="{{changeNumber}}">Change</button></p>
+          </div>
+          <div class="field">
+            <label for="li-code" class="label">6-digit code</label>
+            <input id="li-code" class="input num" type="text" name="one-time-code" autocomplete="one-time-code" inputmode="numeric" maxlength="6" spellcheck="false" placeholder="6 digits, like 482913…" value="{{code}}" onChange="{{onCode}}" aria-invalid="{{codeInvalid}}" aria-describedby="li-code-msg" style="height: 64px; font-size: 28px; letter-spacing: 0.5em; text-align: center; font-weight: 600;">
+            <p id="li-code-msg" aria-live="polite"><sc-if value="{{codeError}}" hint-placeholder-val="{{false}}"><span class="error">{{codeErrorText}}</span></sc-if></p>
+          </div>
+          <label class="check"><input type="checkbox" name="remember" checked="{{remember}}" onChange="{{onRemember}}"><span>Keep me logged in on this device <span class="t-muted">Untick on a shared phone or computer.</span></span></label>
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Log in</button>
+          <p class="t-sm num" style="text-align: center;" aria-live="polite">
+            <sc-if value="{{canResend}}" hint-placeholder-val="{{false}}"><button type="button" class="btn btn-ghost btn-sm" onClick="{{resend}}">Resend code</button></sc-if>
+            <sc-if value="{{waitResend}}" hint-placeholder-val="{{true}}"><span class="t-muted">Didn’t get it? You can resend in 0:{{secondsText}}.</span></sc-if>
+          </p>
+        </form>
+      </sc-if>
+
+      <sc-if value="{{isStep3}}" hint-placeholder-val="{{false}}">
+        <div style="display: flex; flex-direction: column; gap: 24px;">
+          <div>
+            <span aria-hidden="true" style="width: 56px; height: 56px; border-radius: 50%; background: var(--accent); color: var(--on-accent); display: inline-flex; align-items: center; justify-content: center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span>
+            <h1 class="t-h1" style="margin-top: 18px;">Welcome back, Simran.</h1>
+            <p class="t-lead t-muted" style="margin-top: 10px;">{{rememberText}}</p>
+          </div>
+          <a href="Account-orders.dc.html" style="display: flex; flex-direction: column; gap: 6px; padding: 22px 24px; border-radius: var(--r-xl); background: var(--band); color: var(--on-band); text-decoration: none;">
+            <span class="t-sm" style="color: var(--on-band-muted);">Next delivery</span>
+            <span class="num" style="font-size: 26px; line-height: 1.15; font-weight: 600; letter-spacing: -0.02em;">Today, 4–6&nbsp;PM</span>
+            <span class="t-sm num" style="color: var(--on-band-muted);">Order GB-24871 · Packed · Track it →</span>
+          </a>
+          <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+            <a href="Account.dc.html" class="btn btn-primary btn-lg">Go to My account</a>
+            <a href="Main.dc.html" class="btn btn-outline btn-lg">Continue shopping</a>
+          </div>
+          <p class="t-sm t-muted">Your basket from last time is still there: <a href="Cart.dc.html">3 items, ₹290</a>.</p>
+        </div>
+      </sc-if>
+    </div>
+
+    <aside aria-label="Keeping your account safe" style="flex: 1 1 360px; min-width: 0;">
+      <div class="well" style="padding: clamp(24px, 3vw, 36px); border-radius: var(--r-xl); display: flex; flex-direction: column; gap: 18px;">
+        <svg aria-hidden="true" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-text);"><path d="M12 21c4.5-2 8-5.5 8-11V5l-8-3-8 3v5c0 5.5 3.5 9 8 11z"></path><path d="M9 12l2 2 4-4"></path></svg>
+        <h2 class="t-h3">Keep your code to yourself</h2>
+        <p>We will never call, text or WhatsApp you to ask for your login code. Not our support team, and not our riders.</p>
+        <p>If someone asks for it, don’t share it. <a href="Contact.dc.html">Tell us</a> instead.</p>
+        <hr class="hr">
+        <p class="t-sm t-muted">Just buying once? You can <a href="Checkout.dc.html">check out as a guest</a> with your mobile number.</p>
+      </div>
+    </aside>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"startStep":{"editor":"enum","options":["1","2","3"],"default":"1"},"$preview":{"width":1440,"height":1300}}'>
+class Component extends DCLogic {
+  focusError(sel) {
+    setTimeout(() => {
+      const el = document.querySelector(sel || '.gb [aria-invalid="true"]');
+      if (el && el.focus) el.focus();
+    }, 0);
+  }
+
+  constructor(...args) {
+    super(...args);
+    const start = Number(this.props.startStep || 1);
+    this.state = {
+      step: start, mode: 'phone', phone: start > 1 ? '98765 43210' : '', email: '',
+      phoneError: false, emailError: false, notFound: false,
+      code: '', codeError: '', seconds: 24, remember: true
+    };
+  }
+
+  componentDidMount() {
+    this.timer = setInterval(() => {
+      if (this.state.step === 2 && this.state.seconds > 0) this.setState({ seconds: this.state.seconds - 1 });
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+
+  renderVals() {
+    const s = this.state;
+    const dark = this.props.dark ?? false;
+    const digits = s.phone.replace(/\D/g, '');
+    const phoneOk = digits.length === 10 && /^[6-9]/.test(digits);
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s.email.trim());
+    const prettyPhone = '+91 ' + digits.slice(0, 5) + ' ' + digits.slice(5);
+    // Demo: this number and this email have no account, to show that state.
+    const unknown = (s.mode === 'phone' && digits === '9999999999') || (s.mode === 'email' && s.email.trim().toLowerCase() === 'new@example.com');
+    return {
+      dark,
+      themeClass: dark ? 'dark' : '',
+      isStep1: s.step === 1, isStep2: s.step === 2, isStep3: s.step === 3,
+      usePhone: s.mode === 'phone', useEmail: s.mode === 'email',
+      toggleText: s.mode === 'phone' ? 'Use email instead' : 'Use mobile number instead',
+      toggleMode: () => this.setState({ mode: s.mode === 'phone' ? 'email' : 'phone', phoneError: false, emailError: false, notFound: false }),
+      phone: s.phone,
+      onPhone: (e) => this.setState({ phone: e.target.value, phoneError: false, notFound: false }),
+      phoneError: s.phoneError, phoneInvalid: s.phoneError ? 'true' : 'false',
+      email: s.email,
+      onEmail: (e) => this.setState({ email: e.target.value, emailError: false, notFound: false }),
+      emailError: s.emailError, emailInvalid: s.emailError ? 'true' : 'false',
+      notFound: s.notFound,
+      notFoundWhat: s.mode === 'phone' ? prettyPhone : s.email.trim(),
+      sendCode: (e) => {
+        e.preventDefault();
+        if (s.mode === 'phone' && !phoneOk) { this.setState({ phoneError: true }); return this.focusError('#li-phone'); }
+        if (s.mode === 'email' && !emailOk) { this.setState({ emailError: true }); return this.focusError('#li-email'); }
+        if (unknown) return this.setState({ notFound: true });
+        this.setState({ step: 2, seconds: 24, code: '', codeError: '' });
+      },
+      sentTo: s.mode === 'phone' ? prettyPhone : s.email.trim(),
+      changeNumber: () => this.setState({ step: 1 }),
+      code: s.code,
+      onCode: (e) => this.setState({ code: e.target.value.replace(/\D/g, '').slice(0, 6), codeError: '' }),
+      codeError: !!s.codeError, codeErrorText: s.codeError, codeInvalid: s.codeError ? 'true' : 'false',
+      remember: s.remember,
+      onRemember: (e) => this.setState({ remember: e.target.checked }),
+      verify: (e) => {
+        e.preventDefault();
+        if (s.code.length !== 6) { this.setState({ codeError: 'Enter all 6 digits of the code.' }); return this.focusError('#li-code'); }
+        if (s.code === '000000') { this.setState({ codeError: 'That code doesn’t match. Check the latest message, or resend a new code.' }); return this.focusError('#li-code'); }
+        this.setState({ step: 3 });
+      },
+      canResend: s.seconds === 0, waitResend: s.seconds > 0,
+      secondsText: String(s.seconds).padStart(2, '0'),
+      resend: () => this.setState({ seconds: 30 }),
+      rememberText: s.remember ? 'You’ll stay logged in on this device until you log out.' : 'You’ll be logged out when you close this browser.'
+    };
+  }
+}
+</script>
+</body>
+</html>
