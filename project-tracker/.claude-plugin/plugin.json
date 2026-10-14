@@ -1,7 +1,7 @@
 {
   "name": "project-tracker",
-  "version": "0.1.0",
-  "description": "Keeps a live tracker of every project: what's in progress, done, pending, blocked, and skipped (with why).",
+  "version": "0.2.0",
+  "description": "Tracks every task in phases: a progress bar overall and per phase, the steps inside each, and why anything is blocked or skipped.",
   "author": {
     "name": "abhishek98980"
   },

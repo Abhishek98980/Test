@@ -11,63 +11,98 @@ const stub = (on: On) => {
   on('ui.open', () => ({ value: { isPlaced: true } }))
 }
 
-const SECTIONS = [
-  { title: 'Set up repo', status: 'done' },
-  { title: 'Build API', status: 'in-progress' },
-  { title: 'Write docs', status: 'pending' },
-  { title: 'Dark mode', status: 'skipped', note: 'not needed for v1' },
+const PHASES = [
+  { title: 'Tracker mod', status: 'done' },
+  {
+    title: 'Research',
+    status: 'in-progress',
+    steps: [
+      { title: 'Read the PRD', status: 'done' },
+      { title: 'Reference sites', status: 'in-progress' },
+      { title: 'Gap analysis', status: 'pending' },
+      { title: 'Staging audit', status: 'blocked', note: 'no access details yet' },
+    ],
+  },
+  { title: 'Page designs', status: 'pending', note: 'waits on research' },
 ]
 
-test('an update fills the tracker, the pane and the band on each surface', async ($, on) => {
+const PANE_PROPS = {
+  title: 'Phase tracker',
+  isFocused: false,
+  bodyColumns: 50,
+  placement: 'dock',
+  scroll: { offset: 0, bodyRows: 40 },
+  view: {},
+} as const
+
+const BAND_PROPS = {
+  hasSurvey: false,
+  isWorking: false,
+  maxRows: 3,
+  bodyColumns: 100,
+  scroll: { offset: 0, bodyRows: 3 },
+  view: {},
+} as const
+
+test('phases fill the chat tracker, the pane and the band on each surface', async ($, on) => {
   stub(on)
-  const ran = await $.tool.call({ tool: TOOL, project: 'Shop', goal: 'Ship v1', sections: SECTIONS })
+  const ran = await $.tool.call({ tool: TOOL, project: 'Site', goal: 'Every page designed', phases: PHASES })
   expect(ran.deny).toBeUndefined()
-  expect(String(ran.result)).toContain('1/4 done')
-  expect(String(ran.result)).toContain('not needed for v1')
+  const md = String(ran.result)
+  // 1 (mod) + 4 steps + 1 (pages) = 6 units, 2 done
+  expect(md).toContain('**33%**')
+  expect(md).toContain('1/3 phases done')
+  expect(md).toContain('**Phase 2: Research**')
+  expect(md).toContain('**Not done, and why**')
+  expect(md).toContain('Research › Staging audit: no access details yet')
+  expect(md).toContain('waits on research')
 
   for (const surface of ['terminal', 'desktop'] as const) {
-    const pane = await $.ui.mount({
-      plugin: 'project-tracker',
-      surface,
-      component: 'Pane',
-      requestId: 'project-tracker',
-      props: {
-        title: 'Project tracker',
-        isFocused: false,
-        bodyColumns: 50,
-        placement: 'dock',
-        scroll: { offset: 0, bodyRows: 30 },
-        view: {},
-      },
-    })
-    expect(await pane.find({ type: 'Text', text: /Build API/ })).toBeDefined()
-    expect(await pane.find({ type: 'Text', text: /not needed for v1/ })).toBeDefined()
+    const pane = await $.ui.mount({ plugin: 'project-tracker', surface, component: 'Pane', requestId: 'project-tracker', props: PANE_PROPS })
+    expect(await pane.find({ type: 'Text', text: /2\. Research/ })).toBeDefined()
+    expect(await pane.find({ type: 'Text', text: /Reference sites/ })).toBeDefined()
+    expect(await pane.find({ type: 'Text', text: /no access details yet/ })).toBeDefined()
     await pane.unmount()
 
-    const band = await $.ui.mount({
-      plugin: 'project-tracker',
-      surface,
-      component: 'AbovePrompt',
-      props: {
-        hasSurvey: false,
-        isWorking: false,
-        maxRows: 3,
-        bodyColumns: 80,
-        scroll: { offset: 0, bodyRows: 3 },
-        view: {},
-      },
-    })
-    expect(await band.find({ type: 'Text', text: /Shop · 1\/4 done · now: Build API/ })).toBeDefined()
+    const band = await $.ui.mount({ plugin: 'project-tracker', surface, component: 'AbovePrompt', props: BAND_PROPS })
+    expect(await band.find({ type: 'Text', text: /Site · 33% · phase 2\/3: Research \(1\/4\) · 1 blocked/ })).toBeDefined()
     await band.unmount()
   }
 })
 
-test('a skipped section without a reason is refused', async ($, on) => {
+test('a blocked step without a reason is refused', async ($, on) => {
+  stub(on)
+  const ran = await $.tool.call({
+    tool: TOOL,
+    project: 'Site',
+    phases: [{ title: 'Research', status: 'in-progress', steps: [{ title: 'Fetch', status: 'blocked' }] }],
+  })
+  expect(ran.deny).toContain('add a note saying why')
+})
+
+test('two phases in progress are refused', async ($, on) => {
+  stub(on)
+  const ran = await $.tool.call({
+    tool: TOOL,
+    project: 'Site',
+    phases: [
+      { title: 'A', status: 'in-progress' },
+      { title: 'B', status: 'in-progress' },
+    ],
+  })
+  expect(ran.deny).toContain('only one phase can be in progress')
+})
+
+test('the 0.1 sections shape still works', async ($, on) => {
   stub(on)
   const ran = await $.tool.call({
     tool: TOOL,
     project: 'Shop',
-    sections: [{ title: 'Tests', status: 'skipped' }],
+    sections: [
+      { title: 'Set up', status: 'done' },
+      { title: 'Build', status: 'pending' },
+    ],
   })
-  expect(ran.deny).toContain('add a note saying why')
+  expect(ran.deny).toBeUndefined()
+  expect(String(ran.result)).toContain('**50%**')
 })

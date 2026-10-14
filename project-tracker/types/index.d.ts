@@ -1,15 +1,22 @@
-export type SectionStatus = 'done' | 'in-progress' | 'pending' | 'skipped' | 'blocked'
+export type Status = 'done' | 'in-progress' | 'pending' | 'blocked' | 'skipped'
 
-export type Section = {
+export type Step = {
   title: string
-  status: SectionStatus
+  status: Status
   note?: string
+}
+
+export type Phase = {
+  title: string
+  status: Status
+  note?: string
+  steps?: Step[]
 }
 
 export type Plan = {
   project: string
   goal?: string
-  sections: Section[]
+  phases: Phase[]
   updatedAt: number
 }
 
