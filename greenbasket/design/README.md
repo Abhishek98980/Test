@@ -3,6 +3,8 @@
 Page designs for the Greeen Basket store, in the brand palette: leaf `#66A626`, olive `#7BA63C` and slate `#324542`, on solid white, with a dark mode.
 
 - **Live canvas:** https://claude.ai/artifact/AUesBckuxj3Xrr76yFzHnN (private until you share it)
+- **My account, on its own:** https://claude.ai/artifact/RAHurVcwBMwDjRRJdaUfNy
+- **Log in and sign up, on their own:** https://claude.ai/artifact/6UHj28pjsWJo1Qzbn5yVx8
 - **Design system:** https://claude.ai/artifact/9d4YrEVidtS6qEENyHckE5 ("Greeen Basket Farm Fresh", now on the new palette with light and dark themes)
 
 ## What's in the folder
