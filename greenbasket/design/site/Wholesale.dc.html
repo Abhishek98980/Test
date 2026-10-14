@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Wholesale · Greeen Basket</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="gb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600&amp;family=Rubik:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+.rates th[scope="row"]{font-weight:500;color:var(--text-strong);padding:12px 14px;text-align:left}
+.rates td{padding:12px 14px}
+.rates .grp th{padding:22px 14px 8px;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-text);border-bottom:1px solid var(--line-strong)}
+.rates .best{color:var(--accent-text);font-weight:600}
+.rates .sub{display:block;font-size:12.5px;color:var(--text-muted);font-weight:400}
+.who svg{color:var(--accent-text)}
+</style>
+</helmet>
+<div class="gb {{themeClass}}" style="min-height: 100%; background: var(--bg); color: var(--text); font-family: Rubik, 'Noto Sans Devanagari', system-ui, sans-serif;">
+  <dc-import name="Header" active="wholesale" dark="{{dark}}" hint-size="100%,190px"></dc-import>
+
+  <main id="main">
+    <p aria-live="polite" class="sr-only">{{announce}}</p>
+
+    <section aria-labelledby="ws-h" class="wrap" style="padding-block: clamp(40px, 6vw, 80px) clamp(32px, 4vw, 56px);">
+      <div style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 32px 64px;">
+        <div style="flex: 3 1 560px; min-width: 0;">
+          <p class="t-eyebrow">Wholesale</p>
+          <h1 id="ws-h" class="t-d2" style="margin-top: 12px; max-width: 15em;">Wholesale rates for kitchens, shops and big families.</h1>
+          <p class="t-lead t-muted" style="margin-top: 16px; max-width: 36em;">Reach a quantity tier and its rate applies to every kilo, not only the extra ones. No sign-up fee, and the same fresh stock as the store.</p>
+          <div style="margin-top: 28px; display: flex; flex-wrap: wrap; gap: 10px;">
+            <a href="#rates" class="btn btn-primary btn-lg">See today’s rates</a>
+            <a href="#quote" class="btn btn-outline btn-lg">Request a quote</a>
+          </div>
+        </div>
+        <dl style="flex: 2 1 360px; min-width: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;">
+          <div class="well" style="padding: 18px;"><dt class="t-sm t-muted">Tiers start at</dt><dd class="num t-strong" style="font-size: 28px; font-weight: 600; letter-spacing: -0.02em; margin-top: 2px;">2 kg</dd></div>
+          <div class="well" style="padding: 18px;"><dt class="t-sm t-muted">Morning delivery</dt><dd class="num t-strong" style="font-size: 28px; font-weight: 600; letter-spacing: -0.02em; margin-top: 2px;">6–10 AM</dd></div>
+          <div class="well" style="padding: 18px;"><dt class="t-sm t-muted">Order by</dt><dd class="num t-strong" style="font-size: 28px; font-weight: 600; letter-spacing: -0.02em; margin-top: 2px;">10 PM</dd></div>
+          <div class="well" style="padding: 18px;"><dt class="t-sm t-muted">Every order</dt><dd class="t-strong" style="font-size: 20px; font-weight: 600; margin-top: 6px; line-height: 1.3;">GST invoice</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section aria-labelledby="who-h" class="wrap section-sm who">
+      <h2 id="who-h" class="t-h3">Who buys wholesale with us</h2>
+      <ul style="margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px;">
+        <li class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 8px;"><svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3v8a3 3 0 0 0 3 3v7M7 3v5M10 3v8a3 3 0 0 1-3 3M17 21V3c-2 0-4 3-4 7v3h4"></path></svg><h3 class="t-h4">Restaurants and dhabas</h3><p class="t-sm t-muted">Onion, tomato and potato by the sack, greens by the bunch.</p></li>
+        <li class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 8px;"><svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13v5a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6zM17 10h1.5a2.5 2.5 0 0 1 0 5H17M7 3v2M11 3v2M15 3v2"></path></svg><h3 class="t-h4">Cafés and cloud kitchens</h3><p class="t-sm t-muted">Exotics, salad leaves and fruit for juices, delivered before you open.</p></li>
+        <li class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 8px;"><svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l2-5h14l2 5M3 9h18v2a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0zM5 13v8h14v-8M10 21v-5h4v5"></path></svg><h3 class="t-h4">Kiryana and fruit shops</h3><p class="t-sm t-muted">Top up stock daily without a trip to the mandi.</p></li>
+        <li class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 8px;"><svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V8l9-5 9 5v13M9 21v-6h6v6M3 21h18"></path></svg><h3 class="t-h4">Hostels, PGs and big families</h3><p class="t-sm t-muted">Weekly bulk at a better rate, with one invoice.</p></li>
+      </ul>
+    </section>
+
+    <section id="rates" aria-labelledby="rates-h" class="wrap section-sm">
+      <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px;">
+        <h2 id="rates-h" class="t-h1">Today’s wholesale rates</h2>
+        <p class="t-sm t-muted">Sample rates. Live rates update each morning at <span class="ph">[RATE UPDATE TIME]</span>.</p>
+      </div>
+      <div class="card" style="margin-top: 22px; padding: 4px 8px 8px; overflow-x: auto;">
+        <table class="table rates num" style="min-width: 640px;">
+          <caption class="sr-only">Wholesale rates by product. Reaching a tier gives that rate on every unit.</caption>
+          <thead>
+            <tr><th scope="col">Product</th><th scope="col" class="r">Store price</th><th scope="col" class="r">First tier</th><th scope="col" class="r">Best tier</th></tr>
+          </thead>
+          <tbody>
+            <tr class="grp"><th colspan="4" scope="rowgroup">Vegetables, per kg</th></tr>
+            <tr><th scope="row">Onion</th><td class="r">₹45</td><td class="r">₹40<span class="sub">from 10 kg</span></td><td class="r best">₹37<span class="sub">from 25 kg</span></td></tr>
+            <tr><th scope="row">Potato</th><td class="r">₹30</td><td class="r">₹26<span class="sub">from 10 kg</span></td><td class="r best">₹24<span class="sub">from 25 kg</span></td></tr>
+            <tr><th scope="row">Tomato</th><td class="r">₹40</td><td class="r">₹36<span class="sub">from 5 kg</span></td><td class="r best">₹33<span class="sub">from 20 kg</span></td></tr>
+            <tr><th scope="row">Carrot</th><td class="r">₹60</td><td class="r">₹52<span class="sub">from 5 kg</span></td><td class="r best">₹48<span class="sub">from 20 kg</span></td></tr>
+            <tr><th scope="row">Green peas</th><td class="r">₹120</td><td class="r">₹105<span class="sub">from 5 kg</span></td><td class="r best">₹98<span class="sub">from 20 kg</span></td></tr>
+            <tr><th scope="row">Capsicum</th><td class="r">₹100</td><td class="r">₹88<span class="sub">from 5 kg</span></td><td class="r best">₹82<span class="sub">from 20 kg</span></td></tr>
+            <tr><th scope="row">Ginger</th><td class="r">₹180</td><td class="r">₹160<span class="sub">from 2 kg</span></td><td class="r best">₹150<span class="sub">from 10 kg</span></td></tr>
+            <tr><th scope="row">Garlic</th><td class="r">₹250</td><td class="r">₹220<span class="sub">from 2 kg</span></td><td class="r best">₹205<span class="sub">from 10 kg</span></td></tr>
+            <tr><th scope="row">Green chilli</th><td class="r">₹100</td><td class="r">₹85<span class="sub">from 2 kg</span></td><td class="r best">₹78<span class="sub">from 10 kg</span></td></tr>
+          </tbody>
+          <tbody>
+            <tr class="grp"><th colspan="4" scope="rowgroup">Greens, per bunch</th></tr>
+            <tr><th scope="row">Coriander</th><td class="r">₹10</td><td class="r">₹8<span class="sub">from 20 bunches</span></td><td class="r best">₹7<span class="sub">from 50 bunches</span></td></tr>
+            <tr><th scope="row">Mint</th><td class="r">₹10</td><td class="r">₹8<span class="sub">from 20 bunches</span></td><td class="r best">₹7<span class="sub">from 50 bunches</span></td></tr>
+            <tr><th scope="row">Spinach</th><td class="r">₹20</td><td class="r">₹17<span class="sub">from 20 bunches</span></td><td class="r best">₹15<span class="sub">from 50 bunches</span></td></tr>
+          </tbody>
+          <tbody>
+            <tr class="grp"><th colspan="4" scope="rowgroup">Fruit</th></tr>
+            <tr><th scope="row">Banana, per dozen</th><td class="r">₹90</td><td class="r">₹80<span class="sub">from 5 dozen</span></td><td class="r best">₹74<span class="sub">from 20 dozen</span></td></tr>
+            <tr><th scope="row">Apple, Shimla, per kg</th><td class="r">₹140</td><td class="r">₹125<span class="sub">from 5 kg</span></td><td class="r best">₹118<span class="sub">from 20 kg</span></td></tr>
+            <tr><th scope="row">Kinnow, per kg</th><td class="r">₹70</td><td class="r">₹60<span class="sub">from 10 kg</span></td><td class="r best">₹56<span class="sub">from 25 kg</span></td></tr>
+            <tr><th scope="row">Lemon, per kg</th><td class="r">₹120</td><td class="r">₹100<span class="sub">from 2 kg</span></td><td class="r best">₹92<span class="sub">from 10 kg</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="t-sm t-muted" style="margin-top: 12px;">Need something not listed, or more than 100 kg of anything? <a href="#quote">Ask for a quote</a>.</p>
+    </section>
+
+    <section aria-labelledby="calc-h" class="wrap section-sm">
+      <div class="well" style="padding: clamp(24px, 4vw, 44px); border-radius: var(--r-xl); display: flex; flex-wrap: wrap; gap: 32px 56px;">
+        <div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 18px;">
+          <div>
+            <h2 id="calc-h" class="t-h2">Lines add up to one tier</h2>
+            <p style="margin-top: 8px;">Buy the same product in different pack sizes and we count them together. Once the total reaches a tier, every kilo gets that rate.</p>
+          </div>
+          <div class="field" style="max-width: 280px;">
+            <label for="calc-p" class="label">Product</label>
+            <select id="calc-p" class="input" name="calc-product" value="{{calcProduct}}" onChange="{{onCalcProduct}}">
+              <option value="onion">Onion</option>
+              <option value="potato">Potato</option>
+              <option value="tomato">Tomato</option>
+            </select>
+          </div>
+          <div style="display: grid; gap: 10px;">
+            <sc-for list="{{packs}}" as="pk" hint-placeholder-count="2">
+              <div class="card" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 12px 12px 16px;">
+                <p><b class="t-strong">{{pk.label}}</b><br><span class="t-sm t-muted num">{{pk.sub}}</span></p>
+                <div class="stepper" role="group" aria-label="{{pk.groupLabel}}" style="width: 124px;">
+                  <button type="button" aria-label="{{pk.decLabel}}" onClick="{{pk.dec}}">−</button>
+                  <span class="qty">{{pk.qty}}</span>
+                  <button type="button" aria-label="{{pk.incLabel}}" onClick="{{pk.inc}}">+</button>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div aria-live="polite" style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 18px; justify-content: center;">
+          <p class="t-sm t-muted">Total {{calcName}}</p>
+          <p class="num" style="font-size: 56px; line-height: 1; font-weight: 600; letter-spacing: -0.03em; color: var(--text-strong);">{{calcKg}} kg</p>
+          <div>
+            <div style="position: relative; height: 12px; border-radius: 999px; background: var(--line-strong); overflow: hidden;">
+              <div style="position: absolute; inset: 0 auto 0 0; width: {{calcWidth}}; background: var(--accent); border-radius: 999px; transition: width 240ms ease-out;"></div>
+            </div>
+            <div class="t-xs t-muted num" style="position: relative; height: 18px; margin-top: 6px;">
+              <span style="position: absolute; left: 0;">0</span>
+              <span style="position: absolute; left: {{t1Pos}}; transform: translateX(-50%);">{{t1Label}}</span>
+              <span style="position: absolute; left: {{t2Pos}}; transform: translateX(-50%);">{{t2Label}}</span>
+            </div>
+          </div>
+          <dl class="num" style="display: grid; gap: 8px;">
+            <div style="display: flex; justify-content: space-between; gap: 12px;"><dt>Rate on every kilo</dt><dd class="t-strong" style="font-weight: 600;">{{calcRate}}</dd></div>
+            <div style="display: flex; justify-content: space-between; gap: 12px;"><dt>You pay</dt><dd class="t-strong" style="font-weight: 700; font-size: 19px;">{{calcTotal}}</dd></div>
+            <div style="display: flex; justify-content: space-between; gap: 12px; color: var(--accent-text);"><dt>Saved against store price</dt><dd style="font-weight: 600;">{{calcSaved}}</dd></div>
+          </dl>
+          <p class="t-sm" style="padding: 10px 14px; border-radius: var(--r-sm); background: var(--surface);">{{calcHint}}</p>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="terms-h" class="wrap section-sm">
+      <h2 id="terms-h" class="t-h2">How wholesale orders work</h2>
+      <ul style="margin-top: 22px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px;">
+        <li style="display: flex; flex-direction: column; gap: 6px; padding-top: 16px; border-top: 2px solid var(--accent);"><h3 class="t-h4">Order by 10 PM</h3><p class="t-muted">Delivered the next morning between 6 and 10 AM, before your kitchen opens.</p></li>
+        <li style="display: flex; flex-direction: column; gap: 6px; padding-top: 16px; border-top: 2px solid var(--accent);"><h3 class="t-h4">Pay your way</h3><p class="t-muted">UPI, card or bank transfer. A bank-transfer order is held for <span class="ph">[HOLD WINDOW]</span> until it clears. Approved accounts can pay monthly: <span class="ph">[CREDIT TERMS]</span>.</p></li>
+        <li style="display: flex; flex-direction: column; gap: 6px; padding-top: 16px; border-top: 2px solid var(--accent);"><h3 class="t-h4">GST invoice</h3><p class="t-muted">Add your GSTIN once and every invoice carries it. Download them from your account.</p></li>
+        <li style="display: flex; flex-direction: column; gap: 6px; padding-top: 16px; border-top: 2px solid var(--accent);"><h3 class="t-h4">Check at the door</h3><p class="t-muted">Weigh and check on arrival. Report short or damaged items within <span class="ph">[REPORT WINDOW]</span> for a refund or replacement.</p></li>
+      </ul>
+    </section>
+
+    <section id="quote" aria-labelledby="quote-h" style="padding-block: clamp(48px, 6vw, 80px); border-top: 1px solid var(--line);">
+      <div class="wrap" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 32px 56px;">
+        <div style="flex: 1 1 300px; min-width: 0;">
+          <h2 id="quote-h" class="t-h1">Request a quote</h2>
+          <p class="t-muted" style="margin-top: 10px; max-width: 30em;">For regular supply, large events or items not in the store. Our wholesale team replies within <span class="ph">[QUOTE RESPONSE TIME]</span>.</p>
+          <div class="well" style="margin-top: 24px; padding: 18px 20px; display: grid; gap: 6px;">
+            <p class="t-sm"><b class="t-strong">Rather talk?</b></p>
+            <p class="t-sm">WhatsApp or call <span class="ph">[WHOLESALE PHONE]</span></p>
+            <p class="t-sm">Email <span class="ph">[WHOLESALE EMAIL]</span></p>
+          </div>
+        </div>
+
+        <div style="flex: 999 1 600px; min-width: 0;">
+          <sc-if value="{{sent}}" hint-placeholder-val="{{false}}">
+            <div role="status" class="card" style="padding: 28px; display: flex; flex-direction: column; gap: 10px; border-color: var(--accent-text);">
+              <p class="badge badge-leaf" style="align-self: flex-start;">Request received</p>
+              <h3 class="t-h2">Thanks, {{firstName}}.</h3>
+              <p>Your reference is <b class="t-strong num">WQ-2048</b>. We’ll reply on WhatsApp to <span class="num">+91 {{phoneText}}</span> within <span class="ph">[QUOTE RESPONSE TIME]</span>.</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px;">
+                <a href="#rates" class="btn btn-primary">Order at today’s rates</a>
+                <button type="button" class="btn btn-ghost" onClick="{{again}}">Send another request</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{notSent}}" hint-placeholder-val="{{true}}">
+            <form noValidate onSubmit="{{submit}}" class="card" style="padding: clamp(20px, 3vw, 32px); display: flex; flex-direction: column; gap: 22px;">
+              <sc-if value="{{hasErrors}}" hint-placeholder-val="{{false}}">
+                <div role="alert" style="padding: 12px 16px; border-radius: var(--r-md); background: var(--danger-soft); color: var(--danger);"><p class="t-sm" style="font-weight: 600;">{{errorText}}</p></div>
+              </sc-if>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px 20px;">
+                <div class="field">
+                  <label for="q-biz" class="label">Business name</label>
+                  <input id="q-biz" class="input" type="text" name="organization" autocomplete="organization" placeholder="Like Punjab Grill, Sector 17…" value="{{biz}}" onChange="{{onBiz}}" aria-invalid="{{bizInvalid}}" aria-describedby="q-biz-err">
+                  <p id="q-biz-err" aria-live="polite"><sc-if value="{{bizErr}}" hint-placeholder-val="{{false}}"><span class="error">Enter your business name.</span></sc-if></p>
+                </div>
+                <div class="field">
+                  <label for="q-type" class="label">Type of business</label>
+                  <select id="q-type" class="input" name="business-type" value="{{btype}}" onChange="{{onType}}" aria-invalid="{{typeInvalid}}" aria-describedby="q-type-err">
+                    <option value="">Choose one…</option>
+                    <option value="restaurant">Restaurant or dhaba</option>
+                    <option value="cafe">Café or cloud kitchen</option>
+                    <option value="hotel">Hotel</option>
+                    <option value="shop">Kiryana or fruit shop</option>
+                    <option value="hostel">Hostel or PG</option>
+                    <option value="caterer">Caterer or event</option>
+                    <option value="family">Large family</option>
+                    <option value="other">Something else</option>
+                  </select>
+                  <p id="q-type-err" aria-live="polite"><sc-if value="{{typeErr}}" hint-placeholder-val="{{false}}"><span class="error">Choose a type of business.</span></sc-if></p>
+                </div>
+                <div class="field">
+                  <label for="q-name" class="label">Your name</label>
+                  <input id="q-name" class="input" type="text" name="name" autocomplete="name" placeholder="Like Harpreet Singh…" value="{{name}}" onChange="{{onName}}" aria-invalid="{{nameInvalid}}" aria-describedby="q-name-err">
+                  <p id="q-name-err" aria-live="polite"><sc-if value="{{nameErr}}" hint-placeholder-val="{{false}}"><span class="error">Enter your name.</span></sc-if></p>
+                </div>
+                <div class="field">
+                  <label for="q-phone" class="label">Mobile number</label>
+                  <div style="display: flex;">
+                    <span aria-hidden="true" class="num" style="display: inline-flex; align-items: center; padding: 0 12px; border: 1.5px solid var(--field-line); border-right: 0; border-radius: var(--r-sm) 0 0 var(--r-sm); background: var(--muted-bg); color: var(--text-strong); font-weight: 500;">+91</span>
+                    <input id="q-phone" class="input num" type="tel" name="tel-national" autocomplete="tel-national" inputmode="numeric" maxlength="10" placeholder="10 digits…" value="{{phone}}" onChange="{{onPhone}}" aria-invalid="{{phoneInvalid}}" aria-describedby="q-phone-err" style="border-radius: 0 var(--r-sm) var(--r-sm) 0;">
+                  </div>
+                  <p id="q-phone-err" aria-live="polite"><sc-if value="{{phoneErr}}" hint-placeholder-val="{{false}}"><span class="error">Enter a 10-digit Indian mobile number starting with 6, 7, 8 or 9.</span></sc-if></p>
+                </div>
+                <div class="field">
+                  <label for="q-email" class="label">Email <span class="opt">(optional)</span></label>
+                  <input id="q-email" class="input" type="email" name="email" autocomplete="email" inputmode="email" spellcheck="false" placeholder="you@business.com…" value="{{email}}" onChange="{{onEmail}}" aria-invalid="{{emailInvalid}}" aria-describedby="q-email-err">
+                  <p id="q-email-err" aria-live="polite"><sc-if value="{{emailErr}}" hint-placeholder-val="{{false}}"><span class="error">That email doesn’t look right.</span></sc-if></p>
+                </div>
+                <div class="field">
+                  <label for="q-gst" class="label">GSTIN <span class="opt">(optional)</span></label>
+                  <input id="q-gst" class="input num" type="text" name="gstin" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="15" placeholder="Like 04ABCDE1234F1Z5…" value="{{gst}}" onChange="{{onGst}}" aria-invalid="{{gstInvalid}}" aria-describedby="q-gst-err">
+                  <p id="q-gst-err" aria-live="polite"><sc-if value="{{gstErr}}" hint-placeholder-val="{{false}}"><span class="error">A GSTIN has 15 characters, like 04ABCDE1234F1Z5.</span></sc-if></p>
+                </div>
+                <div class="field">
+                  <label for="q-pin" class="label">Delivery PIN code</label>
+                  <input id="q-pin" class="input num" type="text" name="postal-code" autocomplete="postal-code" inputmode="numeric" maxlength="6" spellcheck="false" placeholder="6 digits, like 160017…" value="{{pin}}" onChange="{{onPin}}" aria-invalid="{{pinInvalid}}" aria-describedby="q-pin-msg">
+                  <p id="q-pin-msg" aria-live="polite"><sc-if value="{{pinErr}}" hint-placeholder-val="{{false}}"><span class="error">{{pinErrText}}</span></sc-if><sc-if value="{{pinOkMsg}}" hint-placeholder-val="{{false}}"><span class="ok">{{pinCityText}}</span></sc-if></p>
+                </div>
+                <div class="field">
+                  <span id="q-often-l" class="label">How often?</span>
+                  <div class="seg" role="group" aria-labelledby="q-often-l" style="align-self: flex-start; flex-wrap: wrap;">
+                    <sc-for list="{{often}}" as="o" hint-placeholder-count="4"><button type="button" aria-pressed="{{o.on}}" onClick="{{o.pick}}">{{o.label}}</button></sc-for>
+                  </div>
+                </div>
+                <div class="field" style="grid-column: 1 / -1;">
+                  <label for="q-need" class="label">What do you need?</label>
+                  <textarea id="q-need" class="input" name="needs" autocomplete="off" maxlength="1000" placeholder="Like 30 kg onion, 20 kg tomato and 50 bunches of coriander, 3 times a week…" onInput="{{onNeed}}" aria-invalid="{{needInvalid}}" aria-describedby="q-need-hint q-need-err"></textarea>
+                  <div style="display: flex; justify-content: space-between; gap: 12px;">
+                    <p id="q-need-err" aria-live="polite"><sc-if value="{{needErr}}" hint-placeholder-val="{{false}}"><span class="error">Tell us what you need, with rough amounts.</span></sc-if></p>
+                    <p id="q-need-hint" class="hint num">{{needCount}} / 1000</p>
+                  </div>
+                </div>
+                <fieldset style="grid-column: 1 / -1; border: 0; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px;">
+                  <legend class="label" style="margin-bottom: 10px;">How would you like to pay?</legend>
+                  <sc-for list="{{payOpts}}" as="po" hint-placeholder-count="2">
+                    <label class="choice {{po.cls}}"><input type="radio" name="pay-terms" value="{{po.id}}" checked="{{po.on}}" onChange="{{po.pick}}"><span><b class="t-strong">{{po.label}}</b><br><span class="t-sm t-muted">{{po.sub}}</span></span></label>
+                  </sc-for>
+                </fieldset>
+              </div>
+              <label class="check"><input type="checkbox" name="offers" checked="{{offers}}" onChange="{{toggleOffers}}"><span>Also send me weekly wholesale rate lists on WhatsApp. <span class="t-muted">(optional)</span></span></label>
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px;">
+                <button type="submit" class="btn btn-primary btn-lg" aria-busy="{{busy}}">{{submitText}}</button>
+                <p class="t-xs t-muted" style="max-width: 36ch;">We use these details only to reply to this request. See our <a href="Privacy.dc.html">privacy policy</a>.</p>
+              </div>
+            </form>
+          </sc-if>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="wfaq-h" class="wrap" style="padding-bottom: clamp(56px, 7vw, 96px);">
+      <h2 id="wfaq-h" class="t-h2">Wholesale questions</h2>
+      <div style="margin-top: 16px; max-width: 820px; border-top: 1px solid var(--line);">
+        <details class="acc"><summary>Do I need a business to buy wholesale?</summary><div class="acc-body"><p>No. Anyone can buy at wholesale rates once an order reaches a tier. A GSTIN only matters if you want it on your invoice.</p></div></details>
+        <details class="acc"><summary>Can I mix wholesale and store items in one order?</summary><div class="acc-body"><p>Yes. They arrive together. Coupons apply to store items only.</p></div></details>
+        <details class="acc"><summary>Is there a minimum wholesale order?</summary><div class="acc-body"><p>The tier is the minimum for its rate. The whole order needs to reach <span class="ph">[WHOLESALE MINIMUM]</span> for the morning wholesale run.</p></div></details>
+        <details class="acc"><summary>Can I get monthly credit?</summary><div class="acc-body"><p>Regular buyers can apply after <span class="ph">[CREDIT ELIGIBILITY]</span>. Choose “Monthly credit” in the quote form and we’ll talk you through it.</p></div></details>
+      </div>
+    </section>
+  </main>
+
+  <dc-import name="Footer" dark="{{dark}}" hint-size="100%,760px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":5600}}'>
+class Component extends DCLogic {
+  focusError(sel) {
+    setTimeout(() => {
+      const el = document.querySelector(sel || '.gb [aria-invalid="true"]');
+      if (el && el.focus) el.focus();
+    }, 0);
+  }
+
+  constructor(...args) {
+    super(...args);
+    this.state = {
+      calcProduct: 'onion', big: 1, small: 3,
+      biz: '', btype: '', name: '', phone: '', email: '', gst: '', pin: '', need: '', often: 'few', pay: 'order', offers: false,
+      tried: false, busy: false, sent: false, announce: ''
+    };
+    this.timer = null;
+  }
+
+  componentWillUnmount() { if (this.timer) clearTimeout(this.timer); }
+
+  renderVals() {
+    const s = this.state;
+    const dark = this.props.dark ?? false;
+    const rupees = (n) => '₹' + Number(n).toLocaleString('en-IN');
+
+    // tier calculator
+    const C = {
+      onion: { name: 'onion', retail: 45, packs: [10, 5], tiers: [[10, 40], [25, 37]] },
+      potato: { name: 'potato', retail: 30, packs: [10, 5], tiers: [[10, 26], [25, 24]] },
+      tomato: { name: 'tomato', retail: 40, packs: [5, 2], tiers: [[5, 36], [20, 33]] }
+    };
+    const c = C[s.calcProduct];
+    const kg = s.big * c.packs[0] + s.small * c.packs[1];
+    const rate = kg >= c.tiers[1][0] ? c.tiers[1][1] : (kg >= c.tiers[0][0] ? c.tiers[0][1] : c.retail);
+    const scaleMax = Math.round(c.tiers[1][0] * 1.4);
+    const pos = (v) => Math.min(100, (v / scaleMax) * 100).toFixed(1) + '%';
+    let hint;
+    if (kg >= c.tiers[1][0]) hint = 'You’re on the best tier. Every kilo is ' + rupees(c.tiers[1][1]) + '.';
+    else if (kg >= c.tiers[0][0]) hint = 'Add ' + (c.tiers[1][0] - kg) + ' kg more to pay ' + rupees(c.tiers[1][1]) + '/kg on all ' + c.tiers[1][0] + ' kg.';
+    else hint = 'Add ' + (c.tiers[0][0] - kg) + ' kg more to reach the first tier at ' + rupees(c.tiers[0][1]) + '/kg.';
+    const setPack = (key, n) => this.setState({ [key]: Math.max(0, Math.min(20, n)) });
+    const packs = [['big', c.packs[0]], ['small', c.packs[1]]].map((p) => {
+      const qn = s[p[0]];
+      return {
+        label: p[1] + ' kg pack', sub: qn + ' × ' + p[1] + ' kg = ' + qn * p[1] + ' kg', qty: String(qn),
+        inc: () => setPack(p[0], qn + 1), dec: () => setPack(p[0], qn - 1),
+        incLabel: 'One more ' + p[1] + ' kg pack', decLabel: 'One less ' + p[1] + ' kg pack', groupLabel: p[1] + ' kg packs, ' + qn
+      };
+    });
+
+    // quote form
+    const phoneOk = /^[6-9]\d{9}$/.test(s.phone);
+    const emailOk = !s.email || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(s.email);
+    const gstOk = !s.gst || /^\d{2}[A-Z]{5}\d{4}[A-Z][1-9A-Z]Z[0-9A-Z]$/.test(s.gst);
+    const pinCity = (p) => {
+      if (p.length !== 6) return '';
+      if (['160055', '160059', '160062', '160071', '140308'].includes(p)) return 'Mohali';
+      if (p.startsWith('1600') || p === '160101' || p === '160102') return 'Chandigarh';
+      if (['134109', '134112', '134113', '134114', '134116', '134117'].includes(p)) return 'Panchkula';
+      return '';
+    };
+    const city = pinCity(s.pin);
+    const errs = {
+      biz: !s.biz.trim(), type: !s.btype, name: !s.name.trim(), phone: !phoneOk,
+      email: !emailOk, gst: !gstOk, pin: !city, need: s.need.trim().length < 10
+    };
+    const errCount = Object.keys(errs).filter((k) => errs[k]).length;
+    const show = (k) => s.tried && errs[k];
+    const inv = (k) => (show(k) ? 'true' : 'false');
+    const set = (patch) => this.setState(patch);
+
+    return {
+      dark,
+      themeClass: dark ? 'dark' : '',
+      announce: s.announce,
+      calcProduct: s.calcProduct,
+      onCalcProduct: (e) => set({ calcProduct: e.target.value }),
+      packs,
+      calcName: c.name,
+      calcKg: String(kg),
+      calcWidth: pos(kg),
+      t1Pos: pos(c.tiers[0][0]), t2Pos: pos(c.tiers[1][0]),
+      t1Label: c.tiers[0][0] + ' kg', t2Label: c.tiers[1][0] + ' kg',
+      calcRate: rupees(rate) + '/kg' + (rate === c.retail ? ' (store price)' : ''),
+      calcTotal: rupees(kg * rate),
+      calcSaved: rupees(kg * (c.retail - rate)),
+      calcHint: hint,
+
+      sent: s.sent,
+      notSent: !s.sent,
+      firstName: s.name.trim().split(' ')[0] || 'there',
+      phoneText: s.phone.replace(/(\d{5})(\d{5})/, '$1 $2'),
+      again: () => set({ sent: false, tried: false, need: '' }),
+      hasErrors: s.tried && errCount > 0,
+      errorText: errCount === 1 ? 'One field needs fixing.' : errCount + ' fields need fixing.',
+      biz: s.biz, onBiz: (e) => set({ biz: e.target.value }), bizErr: show('biz'), bizInvalid: inv('biz'),
+      btype: s.btype, onType: (e) => set({ btype: e.target.value }), typeErr: show('type'), typeInvalid: inv('type'),
+      name: s.name, onName: (e) => set({ name: e.target.value }), nameErr: show('name'), nameInvalid: inv('name'),
+      phone: s.phone, onPhone: (e) => set({ phone: e.target.value.replace(/\D/g, '').slice(0, 10) }), phoneErr: show('phone'), phoneInvalid: inv('phone'),
+      email: s.email, onEmail: (e) => set({ email: e.target.value.trim() }), emailErr: show('email'), emailInvalid: inv('email'),
+      gst: s.gst, onGst: (e) => set({ gst: e.target.value.toUpperCase().replace(/\s/g, '') }), gstErr: show('gst'), gstInvalid: inv('gst'),
+      pin: s.pin, onPin: (e) => set({ pin: e.target.value.replace(/\D/g, '').slice(0, 6) }),
+      pinErr: show('pin'), pinInvalid: inv('pin'),
+      pinErrText: s.pin.length === 6 ? 'We don’t deliver to ' + s.pin + ' yet. Wholesale covers Chandigarh, Mohali and Panchkula.' : 'Enter the 6-digit PIN code where we’d deliver.',
+      pinOkMsg: !!city, pinCityText: 'We deliver to ' + s.pin + ', ' + city + '.',
+      often: [['daily', 'Daily'], ['few', 'A few times a week'], ['weekly', 'Weekly'], ['once', 'One event']].map((o) => ({ label: o[1], on: String(s.often === o[0]), pick: () => set({ often: o[0] }) })),
+      onNeed: (e) => set({ need: e.target.value }),
+      needCount: String(s.need.length), needErr: show('need'), needInvalid: inv('need'),
+      payOpts: [['order', 'Pay per order', 'UPI, card or bank transfer'], ['credit', 'Monthly credit', 'For regular buyers, after a review']].map((p) => ({
+        id: p[0], label: p[1], sub: p[2], on: s.pay === p[0], cls: s.pay === p[0] ? 'on' : '', pick: () => set({ pay: p[0] })
+      })),
+      offers: s.offers, toggleOffers: () => set({ offers: !s.offers }),
+      busy: String(s.busy),
+      submitText: s.busy ? 'Sending…' : 'Send quote request',
+      submit: (e) => {
+        e.preventDefault();
+        if (s.busy) return;
+        if (errCount > 0) { set({ tried: true, announce: errCount + ' fields need fixing' }); return this.focusError(); }
+        set({ busy: true, tried: true });
+        this.timer = setTimeout(() => this.setState({ busy: false, sent: true, announce: 'Quote request sent' }), 900);
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

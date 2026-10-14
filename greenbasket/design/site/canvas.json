@@ -1,0 +1,469 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "About.dc.html": {
+      "expand": "fill",
+      "h": 3800,
+      "page": "site",
+      "title": "About",
+      "w": 1440,
+      "x": 9120,
+      "y": 0
+    },
+    "Account-dark.dc.html": {
+      "expand": "fill",
+      "h": 2600,
+      "is_interactive": true,
+      "page": "dark",
+      "title": "My account · dark",
+      "w": 1440,
+      "x": 6080,
+      "y": 0
+    },
+    "Account-orders.dc.html": {
+      "expand": "fill",
+      "h": 3600,
+      "is_interactive": true,
+      "page": "account",
+      "title": "My account · Orders",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "Account-settings.dc.html": {
+      "expand": "fill",
+      "h": 3800,
+      "is_interactive": true,
+      "page": "account",
+      "title": "My account · Profile and settings",
+      "w": 1440,
+      "x": 4560,
+      "y": 0
+    },
+    "Account-subscription.dc.html": {
+      "expand": "fill",
+      "h": 3600,
+      "is_interactive": true,
+      "page": "account",
+      "title": "My account · Subscription",
+      "w": 1440,
+      "x": 3040,
+      "y": 0
+    },
+    "Account.dc.html": {
+      "expand": "fill",
+      "h": 2600,
+      "is_interactive": true,
+      "page": "account",
+      "title": "My account · Overview",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "Cancellation.dc.html": {
+      "expand": "fill",
+      "h": 4600,
+      "is_interactive": true,
+      "page": "policies",
+      "title": "Cancellation and replacement",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "Cart-dark.dc.html": {
+      "expand": "fill",
+      "h": 3000,
+      "is_interactive": true,
+      "page": "dark",
+      "title": "Cart · dark",
+      "w": 1440,
+      "x": 3040,
+      "y": 0
+    },
+    "Cart.dc.html": {
+      "expand": "fill",
+      "h": 3054,
+      "is_interactive": true,
+      "page": "site",
+      "title": "Cart",
+      "w": 1744,
+      "x": 925,
+      "y": 4692
+    },
+    "Checkout-2.dc.html": {
+      "expand": "fill",
+      "h": 1700,
+      "is_interactive": true,
+      "page": "flows",
+      "title": "Checkout 2 · Delivery slot",
+      "w": 1440,
+      "x": 1520,
+      "y": 1420
+    },
+    "Checkout-3.dc.html": {
+      "expand": "fill",
+      "h": 1700,
+      "is_interactive": true,
+      "page": "flows",
+      "title": "Checkout 3 · Payment",
+      "w": 1440,
+      "x": 3040,
+      "y": 1420
+    },
+    "Checkout-4.dc.html": {
+      "expand": "fill",
+      "h": 1700,
+      "is_interactive": true,
+      "page": "flows",
+      "title": "Checkout 4 · Review",
+      "w": 1440,
+      "x": 4560,
+      "y": 1420
+    },
+    "Checkout-5.dc.html": {
+      "expand": "fill",
+      "h": 1700,
+      "is_interactive": true,
+      "page": "flows",
+      "title": "Checkout 5 · Order placed",
+      "w": 1440,
+      "x": 6080,
+      "y": 1420
+    },
+    "Checkout-dark.dc.html": {
+      "expand": "fill",
+      "h": 1700,
+      "is_interactive": true,
+      "page": "dark",
+      "title": "Checkout · Payment · dark",
+      "w": 1440,
+      "x": 4560,
+      "y": 0
+    },
+    "Checkout.dc.html": {
+      "expand": "fill",
+      "h": 1700,
+      "is_interactive": true,
+      "page": "flows",
+      "title": "Checkout 1 · Address",
+      "w": 1440,
+      "x": 0,
+      "y": 1420
+    },
+    "Contact-dark.dc.html": {
+      "expand": "fill",
+      "h": 3200,
+      "is_interactive": true,
+      "page": "dark",
+      "title": "Contact us · dark",
+      "w": 1440,
+      "x": 9120,
+      "y": 0
+    },
+    "Contact.dc.html": {
+      "expand": "fill",
+      "h": 3200,
+      "is_interactive": true,
+      "page": "site",
+      "title": "Contact us",
+      "w": 1440,
+      "x": 10640,
+      "y": 0
+    },
+    "FAQ.dc.html": {
+      "expand": "fill",
+      "h": 3800,
+      "is_interactive": true,
+      "page": "site",
+      "title": "FAQ",
+      "w": 1440,
+      "x": 12160,
+      "y": 0
+    },
+    "FarmBox-dark.dc.html": {
+      "expand": "fill",
+      "h": 4400,
+      "is_interactive": true,
+      "page": "dark",
+      "title": "Farm Box · dark",
+      "w": 1440,
+      "x": 7600,
+      "y": 0
+    },
+    "FarmBox.dc.html": {
+      "expand": "fill",
+      "h": 4400,
+      "is_interactive": true,
+      "page": "site",
+      "title": "Farm Box",
+      "w": 1440,
+      "x": 4350,
+      "y": 81
+    },
+    "Footer.dc.html": {
+      "h": 760,
+      "is_interactive": true,
+      "page": "components",
+      "title": "Footer with newsletter",
+      "w": 1440,
+      "x": 0,
+      "y": 320
+    },
+    "FormKit.dc.html": {
+      "expand": "fill",
+      "h": 2400,
+      "is_interactive": true,
+      "page": "components",
+      "title": "Form kit",
+      "w": 1440,
+      "x": 3420,
+      "y": 0
+    },
+    "Header.dc.html": {
+      "h": 200,
+      "is_interactive": true,
+      "page": "components",
+      "title": "Header and navigation",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "Main-dark.dc.html": {
+      "expand": "fill",
+      "h": 8000,
+      "is_interactive": true,
+      "page": "dark",
+      "title": "Home · dark",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "Main.dc.html": {
+      "expand": "fill",
+      "h": 8000,
+      "is_interactive": true,
+      "page": "site",
+      "title": "Home",
+      "w": 1595,
+      "x": -1007,
+      "y": 0
+    },
+    "NotFound-dark.dc.html": {
+      "expand": "fill",
+      "h": 2400,
+      "is_interactive": true,
+      "page": "dark",
+      "title": "404 page · dark",
+      "w": 1440,
+      "x": 10640,
+      "y": 0
+    },
+    "NotFound.dc.html": {
+      "expand": "fill",
+      "h": 2400,
+      "is_interactive": true,
+      "page": "site",
+      "title": "404 page",
+      "w": 1440,
+      "x": 13680,
+      "y": 0
+    },
+    "Privacy.dc.html": {
+      "expand": "fill",
+      "h": 4200,
+      "is_interactive": true,
+      "page": "policies",
+      "title": "Privacy policy",
+      "w": 1440,
+      "x": 3040,
+      "y": 0
+    },
+    "Product-dark.dc.html": {
+      "expand": "fill",
+      "h": 4200,
+      "is_interactive": true,
+      "page": "dark",
+      "title": "Product page · dark",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "Product.dc.html": {
+      "expand": "fill",
+      "h": 4200,
+      "is_interactive": true,
+      "page": "site",
+      "title": "Product page",
+      "w": 1713,
+      "x": 925,
+      "y": 0
+    },
+    "ProductCard.dc.html": {
+      "h": 480,
+      "is_interactive": true,
+      "page": "components",
+      "title": "Product card",
+      "w": 300,
+      "x": 1520,
+      "y": 0
+    },
+    "ProductCards.dc.html": {
+      "expand": "fill",
+      "h": 1700,
+      "is_interactive": true,
+      "page": "components",
+      "title": "Product card states",
+      "w": 1440,
+      "x": 1900,
+      "y": 0
+    },
+    "Signup-2.dc.html": {
+      "expand": "fill",
+      "h": 1300,
+      "is_interactive": true,
+      "page": "flows",
+      "title": "Sign-up 2 · Verify code",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "Signup-3.dc.html": {
+      "expand": "fill",
+      "h": 1500,
+      "is_interactive": true,
+      "page": "flows",
+      "title": "Sign-up 3 · Details and address",
+      "w": 1440,
+      "x": 3040,
+      "y": 0
+    },
+    "Signup-4.dc.html": {
+      "expand": "fill",
+      "h": 1300,
+      "is_interactive": true,
+      "page": "flows",
+      "title": "Sign-up 4 · Welcome",
+      "w": 1440,
+      "x": 4560,
+      "y": 0
+    },
+    "Signup.dc.html": {
+      "expand": "fill",
+      "h": 1300,
+      "is_interactive": true,
+      "page": "flows",
+      "title": "Sign-up 1 · Phone number",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "Subscriptions.dc.html": {
+      "expand": "fill",
+      "h": 4600,
+      "is_interactive": true,
+      "page": "site",
+      "title": "Subscriptions",
+      "w": 1440,
+      "x": 6080,
+      "y": 0
+    },
+    "Terms.dc.html": {
+      "expand": "fill",
+      "h": 4200,
+      "page": "policies",
+      "title": "Terms of service",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "Wholesale.dc.html": {
+      "expand": "fill",
+      "h": 5600,
+      "is_interactive": true,
+      "page": "site",
+      "title": "Wholesale",
+      "w": 1440,
+      "x": 7600,
+      "y": 0
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-10-14T06:52:00Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "page": "site",
+    "view": "canvas"
+  },
+  "notes": {},
+  "order": [
+    "Signup.dc.html",
+    "Signup-2.dc.html",
+    "Signup-3.dc.html",
+    "Signup-4.dc.html",
+    "Checkout.dc.html",
+    "Checkout-2.dc.html",
+    "Checkout-3.dc.html",
+    "Checkout-4.dc.html",
+    "Checkout-5.dc.html",
+    "Account.dc.html",
+    "Account-orders.dc.html",
+    "Account-subscription.dc.html",
+    "Account-settings.dc.html",
+    "Cancellation.dc.html",
+    "Terms.dc.html",
+    "Privacy.dc.html",
+    "Header.dc.html",
+    "Footer.dc.html",
+    "ProductCard.dc.html",
+    "ProductCards.dc.html",
+    "FormKit.dc.html",
+    "Main-dark.dc.html",
+    "Product-dark.dc.html",
+    "Cart-dark.dc.html",
+    "Checkout-dark.dc.html",
+    "Account-dark.dc.html",
+    "FarmBox-dark.dc.html",
+    "Contact-dark.dc.html",
+    "NotFound-dark.dc.html",
+    "Main.dc.html",
+    "Product.dc.html",
+    "Cart.dc.html",
+    "FarmBox.dc.html",
+    "Subscriptions.dc.html",
+    "Wholesale.dc.html",
+    "About.dc.html",
+    "Contact.dc.html",
+    "FAQ.dc.html",
+    "NotFound.dc.html"
+  ],
+  "pages": [
+    {
+      "id": "site",
+      "name": "Pages"
+    },
+    {
+      "id": "flows",
+      "name": "Sign-up and checkout"
+    },
+    {
+      "id": "account",
+      "name": "My account"
+    },
+    {
+      "id": "policies",
+      "name": "Policies"
+    },
+    {
+      "id": "components",
+      "name": "Components"
+    },
+    {
+      "id": "dark",
+      "name": "Dark mode"
+    }
+  ],
+  "title": "Greeen Basket Website"
+}

@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sign up or sign in · Greeen Basket</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="gb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600&amp;family=Rubik:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div class="gb {{themeClass}}" style="min-height: 100%; background: var(--bg); color: var(--text); font-family: Rubik, 'Noto Sans Devanagari', system-ui, sans-serif;">
+  <dc-import name="Header" variant="minimal" dark="{{dark}}" hint-size="100%,80px"></dc-import>
+
+  <main id="main" class="wrap" style="padding-block: clamp(32px, 5vw, 64px) 80px; display: flex; flex-wrap: wrap; gap: 40px 72px; align-items: flex-start;">
+    <div style="flex: 1 1 460px; min-width: 0; max-width: 560px;">
+      <sc-if value="{{inFlow}}" hint-placeholder-val="{{true}}">
+        <p class="t-sm t-muted num" style="margin-bottom: 14px;">Step {{stepNum}} of 3</p>
+        <div aria-hidden="true" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin-bottom: 28px;">
+          <span style="height: 4px; border-radius: var(--r-pill); background: {{bar1}};"></span>
+          <span style="height: 4px; border-radius: var(--r-pill); background: {{bar2}};"></span>
+          <span style="height: 4px; border-radius: var(--r-pill); background: {{bar3}};"></span>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{isStep1}}" hint-placeholder-val="{{true}}">
+        <form onSubmit="{{sendCode}}" noValidate style="display: flex; flex-direction: column; gap: 22px;">
+          <div>
+            <h1 class="t-h1">Sign up or sign in</h1>
+            <p class="t-lead t-muted" style="margin-top: 10px;">One account for the store, Farm Boxes, subscriptions and wholesale. No password to remember.</p>
+          </div>
+          <sc-if value="{{usePhone}}" hint-placeholder-val="{{true}}">
+            <div class="field">
+              <label for="su-phone" class="label">Mobile number</label>
+              <div style="display: flex; gap: 8px;">
+                <span class="input num" aria-hidden="true" style="width: auto; display: inline-flex; align-items: center; color: var(--text-muted);">+91</span>
+                <input id="su-phone" class="input num" type="tel" name="tel-national" autocomplete="tel-national" inputmode="numeric" maxlength="11" spellcheck="false" placeholder="98765 43210…" value="{{phone}}" onChange="{{onPhone}}" aria-invalid="{{phoneInvalid}}" aria-describedby="su-phone-msg">
+              </div>
+              <p id="su-phone-msg" aria-live="polite"><sc-if value="{{phoneError}}" hint-placeholder-val="{{false}}"><span class="error">Enter a 10-digit mobile number that starts with 6, 7, 8 or 9.</span></sc-if><sc-if value="{{phoneHint}}" hint-placeholder-val="{{true}}"><span class="hint">We’ll text you a 6-digit code. Standard SMS rates may apply.</span></sc-if></p>
+            </div>
+          </sc-if>
+          <sc-if value="{{useEmail}}" hint-placeholder-val="{{false}}">
+            <div class="field">
+              <label for="su-email" class="label">Email address</label>
+              <input id="su-email" class="input" type="email" name="email" autocomplete="email" inputmode="email" spellcheck="false" placeholder="you@example.com…" value="{{email}}" onChange="{{onEmail}}" aria-invalid="{{emailInvalid}}" aria-describedby="su-email-msg">
+              <p id="su-email-msg" aria-live="polite"><sc-if value="{{emailError}}" hint-placeholder-val="{{false}}"><span class="error">That email looks incomplete. Check it has an @ and a domain.</span></sc-if><sc-if value="{{emailHint}}" hint-placeholder-val="{{true}}"><span class="hint">We’ll email you a 6-digit code.</span></sc-if></p>
+            </div>
+          </sc-if>
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Send code</button>
+          <button type="button" class="btn btn-ghost" style="align-self: center;" onClick="{{toggleMode}}">{{toggleText}}</button>
+          <p class="t-xs t-muted" style="text-align: center;">By continuing you agree to our <a href="Terms.dc.html">terms of service</a> and <a href="Privacy.dc.html">privacy policy</a>.</p>
+        </form>
+      </sc-if>
+
+      <sc-if value="{{isStep2}}" hint-placeholder-val="{{false}}">
+        <form onSubmit="{{verify}}" noValidate style="display: flex; flex-direction: column; gap: 22px;">
+          <div>
+            <h1 class="t-h1">Enter your code</h1>
+            <p class="t-lead t-muted" style="margin-top: 10px;">We sent a 6-digit code to <b class="t-strong num">{{sentTo}}</b>. <button type="button" class="btn btn-ghost btn-sm" style="padding: 0 6px; min-height: 32px; vertical-align: baseline;" onClick="{{changeNumber}}">Change</button></p>
+          </div>
+          <div class="field">
+            <label for="su-code" class="label">6-digit code</label>
+            <input id="su-code" class="input num" type="text" name="one-time-code" autocomplete="one-time-code" inputmode="numeric" maxlength="6" spellcheck="false" placeholder="6 digits, like 482913…" value="{{code}}" onChange="{{onCode}}" aria-invalid="{{codeInvalid}}" aria-describedby="su-code-msg" style="height: 64px; font-size: 28px; letter-spacing: 0.5em; text-align: center; font-weight: 600;">
+            <p id="su-code-msg" aria-live="polite"><sc-if value="{{codeError}}" hint-placeholder-val="{{false}}"><span class="error">{{codeErrorText}}</span></sc-if></p>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Verify and continue</button>
+          <p class="t-sm num" style="text-align: center;" aria-live="polite">
+            <sc-if value="{{canResend}}" hint-placeholder-val="{{false}}"><button type="button" class="btn btn-ghost btn-sm" onClick="{{resend}}">Resend code</button></sc-if>
+            <sc-if value="{{waitResend}}" hint-placeholder-val="{{true}}"><span class="t-muted">Didn’t get it? You can resend in 0:{{secondsText}}.</span></sc-if>
+          </p>
+        </form>
+      </sc-if>
+
+      <sc-if value="{{isStep3}}" hint-placeholder-val="{{false}}">
+        <form onSubmit="{{create}}" noValidate style="display: flex; flex-direction: column; gap: 22px;">
+          <div>
+            <h1 class="t-h1">A few details</h1>
+            <p class="t-lead t-muted" style="margin-top: 10px;">So our riders know where to go and who to ask for.</p>
+          </div>
+          <div class="field">
+            <label for="su-name" class="label">Full name</label>
+            <input id="su-name" class="input" type="text" name="name" autocomplete="name" placeholder="Like Simran Kaur…" value="{{name}}" onChange="{{onName}}" aria-invalid="{{nameInvalid}}" aria-describedby="su-name-msg">
+            <p id="su-name-msg" aria-live="polite"><sc-if value="{{nameError}}" hint-placeholder-val="{{false}}"><span class="error">Enter the name we should ask for at the door.</span></sc-if></p>
+          </div>
+          <fieldset style="border: 0; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+            <legend class="label" style="margin-bottom: 10px;">I’m shopping for</legend>
+            <label class="choice {{homeCls}}"><input type="radio" name="kind" value="home" checked="{{isHome}}" onChange="{{pickHome}}"><span><b class="t-strong">My household</b><br><span class="t-sm t-muted">Family, flatmates, home</span></span></label>
+            <label class="choice {{bizCls}}"><input type="radio" name="kind" value="business" checked="{{isBiz}}" onChange="{{pickBiz}}"><span><b class="t-strong">A business</b><br><span class="t-sm t-muted">Restaurant, café, shop, office</span></span></label>
+          </fieldset>
+          <sc-if value="{{isBiz}}" hint-placeholder-val="{{false}}">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+              <div class="field"><label for="su-org" class="label">Business name</label><input id="su-org" class="input" type="text" name="organization" autocomplete="organization" placeholder="Like Kaur Dhaba…"></div>
+              <div class="field"><label for="su-gstin" class="label">GSTIN <span class="opt">(optional)</span></label><input id="su-gstin" class="input num" type="text" name="gstin" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="15" placeholder="15 characters…"></div>
+            </div>
+          </sc-if>
+          <div class="field">
+            <label for="su-pin" class="label">Delivery PIN code</label>
+            <input id="su-pin" class="input num" type="text" name="postal-code" autocomplete="postal-code" inputmode="numeric" maxlength="6" spellcheck="false" placeholder="Like 160022…" value="{{pin}}" onChange="{{onPin}}" aria-invalid="{{pinInvalid}}" aria-describedby="su-pin-msg">
+            <p id="su-pin-msg" aria-live="polite">
+              <sc-if value="{{pinOk}}" hint-placeholder-val="{{false}}"><span class="ok">We deliver to {{pin}}. You can add the full address at checkout.</span></sc-if>
+              <sc-if value="{{pinNo}}" hint-placeholder-val="{{false}}"><span class="t-sm" style="color: var(--warning); font-weight: 500;">We don’t deliver to {{pin}} yet. You can still sign up and we’ll tell you when we do.</span></sc-if>
+              <sc-if value="{{pinError}}" hint-placeholder-val="{{false}}"><span class="error">Enter all 6 digits of your PIN code.</span></sc-if>
+            </p>
+          </div>
+          <fieldset style="border: 0; padding: 0; margin: 0;">
+            <legend class="sr-only">Agreements</legend>
+            <label class="check"><input type="checkbox" name="terms" checked="{{terms}}" onChange="{{onTerms}}" aria-invalid="{{termsInvalid}}"><span>I agree to the <a href="Terms.dc.html">terms of service</a> and the <a href="Privacy.dc.html">privacy policy</a>.</span></label>
+            <sc-if value="{{termsError}}" hint-placeholder-val="{{false}}"><p class="error" style="margin-bottom: 6px;">Tick the box to agree before creating your account.</p></sc-if>
+            <label class="check"><input type="checkbox" name="offers" checked="{{offers}}" onChange="{{onOffers}}"><span>Send me offers and the weekly fresh list on WhatsApp. <span class="t-muted">Optional. Turn off any time.</span></span></label>
+          </fieldset>
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Create my account</button>
+        </form>
+      </sc-if>
+
+      <sc-if value="{{isStep4}}" hint-placeholder-val="{{false}}">
+        <div style="display: flex; flex-direction: column; gap: 26px;">
+          <div>
+            <span aria-hidden="true" style="width: 56px; height: 56px; border-radius: 50%; background: var(--accent); color: var(--on-accent); display: inline-flex; align-items: center; justify-content: center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span>
+            <h1 class="t-h1" style="margin-top: 18px;">Welcome, {{firstName}}.</h1>
+            <p class="t-lead t-muted" style="margin-top: 10px;">Your account is ready. Here’s where most people start.</p>
+          </div>
+          <ul style="display: grid; gap: 10px;">
+            <li><a href="Main.dc.html#shop" class="card lift" style="display: flex; align-items: center; gap: 16px; padding: 16px 18px; text-decoration: none; color: var(--text);"><img src="/_blob/90234e112587bcb63afe69728f9038ca" alt="" width="44" height="44"><span style="flex: 1;"><b class="t-strong">Shop the store</b><br><span class="t-sm t-muted">39 fruits and vegetables in fixed-price packs</span></span><span aria-hidden="true" class="t-muted">→</span></a></li>
+            <li><a href="FarmBox.dc.html" class="card lift" style="display: flex; align-items: center; gap: 16px; padding: 16px 18px; text-decoration: none; color: var(--text);"><img src="/_blob/2c8a148c213c5f35e32717ac2f4aff86" alt="" width="44" height="44"><span style="flex: 1;"><b class="t-strong">Build a Farm Box</b><br><span class="t-sm t-muted">Save it once, reorder every week</span></span><span aria-hidden="true" class="t-muted">→</span></a></li>
+            <li><a href="Subscriptions.dc.html" class="card lift" style="display: flex; align-items: center; gap: 16px; padding: 16px 18px; text-decoration: none; color: var(--text);"><img src="/_blob/d73620523f662d9ff31b2cb2eed5e5ae" alt="" width="44" height="44"><span style="flex: 1;"><b class="t-strong">Choose a plan</b><br><span class="t-sm t-muted">A weekly or monthly basket, filled your way</span></span><span aria-hidden="true" class="t-muted">→</span></a></li>
+          </ul>
+          <form onSubmit="{{savePrefs}}" class="well" style="padding: 20px 22px; display: flex; flex-direction: column; gap: 6px;">
+            <h2 class="t-h4">How should we send order updates?</h2>
+            <label class="check"><input type="checkbox" name="u-wa" checked="{{prefWa}}" onChange="{{onPrefWa}}">WhatsApp</label>
+            <label class="check"><input type="checkbox" name="u-sms" checked="{{prefSms}}" onChange="{{onPrefSms}}">SMS</label>
+            <label class="check"><input type="checkbox" name="u-email" checked="{{prefEmail}}" onChange="{{onPrefEmail}}">Email</label>
+            <div style="display: flex; align-items: center; gap: 14px; margin-top: 6px;"><button type="submit" class="btn btn-ink btn-sm">Save preferences</button><span aria-live="polite"><sc-if value="{{prefsSaved}}" hint-placeholder-val="{{false}}"><span class="ok">Saved</span></sc-if></span></div>
+          </form>
+        </div>
+      </sc-if>
+    </div>
+
+    <aside aria-label="Why create an account" style="flex: 1 1 360px; min-width: 0;">
+      <div class="well" style="padding: clamp(24px, 3vw, 36px); border-radius: var(--r-xl); display: flex; flex-direction: column; gap: 20px;">
+        <img src="/_blob/2c8a148c213c5f35e32717ac2f4aff86" alt="" width="140" height="140">
+        <h2 class="t-h3">With an account you can</h2>
+        <ul style="display: grid; gap: 14px;">
+          <li style="display: flex; gap: 12px;"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; color: var(--accent-text); margin-top: 3px;"><path d="M5 12l5 5 9-10"></path></svg><span>Save Farm Boxes and reorder in one tap</span></li>
+          <li style="display: flex; gap: 12px;"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; color: var(--accent-text); margin-top: 3px;"><path d="M5 12l5 5 9-10"></path></svg><span>Edit, skip or pause a subscription</span></li>
+          <li style="display: flex; gap: 12px;"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; color: var(--accent-text); margin-top: 3px;"><path d="M5 12l5 5 9-10"></path></svg><span>Track orders and ask for refunds</span></li>
+          <li style="display: flex; gap: 12px;"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; color: var(--accent-text); margin-top: 3px;"><path d="M5 12l5 5 9-10"></path></svg><span>Keep addresses and GST details for checkout</span></li>
+        </ul>
+        <p class="t-sm t-muted">Just buying once? You can also <a href="Checkout.dc.html">check out as a guest</a>.</p>
+      </div>
+    </aside>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"startStep":{"editor":"enum","options":["1","2","3","4"],"default":"1"},"$preview":{"width":1440,"height":1300}}'>
+class Component extends DCLogic {
+  focusError(sel) {
+    setTimeout(() => {
+      const el = document.querySelector(sel || '.gb [aria-invalid="true"]');
+      if (el && el.focus) el.focus();
+    }, 0);
+  }
+
+  constructor(...args) {
+    super(...args);
+    const start = Number(this.props.startStep || 1);
+    this.state = {
+      step: start, mode: 'phone', phone: start > 1 ? '98765 43210' : '', email: '', phoneError: false, emailError: false,
+      code: '', codeError: '', seconds: 24, name: start > 3 ? 'Simran Kaur' : '', nameError: false, kind: 'home',
+      pin: '', pinState: 'idle', terms: false, termsError: false, offers: false,
+      prefWa: true, prefSms: true, prefEmail: false, prefsSaved: false
+    };
+  }
+
+  componentDidMount() {
+    this.timer = setInterval(() => {
+      if (this.state.step === 2 && this.state.seconds > 0) this.setState({ seconds: this.state.seconds - 1 });
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+
+  renderVals() {
+    const s = this.state;
+    const dark = this.props.dark ?? false;
+    const digits = s.phone.replace(/\D/g, '');
+    const phoneOk = digits.length === 10 && /^[6-9]/.test(digits);
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s.email.trim());
+    const checkPin = (p) => {
+      if (p.length !== 6) return 'idle';
+      return (p.startsWith('1600') || ['160101', '160102', '140308', '134109', '134112', '134113', '134114', '134116', '134117'].includes(p)) ? 'ok' : 'no';
+    };
+    const bar = (n) => (s.step >= n ? 'var(--accent)' : 'var(--line-strong)');
+    return {
+      dark,
+      themeClass: dark ? 'dark' : '',
+      inFlow: s.step < 4,
+      stepNum: String(Math.min(s.step, 3)),
+      bar1: bar(1), bar2: bar(2), bar3: bar(3),
+      isStep1: s.step === 1, isStep2: s.step === 2, isStep3: s.step === 3, isStep4: s.step === 4,
+      usePhone: s.mode === 'phone', useEmail: s.mode === 'email',
+      toggleText: s.mode === 'phone' ? 'Use email instead' : 'Use mobile number instead',
+      toggleMode: () => this.setState({ mode: s.mode === 'phone' ? 'email' : 'phone', phoneError: false, emailError: false }),
+      phone: s.phone,
+      onPhone: (e) => this.setState({ phone: e.target.value, phoneError: false }),
+      phoneError: s.phoneError, phoneHint: !s.phoneError, phoneInvalid: s.phoneError ? 'true' : 'false',
+      email: s.email,
+      onEmail: (e) => this.setState({ email: e.target.value, emailError: false }),
+      emailError: s.emailError, emailHint: !s.emailError, emailInvalid: s.emailError ? 'true' : 'false',
+      sendCode: (e) => {
+        e.preventDefault();
+        if (s.mode === 'phone' && !phoneOk) { this.setState({ phoneError: true }); return this.focusError('#su-phone'); }
+        if (s.mode === 'email' && !emailOk) { this.setState({ emailError: true }); return this.focusError('#su-email'); }
+        this.setState({ step: 2, seconds: 24, code: '', codeError: '' });
+      },
+      sentTo: s.mode === 'phone' ? '+91 ' + (digits.slice(0, 5) + ' ' + digits.slice(5)) : s.email.trim(),
+      changeNumber: () => this.setState({ step: 1 }),
+      code: s.code,
+      onCode: (e) => this.setState({ code: e.target.value.replace(/\D/g, '').slice(0, 6), codeError: '' }),
+      codeError: !!s.codeError, codeErrorText: s.codeError, codeInvalid: s.codeError ? 'true' : 'false',
+      verify: (e) => {
+        e.preventDefault();
+        if (s.code.length !== 6) { this.setState({ codeError: 'Enter all 6 digits of the code.' }); return this.focusError('#su-code'); }
+        if (s.code === '000000') { this.setState({ codeError: 'That code doesn’t match. Check the latest message, or resend a new code.' }); return this.focusError('#su-code'); }
+        this.setState({ step: 3 });
+      },
+      canResend: s.seconds === 0, waitResend: s.seconds > 0,
+      secondsText: String(s.seconds).padStart(2, '0'),
+      resend: () => this.setState({ seconds: 30 }),
+      name: s.name,
+      onName: (e) => this.setState({ name: e.target.value, nameError: false }),
+      nameError: s.nameError, nameInvalid: s.nameError ? 'true' : 'false',
+      isHome: s.kind === 'home', isBiz: s.kind === 'business',
+      homeCls: s.kind === 'home' ? 'on' : '', bizCls: s.kind === 'business' ? 'on' : '',
+      pickHome: () => this.setState({ kind: 'home' }), pickBiz: () => this.setState({ kind: 'business' }),
+      pin: s.pin,
+      onPin: (e) => { const p = e.target.value.replace(/\D/g, '').slice(0, 6); this.setState({ pin: p, pinState: checkPin(p) }); },
+      pinOk: s.pinState === 'ok', pinNo: s.pinState === 'no', pinError: s.pinState === 'err',
+      pinInvalid: s.pinState === 'err' ? 'true' : 'false',
+      terms: s.terms,
+      onTerms: (e) => this.setState({ terms: e.target.checked, termsError: false }),
+      termsError: s.termsError, termsInvalid: s.termsError ? 'true' : 'false',
+      offers: s.offers,
+      onOffers: (e) => this.setState({ offers: e.target.checked }),
+      create: (e) => {
+        e.preventDefault();
+        const nameError = s.name.trim().length < 2;
+        const pinBad = s.pin.length !== 6;
+        const termsError = !s.terms;
+        if (nameError || pinBad || termsError) { this.setState({ nameError, termsError, pinState: pinBad ? 'err' : s.pinState }); return this.focusError(); }
+        this.setState({ step: 4 });
+      },
+      firstName: (s.name.trim().split(' ')[0]) || 'Simran',
+      prefWa: s.prefWa, prefSms: s.prefSms, prefEmail: s.prefEmail,
+      onPrefWa: (e) => this.setState({ prefWa: e.target.checked, prefsSaved: false }),
+      onPrefSms: (e) => this.setState({ prefSms: e.target.checked, prefsSaved: false }),
+      onPrefEmail: (e) => this.setState({ prefEmail: e.target.checked, prefsSaved: false }),
+      savePrefs: (e) => { e.preventDefault(); this.setState({ prefsSaved: true }); },
+      prefsSaved: s.prefsSaved
+    };
+  }
+}
+</script>
+</body>
+</html>

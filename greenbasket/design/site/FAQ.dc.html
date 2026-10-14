@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>FAQ · Greeen Basket</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="gb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600&amp;family=Rubik:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+.cats button{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:44px;padding:0 14px;border:0;border-radius:var(--r-sm);background:transparent;color:var(--text);font-size:15px;font-weight:500;text-align:left;transition:background-color 160ms ease-out,color 160ms ease-out}
+.cats button[aria-pressed="true"]{background:var(--well-strong);color:var(--text-strong);font-weight:600}
+@media (hover:hover){.cats button:hover{background:var(--muted-bg);color:var(--text-strong)}.cats button[aria-pressed="true"]:hover{background:var(--well-strong)}}
+.faq-group + .faq-group{margin-top:44px}
+</style>
+</helmet>
+<div class="gb {{themeClass}}" style="min-height: 100%; background: var(--bg); color: var(--text); font-family: Rubik, 'Noto Sans Devanagari', system-ui, sans-serif;">
+  <dc-import name="Header" active="none" dark="{{dark}}" hint-size="100%,190px"></dc-import>
+
+  <main id="main">
+    <section aria-labelledby="faq-h" class="wrap" style="padding-block: clamp(40px, 6vw, 80px) 36px;">
+      <p class="t-eyebrow">Help centre</p>
+      <h1 id="faq-h" class="t-d2" style="margin-top: 12px;">Questions, answered</h1>
+      <form role="search" onSubmit="{{noSubmit}}" style="margin-top: 24px; max-width: 640px;">
+        <label for="faq-q" class="sr-only">Search the FAQ</label>
+        <div style="position: relative;">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--text-muted);"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+          <input id="faq-q" class="input input-pill" type="search" name="q" autocomplete="off" spellcheck="false" placeholder="Search, like refund, slot or cash on delivery…" value="{{query}}" onInput="{{onQuery}}" style="height: 56px; padding-left: 48px; font-size: 17px;" aria-describedby="faq-count">
+        </div>
+        <p id="faq-count" aria-live="polite" class="t-sm t-muted" style="margin-top: 10px; min-height: 21px;">{{countText}}</p>
+      </form>
+    </section>
+
+    <section aria-label="Answers" class="wrap" style="padding-bottom: 56px; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 32px 56px;">
+      <nav aria-label="FAQ topics" class="cats" style="flex: 1 1 232px; min-width: 0; position: sticky; top: 24px;">
+        <ul style="display: grid; gap: 2px;">
+          <sc-for list="{{cats}}" as="c" hint-placeholder-count="9">
+            <li><button type="button" aria-pressed="{{c.on}}" onClick="{{c.pick}}"><span>{{c.label}}</span><span class="num t-muted" style="font-weight: 400; font-size: 13px;">{{c.count}}</span></button></li>
+          </sc-for>
+        </ul>
+      </nav>
+
+      <div style="flex: 999 1 620px; min-width: 0;">
+        <sc-if value="{{noResults}}" hint-placeholder-val="{{false}}">
+          <div class="well" style="padding: 40px 28px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+            <h2 class="t-h3">No answers for “{{query}}”</h2>
+            <p class="t-muted">Try a shorter word, like “refund” or “slot”, or ask us directly.</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 8px;">
+              <button type="button" class="btn btn-soft" onClick="{{clearQuery}}">Clear search</button>
+              <a href="Contact.dc.html" class="btn btn-ink">Contact us</a>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-for list="{{groups}}" as="g" hint-placeholder-count="3">
+          <section class="faq-group" aria-labelledby="{{g.hid}}">
+            <h2 id="{{g.hid}}" class="t-h3">{{g.title}}</h2>
+            <div style="margin-top: 8px; border-top: 1px solid var(--line);">
+              <sc-for list="{{g.items}}" as="q" hint-placeholder-count="3">
+                <details class="acc" id="{{q.id}}" open="{{q.open}}"><summary>{{q.q}}</summary><div class="acc-body"><p>{{q.a}}</p><sc-if value="{{q.hasLink}}" hint-placeholder-val="{{false}}"><p style="margin-top: 8px;"><a href="{{q.href}}" style="font-weight: 600;">{{q.linkText}}</a></p></sc-if></div></details>
+              </sc-for>
+            </div>
+          </section>
+        </sc-for>
+
+        <div class="card" style="margin-top: 48px; padding: 20px 22px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px;">
+          <sc-if value="{{noVote}}" hint-placeholder-val="{{true}}">
+            <p id="faq-help-l" style="font-weight: 600; color: var(--text-strong);">Did you find what you needed?</p>
+            <div role="group" aria-labelledby="faq-help-l" style="display: flex; gap: 8px;">
+              <button type="button" class="btn btn-outline btn-sm" onClick="{{voteYes}}">Yes</button>
+              <button type="button" class="btn btn-outline btn-sm" onClick="{{voteNo}}">No</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{votedYes}}" hint-placeholder-val="{{false}}"><p role="status" class="ok">Thanks for telling us.</p></sc-if>
+          <sc-if value="{{votedNo}}" hint-placeholder-val="{{false}}"><p role="status" class="t-sm">Sorry about that. <a href="Contact.dc.html" style="font-weight: 600;">Ask us directly</a> and a person will reply.</p></sc-if>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="faq-contact" class="wrap" style="padding-bottom: clamp(56px, 7vw, 96px);">
+      <div style="padding: clamp(28px, 4vw, 48px); border-radius: var(--r-xl); background: var(--band); color: var(--on-band); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px 32px;">
+        <div style="flex: 1 1 420px;">
+          <h2 id="faq-contact" class="t-h2" style="color: var(--on-band);">Still need help?</h2>
+          <p style="margin-top: 8px; color: var(--on-band-muted);">WhatsApp us at <span class="ph">[SUPPORT PHONE]</span>, <span class="ph">[SUPPORT HOURS]</span>, or send a message any time.</p>
+        </div>
+        <a href="Contact.dc.html" class="btn btn-primary btn-lg">Contact us</a>
+      </div>
+    </section>
+  </main>
+
+  <dc-import name="Footer" dark="{{dark}}" hint-size="100%,760px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":3800}}'>
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { cat: 'all', query: '', vote: '' };
+  }
+
+  faqs() {
+    return [
+      ['ordering', 'Ordering', [
+        ['min', 'Is there a minimum order?', 'Yes, ₹199 of items. Delivery is ₹30, and free once your basket reaches ₹499.', '', ''],
+        ['price', 'Will I pay the price I see?', 'Yes. Every pack shows its weight, its price and its price per kilo or piece. That pack price is what you pay. There’s no weighing at the door.', '', ''],
+        ['change', 'Can I change an order after placing it?', 'You can cancel it from My account until we start packing, about 2 hours before your slot. To change items, cancel and order again, or message us and we’ll try.', 'Account-orders.dc.html', 'Go to my orders'],
+        ['hindi', 'Can I search in Hindi?', 'Yes. Search by English or Hindi names, like palak or tamatar. Product names show both.', '', '']
+      ]],
+      ['delivery', 'Delivery', [
+        ['where', 'Where do you deliver?', 'Across Chandigarh, Mohali and Panchkula. Check your PIN code on the home page before you shop.', 'Main.dc.html', 'Check my PIN code'],
+        ['slots', 'How do delivery slots work?', 'Choose a two-hour slot at checkout. Each slot takes a set number of orders and closes when it’s full. We hold your slot for 10 minutes while you pay.', '', ''],
+        ['missed', 'What if I miss my delivery?', 'Our rider calls you. If we can’t reach you, the order comes back to the store and you can pick a new slot for free from My account. Prepaid orders: [MISSED DELIVERY POLICY].', '', ''],
+        ['note', 'Can you leave it with the guard or at the door?', 'Yes. Add a note to your address, like “Leave with the guard”, and the rider will follow it.', '', '']
+      ]],
+      ['payments', 'Payments', [
+        ['pay', 'How can I pay?', 'UPI, card or net banking, cash on delivery where eligible, or bank transfer. Bank-transfer orders are held for [HOLD WINDOW] until the money arrives.', '', ''],
+        ['cod', 'Why can’t I choose cash on delivery?', 'Cash on delivery depends on your order and area: [COD RULES]. When it’s offered, we confirm the order with a code sent to your phone.', '', ''],
+        ['gst', 'Can I get a GST invoice?', 'Yes. Add your GSTIN at checkout or in My account, and every invoice carries it. Download invoices from your orders.', 'Account-settings.dc.html', 'Add my GSTIN']
+      ]],
+      ['refunds', 'Refunds and replacements', [
+        ['report', 'Something was short, damaged or not fresh. What do I do?', 'Report it from the order in My account within [REPORT WINDOW] of delivery, with photos if you can. Choose a refund, store credit or a free replacement. A person reviews every report.', 'Account-orders.dc.html', 'Report a problem'],
+        ['swap', 'Do you swap items that are out of stock?', 'Never without asking. At checkout you choose what happens if something runs short: we refund it, or we call you first.', '', ''],
+        ['refundtime', 'How long do refunds take?', 'Refunds to UPI or card usually reach you in 5 to 7 working days. Store credit is added the same day.', '', ''],
+        ['credit', 'What is store credit?', 'Money in your Greeen Basket account, from refunds you chose to take as credit. Use it on any order at checkout. Expiry: [STORE CREDIT EXPIRY].', 'Account.dc.html', 'See my store credit'],
+        ['cancel', 'Can I cancel an order?', 'Yes, for a full refund, until we start packing. After that: [CANCELLATION AFTER PACKING]. The cancellation policy has the details.', 'Cancellation.dc.html', 'Read the cancellation policy']
+      ]],
+      ['subscriptions', 'Subscriptions', [
+        ['how', 'How do subscriptions work?', 'Choose a weekly or monthly plan and fill each delivery up to its allowance. Edit the basket until 10 PM the night before. Didn’t edit? We pack your saved basket.', 'Subscriptions.dc.html', 'See plans'],
+        ['skip', 'Can I skip a week or pause?', 'Yes. Skip any week before its cut-off, or pause for one, two or four weeks. You’re not charged for skipped or paused weeks.', 'Account-subscription.dc.html', 'Manage my plan'],
+        ['over', 'What if my basket costs more than the allowance?', 'We add the difference at store prices to that week’s charge. You’ll see it before the cut-off.', '', ''],
+        ['subcancel', 'How do I cancel my subscription?', 'From My account, with one button and a confirmation. No calls or forms. A delivery already past its cut-off still arrives.', 'Account-subscription.dc.html', 'Go to my subscription']
+      ]],
+      ['farmbox', 'Farm Box', [
+        ['what', 'What is a Farm Box?', 'A box you build yourself from the store’s fresh stock. Name it, save it, and order the same box again in one tap.', 'FarmBox.dc.html', 'Build a box'],
+        ['boxmin', 'Is there a minimum for a box?', 'No. The whole order still needs to reach ₹199.', '', '']
+      ]],
+      ['wholesale', 'Wholesale', [
+        ['who', 'Who can buy at wholesale rates?', 'Anyone. Reach a quantity tier and its rate applies to every unit. A business and GSTIN are optional.', 'Wholesale.dc.html', 'See wholesale rates'],
+        ['tiers', 'Do different pack sizes count towards a tier?', 'Yes. The same product on different lines counts together. Ten kilos in one pack and five in another make fifteen.', '', '']
+      ]],
+      ['account', 'Account and privacy', [
+        ['guest', 'Do I need an account to order?', 'No. You can check out with just your mobile number. An account lets you track orders, save boxes, subscribe and use store credit.', 'Signup.dc.html', 'Create an account'],
+        ['data', 'How do I get a copy of my data or delete my account?', 'In My account, under Profile and settings, then Privacy and your data. You can download your data or ask us to delete your account.', 'Account-settings.dc.html', 'Open privacy settings'],
+        ['messages', 'Will you send me marketing messages?', 'Only if you say yes. Offers are a separate choice from order updates, and you can turn them off any time.', 'Privacy.dc.html', 'Read the privacy policy']
+      ]]
+    ];
+  }
+
+  renderVals() {
+    const s = this.state;
+    const dark = this.props.dark ?? false;
+    const all = this.faqs();
+    const q = s.query.trim().toLowerCase();
+    const match = (it) => !q || it[1].toLowerCase().includes(q) || it[2].toLowerCase().includes(q);
+    const total = all.reduce((n, g) => n + g[2].length, 0);
+    const groups = all
+      .filter((g) => q || s.cat === 'all' || s.cat === g[0])
+      .map((g) => ({
+        hid: 'faq-g-' + g[0], title: g[1],
+        items: g[2].filter(match).map((it) => ({
+          id: it[0], q: it[1], a: it[2], open: !!q, hasLink: !!it[3], href: it[3], linkText: it[4]
+        }))
+      }))
+      .filter((g) => g.items.length > 0);
+    const found = groups.reduce((n, g) => n + g.items.length, 0);
+    const cats = [['all', 'All topics', total]].concat(all.map((g) => [g[0], g[1], g[2].length])).map((c) => ({
+      label: c[1], count: String(c[2]), on: String(!q && s.cat === c[0]), pick: () => this.setState({ cat: c[0], query: '' })
+    }));
+    return {
+      dark,
+      themeClass: dark ? 'dark' : '',
+      query: s.query,
+      onQuery: (e) => this.setState({ query: e.target.value }),
+      noSubmit: (e) => e.preventDefault(),
+      clearQuery: () => this.setState({ query: '' }),
+      countText: q ? (found === 1 ? '1 answer' : found + ' answers') + ' for “' + s.query.trim() + '”' : total + ' answers in ' + all.length + ' topics',
+      noResults: !!q && found === 0,
+      cats,
+      groups,
+      noVote: !s.vote,
+      votedYes: s.vote === 'yes',
+      votedNo: s.vote === 'no',
+      voteYes: () => this.setState({ vote: 'yes' }),
+      voteNo: () => this.setState({ vote: 'no' })
+    };
+  }
+}
+</script>
+</body>
+</html>

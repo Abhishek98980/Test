@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Farm Box · Build your own box · Greeen Basket</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="gb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600&amp;family=Rubik:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+.fb-tile{display:flex;align-items:center;gap:12px;min-height:84px;padding:12px 12px 12px 12px;border:1.5px solid var(--line);border-radius:var(--r-md);background:var(--surface);transition:border-color 160ms ease-out,background-color 160ms ease-out}
+.fb-tile.picked{border-color:var(--accent-text);background:var(--well)}
+.fb-mini{display:inline-flex;align-items:center;border-radius:999px;background:var(--muted-bg);color:var(--text-strong)}
+.fb-mini button{width:36px;height:36px;border:0;border-radius:999px;background:transparent;color:inherit;font-size:18px;line-height:1;transition:background-color 160ms ease-out}
+.fb-mini .qty{min-width:22px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums;font-size:14px}
+@media (hover:hover){.fb-mini button:hover{background:var(--line)}}
+.cmp th,.cmp td{text-align:left;vertical-align:top}
+.cmp th[scope="row"]{font-size:14px;font-weight:600;color:var(--text-strong);width:22%}
+.cmp td.us{background:var(--well)}
+</style>
+</helmet>
+<div class="gb {{themeClass}}" style="min-height: 100%; background: var(--bg); color: var(--text); font-family: Rubik, 'Noto Sans Devanagari', system-ui, sans-serif;">
+  <dc-import name="Header" active="farmbox" dark="{{dark}}" cart-count="{{cartCount}}" cart-total="{{cartTotal}}" hint-size="100%,190px"></dc-import>
+
+  <main id="main">
+    <p aria-live="polite" class="sr-only">{{announce}}</p>
+
+    <section aria-labelledby="fb-h" class="wrap" style="padding-block: clamp(40px, 6vw, 72px) 40px; display: flex; flex-wrap: wrap; align-items: center; gap: 32px 64px;">
+      <div style="flex: 1 1 480px; min-width: 0;">
+        <p class="t-eyebrow">Farm Box</p>
+        <h1 id="fb-h" class="t-d2" style="margin-top: 12px; max-width: 14em;">Build your own box. Pick every item.</h1>
+        <p class="t-lead t-muted" style="margin-top: 16px; max-width: 34em;">Choose from the same fresh stock as the store, in any amount. Name it, save it, and order the same box again next week.</p>
+        <ul style="margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px;">
+          <li class="badge badge-line" style="padding: 6px 12px; font-size: 13px;">No minimum for the box</li>
+          <li class="badge badge-line" style="padding: 6px 12px; font-size: 13px;">Today’s store prices</li>
+          <li class="badge badge-line" style="padding: 6px 12px; font-size: 13px;">Save and reorder</li>
+        </ul>
+        <a href="#builder" class="btn btn-primary btn-lg" style="margin-top: 28px;">Start picking</a>
+      </div>
+      <div class="well" aria-hidden="true" style="flex: 1 1 360px; min-height: 340px; display: flex; align-items: center; justify-content: center; border-radius: var(--r-xl);">
+        <img src="/_blob/2c8a148c213c5f35e32717ac2f4aff86" alt="" width="280" height="280" style="width: min(280px, 70%); height: auto;">
+      </div>
+    </section>
+
+    <section aria-labelledby="fb-start" class="wrap" style="padding-bottom: 48px;">
+      <h2 id="fb-start" class="t-h3">Start from a ready box</h2>
+      <p class="t-muted" style="margin-top: 4px;">Load one into the builder, then change anything.</p>
+      <ul style="margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px;">
+        <sc-for list="{{templates}}" as="tp" hint-placeholder-count="4">
+          <li class="card lift" style="padding: 18px; display: flex; flex-direction: column; gap: 10px;">
+            <span style="display: flex;">
+              <sc-for list="{{tp.thumbs}}" as="th" hint-placeholder-count="4"><span style="width: 40px; height: 40px; margin-right: -8px; border-radius: 999px; background: var(--well); box-shadow: 0 0 0 2px var(--surface); display: inline-flex; align-items: center; justify-content: center;"><img src="{{th}}" alt="" width="28" height="28"></span></sc-for>
+            </span>
+            <h3 class="t-h4">{{tp.name}}</h3>
+            <p class="t-sm t-muted">{{tp.desc}}</p>
+            <p class="t-sm num" style="margin-top: auto;"><b class="price">{{tp.priceText}}</b> <span class="t-muted">· {{tp.countText}}</span></p>
+            <button type="button" class="btn btn-soft btn-sm" style="align-self: flex-start;" onClick="{{tp.use}}" aria-label="{{tp.useLabel}}">Use this box</button>
+          </li>
+        </sc-for>
+      </ul>
+    </section>
+
+    <section id="builder" aria-labelledby="fb-build" style="padding-block: 56px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+      <div class="wrap" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 32px 40px;">
+        <div style="flex: 999 1 600px; min-width: 0; display: flex; flex-direction: column; gap: 20px;">
+          <div>
+            <h2 id="fb-build" class="t-h2">Pick your items</h2>
+            <p class="t-muted" style="margin-top: 4px;">Everything is packed fresh on the morning of your slot.</p>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 16px;">
+            <div role="group" aria-label="Category" style="display: flex; flex-wrap: wrap; gap: 8px;">
+              <sc-for list="{{cats}}" as="c" hint-placeholder-count="5">
+                <button type="button" class="chip" aria-pressed="{{c.on}}" onClick="{{c.pick}}">{{c.label}} <span class="num" style="opacity: 0.7; font-weight: 400;">{{c.count}}</span></button>
+              </sc-for>
+            </div>
+            <div class="field" style="flex: 0 1 260px;">
+              <label for="fb-search" class="sr-only">Search items</label>
+              <input id="fb-search" class="input input-pill" type="search" name="q" autocomplete="off" spellcheck="false" placeholder="Search, like palak or tomato…" value="{{query}}" onChange="{{onQuery}}" style="height: 44px;">
+            </div>
+          </div>
+
+          <sc-if value="{{noResults}}" hint-placeholder-val="{{false}}">
+            <div class="well" style="padding: 32px 24px; text-align: center;">
+              <p class="t-h4">Nothing called “{{query}}” today</p>
+              <p class="t-sm t-muted" style="margin-top: 4px;">Try the Hindi name, or look under another category.</p>
+              <button type="button" class="btn btn-soft btn-sm" style="margin-top: 12px;" onClick="{{clearQuery}}">Clear search</button>
+            </div>
+          </sc-if>
+
+          <ul style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px;">
+            <sc-for list="{{items}}" as="it" hint-placeholder-count="9">
+              <li class="fb-tile {{it.cls}}">
+                <span class="well" style="flex: none; width: 56px; height: 56px; display: inline-flex; align-items: center; justify-content: center; border-radius: var(--r-sm);"><img src="{{it.img}}" alt="" width="42" height="42" style="opacity: {{it.imgOpacity}};"></span>
+                <div style="flex: 1; min-width: 0;">
+                  <p style="font-weight: 600; color: var(--text-strong); line-height: 1.3; overflow-wrap: anywhere;">{{it.name}} <span class="hi t-muted" style="font-weight: 400; font-size: 13px;">{{it.hi}}</span></p>
+                  <p class="t-sm t-muted num">{{it.unit}} · {{it.priceText}}</p>
+                </div>
+                <sc-if value="{{it.canAdd}}" hint-placeholder-val="{{true}}"><button type="button" class="btn btn-soft btn-sm" style="min-height: 40px; padding: 0 14px;" onClick="{{it.add}}" aria-label="{{it.addLabel}}">Add</button></sc-if>
+                <sc-if value="{{it.picked}}" hint-placeholder-val="{{false}}">
+                  <div class="fb-mini" role="group" aria-label="{{it.groupLabel}}">
+                    <button type="button" aria-label="{{it.decLabel}}" onClick="{{it.dec}}">−</button>
+                    <span class="qty">{{it.qty}}</span>
+                    <button type="button" aria-label="{{it.incLabel}}" onClick="{{it.inc}}">+</button>
+                  </div>
+                </sc-if>
+                <sc-if value="{{it.isOut}}" hint-placeholder-val="{{false}}"><button type="button" class="btn btn-ghost btn-sm" style="min-height: 40px; padding: 0 12px;" onClick="{{it.notify}}" disabled="{{it.notified}}">{{it.notifyText}}</button></sc-if>
+              </li>
+            </sc-for>
+          </ul>
+        </div>
+
+        <aside aria-labelledby="fb-box" style="flex: 1 1 360px; min-width: 0; position: sticky; top: 24px;">
+          <div class="card-raised" style="padding: 22px; display: flex; flex-direction: column; gap: 16px;">
+            <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px;">
+              <h2 id="fb-box" class="t-h3">Your box</h2>
+              <sc-if value="{{hasPicks}}" hint-placeholder-val="{{true}}"><button type="button" class="btn btn-ghost btn-sm" style="min-height: 36px; padding: 0 10px;" onClick="{{clearBox}}">Clear</button></sc-if>
+            </div>
+
+            <sc-if value="{{clearedUndo}}" hint-placeholder-val="{{false}}">
+              <div role="status" style="display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 8px 8px 14px; border-radius: var(--r-sm); background: var(--muted-bg);">
+                <p class="t-sm">{{undoText}}</p>
+                <button type="button" class="btn btn-soft btn-sm" style="min-height: 36px;" onClick="{{undo}}">Undo</button>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{isEmpty}}" hint-placeholder-val="{{false}}">
+              <div class="well" style="padding: 28px 18px; text-align: center;">
+                <p class="t-strong" style="font-weight: 600;">Your box is empty</p>
+                <p class="t-sm t-muted" style="margin-top: 4px;">Add items from the list, or start from a ready box.</p>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{hasPicks}}" hint-placeholder-val="{{true}}">
+              <ul aria-label="Items in your box">
+                <sc-for list="{{picks}}" as="pk" hint-placeholder-count="4">
+                  <li style="display: flex; align-items: center; gap: 10px; padding-block: 10px; border-top: 1px solid var(--line);">
+                    <img src="{{pk.img}}" alt="" width="32" height="32" style="flex: none;">
+                    <p style="flex: 1; min-width: 0; font-size: 14px; line-height: 1.35;"><b class="t-strong" style="font-weight: 600;">{{pk.name}}</b><br><span class="t-muted num">{{pk.unit}} × {{pk.qty}}</span></p>
+                    <div class="fb-mini" role="group" aria-label="{{pk.groupLabel}}">
+                      <button type="button" aria-label="{{pk.decLabel}}" onClick="{{pk.dec}}">−</button>
+                      <span class="qty">{{pk.qty}}</span>
+                      <button type="button" aria-label="{{pk.incLabel}}" onClick="{{pk.inc}}">+</button>
+                    </div>
+                    <p class="price num" style="width: 52px; text-align: right; font-size: 14px;">{{pk.totalText}}</p>
+                  </li>
+                </sc-for>
+              </ul>
+              <dl class="num" style="display: grid; gap: 6px; padding-top: 12px; border-top: 1px solid var(--line-strong);">
+                <div style="display: flex; justify-content: space-between; gap: 12px; font-size: 14px; color: var(--text-muted);"><dt>Items</dt><dd>{{countText}}</dd></div>
+                <div style="display: flex; justify-content: space-between; gap: 12px; font-size: 19px; font-weight: 700; color: var(--text-strong);"><dt>Today’s price</dt><dd>{{totalText}}</dd></div>
+              </dl>
+            </sc-if>
+
+            <form noValidate onSubmit="{{save}}" style="display: flex; flex-direction: column; gap: 12px;">
+              <div class="field">
+                <label for="fb-name" class="label">Name this box</label>
+                <input id="fb-name" class="input" type="text" name="box-name" autocomplete="off" maxlength="40" placeholder="Like Weekly basics…" value="{{boxName}}" onChange="{{onName}}" aria-invalid="{{nameInvalid}}" aria-describedby="fb-name-msg">
+                <p id="fb-name-msg" aria-live="polite">
+                  <sc-if value="{{nameEmpty}}" hint-placeholder-val="{{false}}"><span class="error">Give your box a name so you can find it again.</span></sc-if>
+                  <sc-if value="{{nameTaken}}" hint-placeholder-val="{{false}}"><span class="error">You already have a box called “{{boxName}}”. Choose another name, or edit that box from the list below.</span></sc-if>
+                  <sc-if value="{{boxEmptyErr}}" hint-placeholder-val="{{false}}"><span class="error">Add at least one item before saving.</span></sc-if>
+                </p>
+              </div>
+              <button type="button" class="btn btn-primary btn-lg btn-block" onClick="{{addToBasket}}" disabled="{{isEmpty}}">{{addText}}</button>
+              <button type="submit" class="btn btn-outline btn-block">Save box</button>
+              <p aria-live="polite">
+                <sc-if value="{{saved}}" hint-placeholder-val="{{false}}"><span class="ok">{{savedVerb}} “{{savedName}}”. It’s in My account, under Saved Farm Boxes.</span></sc-if>
+                <sc-if value="{{added}}" hint-placeholder-val="{{false}}"><span class="ok">Box added to your basket. <a href="Cart.dc.html" style="color: inherit;">View basket</a></span></sc-if>
+              </p>
+            </form>
+            <p class="t-xs t-muted">A saved box keeps your picks, not today’s prices. Out-of-stock items are left out when you reorder, and never swapped without asking.</p>
+            <a href="Subscriptions.dc.html" class="t-sm" style="font-weight: 600;">Want this every week? Put it on a subscription</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section aria-labelledby="fb-saved" class="wrap section-sm">
+      <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px;">
+        <h2 id="fb-saved" class="t-h2">Your saved boxes</h2>
+        <a href="Account.dc.html" class="t-sm" style="font-weight: 600;">Manage in My account</a>
+      </div>
+      <ul style="margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px;">
+        <sc-for list="{{savedBoxes}}" as="sb" hint-placeholder-count="2">
+          <li class="card" style="padding: 18px 20px; display: flex; flex-direction: column; gap: 8px;">
+            <h3 class="t-h4">{{sb.name}}</h3>
+            <p class="t-sm t-muted">{{sb.items}}</p>
+            <p class="t-sm num"><b class="price">{{sb.priceText}}</b> <span class="t-muted">today · {{sb.last}}</span></p>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px;">
+              <button type="button" class="btn btn-primary btn-sm" onClick="{{sb.add}}" aria-label="{{sb.addLabel}}">Add to basket</button>
+              <button type="button" class="btn btn-ghost btn-sm" onClick="{{sb.load}}" aria-label="{{sb.loadLabel}}">Edit in builder</button>
+            </div>
+          </li>
+        </sc-for>
+      </ul>
+    </section>
+
+    <section aria-labelledby="fb-compare" class="wrap section-sm">
+      <h2 id="fb-compare" class="t-h2">Store, Farm Box or subscription?</h2>
+      <p class="t-muted" style="margin-top: 6px; max-width: 46em;">All three use the same stock and can share one basket and one delivery.</p>
+      <div style="margin-top: 22px; overflow-x: auto;">
+        <table class="table cmp" style="min-width: 680px;">
+          <caption class="sr-only">How the three ways to shop compare</caption>
+          <thead>
+            <tr><th scope="col"><span class="sr-only">Feature</span></th><th scope="col">Store packs</th><th scope="col" style="color: var(--accent-text);">Farm Box</th><th scope="col">Subscription</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Who chooses</th><td>You, one pack at a time</td><td class="us">You, the whole box</td><td>You, up to the plan’s allowance</td></tr>
+            <tr><th scope="row">Minimum</th><td class="num">₹199 per order</td><td class="us">None for the box. The order still needs ₹199.</td><td class="num">From ₹499 a week</td></tr>
+            <tr><th scope="row">Price</th><td>Today’s price</td><td class="us">Today’s price</td><td>Fixed plan price</td></tr>
+            <tr><th scope="row">Repeats</th><td>No</td><td class="us">When you reorder it</td><td>Every week or month, edit before cut-off</td></tr>
+            <tr><th scope="row">Best for</th><td>Top-ups and one-offs</td><td class="us">A list you buy again and again</td><td>A steady weekly kitchen</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section aria-labelledby="fb-faq" class="wrap" style="padding-bottom: clamp(56px, 7vw, 96px);">
+      <h2 id="fb-faq" class="t-h2">Farm Box questions</h2>
+      <div style="margin-top: 16px; max-width: 820px; border-top: 1px solid var(--line);">
+        <details class="acc"><summary>Is there a minimum for a box?</summary><div class="acc-body"><p>No. A box can be one bunch of coriander. Your whole order still needs to reach ₹199, and delivery is free from ₹499.</p></div></details>
+        <details class="acc"><summary>Can I change a saved box?</summary><div class="acc-body"><p>Yes. Choose Edit in builder, change anything, and save it with the same name to replace it, or a new name to keep both.</p></div></details>
+        <details class="acc"><summary>What if something in my box is out of stock?</summary><div class="acc-body"><p>We leave it out and you aren’t charged for it. We never swap an item without asking you first.</p></div></details>
+        <details class="acc"><summary>Can a box arrive every week by itself?</summary><div class="acc-body"><p>Yes, through a <a href="Subscriptions.dc.html">subscription</a>. Pick a plan and fill it with the same items each week.</p></div></details>
+      </div>
+    </section>
+  </main>
+
+  <dc-import name="Footer" dark="{{dark}}" hint-size="100%,760px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":4400}}'>
+class Component extends DCLogic {
+  focusError(sel) {
+    setTimeout(() => {
+      const el = document.querySelector(sel || '.gb [aria-invalid="true"]');
+      if (el && el.focus) el.focus();
+    }, 0);
+  }
+
+  constructor(...args) {
+    super(...args);
+    this.state = {
+      cat: 'veg', query: '',
+      picks: { tomato: 1, onion: 2, spinach: 1, methi: 1, coriander: 1, peas: 1 },
+      boxName: '', nameEmpty: false, nameTaken: false, boxEmptyErr: false,
+      saved: false, savedName: '', savedVerb: 'Saved', editing: null, added: false, notified: {}, undoPicks: null, undoText: '', announce: ''
+    };
+  }
+
+  rows() {
+    return [
+      ['tomato', 'veg', 'Tomato', 'टमाटर', '1 kg', 40, 'in', '90234e112587bcb63afe69728f9038ca'],
+      ['onion', 'veg', 'Onion', 'प्याज़', '1 kg', 45, 'in', '1684583e7b1031c43645cbd222ff8d0d'],
+      ['potato', 'veg', 'Potato', 'आलू', '1 kg', 30, 'in', '0665993fcaf8a6b84a0bae1442b3275a'],
+      ['carrot', 'veg', 'Carrot', 'गाजर', '500 g', 30, 'in', '99f9649155ba9e54671aa750df2ac8bf'],
+      ['okra', 'veg', 'Okra', 'भिंडी', '500 g', 35, 'in', '5bc8dcee307c27bd019357e52ebc8622'],
+      ['cauliflower', 'veg', 'Cauliflower', 'गोभी', '1 pc', 40, 'in', '87391db060b820345c97945df91fdf38'],
+      ['cabbage', 'veg', 'Cabbage', 'पत्ता गोभी', '1 pc', 30, 'in', 'd1ad49bece09ba7e232593354a93fefd'],
+      ['brinjal', 'veg', 'Brinjal', 'बैंगन', '500 g', 30, 'in', '46978ecafb0bda958b2c1cc694863247'],
+      ['capsicum', 'veg', 'Capsicum', 'शिमला मिर्च', '250 g', 25, 'in', '3a13a0c46dda2bec27b66f58476203e6'],
+      ['cucumber', 'veg', 'Cucumber', 'खीरा', '500 g', 25, 'in', '175931b7916d79898c6002b8a6cbb618'],
+      ['peas', 'veg', 'Green peas', 'मटर', '500 g', 60, 'in', '99d528df8f7004e9085c7f2e546e04b7'],
+      ['gourd', 'veg', 'Bottle gourd', 'लौकी', '1 pc', 35, 'out', 'c551e019ed7ec3e63d6767a71328c3aa'],
+      ['ginger', 'veg', 'Ginger', 'अदरक', '100 g', 18, 'in', '1932feaa1fef036c4f9bb795103d9d8e'],
+      ['garlic', 'veg', 'Garlic', 'लहसुन', '100 g', 25, 'in', '06add378e1fe0e411db7b2871f613b8f'],
+      ['chilli', 'veg', 'Green chilli', 'हरी मिर्च', '100 g', 10, 'in', 'cee1cb3f5f1baed9733148199dd08bcf'],
+      ['spinach', 'greens', 'Spinach', 'पालक', '1 bunch', 20, 'in', 'd7b00861d43b60387799340029aefdd9'],
+      ['methi', 'greens', 'Fenugreek', 'मेथी', '1 bunch', 15, 'in', '0e0c61ea89660ecc92ca466f7b232d85'],
+      ['sarson', 'greens', 'Mustard greens', 'सरसों का साग', '500 g', 30, 'in', 'f3730179c06a1d1d53d8373b8d8c1671'],
+      ['coriander', 'greens', 'Coriander', 'धनिया', '1 bunch', 10, 'in', '591d27931e70b0646c12012b692f0728'],
+      ['mint', 'greens', 'Mint', 'पुदीना', '1 bunch', 10, 'in', 'e9783c31faff466044eeb9b6b54a7cec'],
+      ['curry', 'greens', 'Curry leaves', 'करी पत्ता', '1 bunch', 10, 'in', '9440e2e56fcb68d3772bcd8bcea161a5'],
+      ['banana', 'fruit', 'Banana', 'केला', '6 pcs', 45, 'in', '590b099cfdb53ca100dc3bed19c350d7'],
+      ['apple', 'fruit', 'Apple, Shimla', 'सेब', '1 kg', 140, 'in', '8581b06e9c225f563a590d141aab53d4'],
+      ['pomegranate', 'fruit', 'Pomegranate', 'अनार', '500 g', 90, 'in', 'b86b503ad231db0343ee9b4e92d93cde'],
+      ['guava', 'fruit', 'Guava', 'अमरूद', '500 g', 40, 'in', '82a29c90957eb1aff44cb26d6d2ac079'],
+      ['papaya', 'fruit', 'Papaya', 'पपीता', '1 pc', 60, 'in', '098e97ad4e8646df20e3263842c5981d'],
+      ['kinnow', 'fruit', 'Kinnow', 'किन्नू', '1 kg', 70, 'in', 'fd2079b5997095279838843a25a8bb23'],
+      ['sweetlime', 'fruit', 'Sweet lime', 'मौसमी', '1 kg', 80, 'in', 'c3cd753725215358867f33c1c98e1a6c'],
+      ['lemon', 'fruit', 'Lemon', 'नींबू', '250 g', 30, 'in', 'f1a2386feb02283967fd240b543fe554'],
+      ['pear', 'fruit', 'Pear', 'नाशपाती', '500 g', 60, 'in', '8c12cb497b2b1bd5c2e981e964bf418a'],
+      ['grapes', 'fruit', 'Grapes', 'अंगूर', '500 g', 80, 'out', '487a4517f37e0d2f9c047211890d4827'],
+      ['broccoli', 'exotic', 'Broccoli', 'ब्रोकली', '1 pc', 60, 'in', 'd61ba8ec720798ffd8cefeca8dfef4f9'],
+      ['zucchini', 'exotic', 'Zucchini', 'ज़ुकिनी', '500 g', 70, 'in', 'd2d85fc2b4541e3d38e332e6bbdd2a57'],
+      ['mushroom', 'exotic', 'Button mushroom', 'मशरूम', '200 g', 45, 'in', '58432e7642616e8f7705e8c1a86564b6'],
+      ['cherrytomato', 'exotic', 'Cherry tomato', 'चेरी टमाटर', '200 g', 50, 'in', 'c6dad24929836806f85f635de05f562a'],
+      ['capred', 'exotic', 'Red capsicum', 'लाल शिमला मिर्च', '250 g', 65, 'in', 'd1a0806d7a40b1d3f3afc3fa708c575a'],
+      ['capyellow', 'exotic', 'Yellow capsicum', 'पीली शिमला मिर्च', '250 g', 65, 'in', '765d596025370a1cf60de03802a344e5'],
+      ['avocado', 'exotic', 'Avocado', 'एवोकाडो', '1 pc', 120, 'in', '2447e17cc0ff6aedfa2f5de6e404a4b5'],
+      ['lettuce', 'exotic', 'Iceberg lettuce', 'लेट्यूस', '1 pc', 60, 'in', '7b8bdc87598e05565f598fc2d999c55a']
+    ];
+  }
+
+  renderVals() {
+    const s = this.state;
+    const dark = this.props.dark ?? false;
+    const B = '/_blob/';
+    const rupees = (n) => '₹' + Number(n).toLocaleString('en-IN');
+    const R = {};
+    this.rows().forEach((r) => { R[r[0]] = { id: r[0], cat: r[1], name: r[2], hi: r[3], unit: r[4], price: r[5], stock: r[6], img: B + r[7] }; });
+    const all = Object.keys(R).map((k) => R[k]);
+
+    const setQty = (id, n) => this.setState((st) => {
+      const p = { ...st.picks };
+      if (n <= 0) delete p[id]; else p[id] = n;
+      return { picks: p, saved: false, added: false, boxEmptyErr: false, undoPicks: null, announce: R[id].name + (n <= 0 ? ' removed' : ', ' + n) };
+    });
+    const load = (picks, name, text) => this.setState((st) => ({
+      undoPicks: Object.keys(st.picks).length ? { picks: st.picks, name: st.boxName } : null,
+      undoText: text + '. Your earlier picks were replaced.', picks: { ...picks }, boxName: name, editing: name || null, saved: false, added: false, nameEmpty: false, nameTaken: false, announce: text
+    }));
+
+    const templateDefs = [
+      ['basics', 'Weekly basics', 'Greens and the everyday four for a week of sabzi.', { spinach: 1, methi: 2, carrot: 1, peas: 1 }],
+      ['saag', 'Sarson da saag kit', 'Everything for a pot of saag, bar the makki atta.', { sarson: 2, spinach: 1, methi: 1, ginger: 1, chilli: 1, garlic: 1 }],
+      ['fruit', 'Fruit bowl', 'Five fruits for the family table.', { banana: 1, apple: 1, guava: 1, pomegranate: 1, papaya: 1 }],
+      ['salad', 'Salad box', 'Crunchy, bright and ready to chop.', { cucumber: 1, cherrytomato: 1, lettuce: 1, capred: 1, lemon: 1, mint: 1 }]
+    ];
+    const priceOf = (picks) => Object.keys(picks).reduce((n, k) => n + R[k].price * picks[k], 0);
+    const countOf = (picks) => Object.keys(picks).reduce((n, k) => n + picks[k], 0);
+    const templates = templateDefs.map((t) => ({
+      name: t[1], desc: t[2], priceText: rupees(priceOf(t[3])), countText: Object.keys(t[3]).length + ' items',
+      thumbs: Object.keys(t[3]).slice(0, 4).map((k) => R[k].img),
+      useLabel: 'Use the ' + t[1] + ' box',
+      use: () => load(t[3], '', 'Loaded ' + t[1])
+    }));
+
+    const catDefs = [['all', 'All'], ['veg', 'Vegetables'], ['greens', 'Greens'], ['fruit', 'Fruit'], ['exotic', 'Exotic']];
+    const q = s.query.trim().toLowerCase();
+    const matchQ = (r) => !q || r.name.toLowerCase().includes(q) || r.hi.includes(s.query.trim()) || (q === 'palak' && r.id === 'spinach') || (q === 'tamatar' && r.id === 'tomato');
+    const list = all.filter((r) => (q ? matchQ(r) : (s.cat === 'all' || r.cat === s.cat)));
+    const items = list.map((r) => {
+      const qty = s.picks[r.id] || 0;
+      const out = r.stock === 'out';
+      const notified = !!s.notified[r.id];
+      return {
+        name: r.name, hi: r.hi, unit: r.unit, img: r.img, priceText: rupees(r.price), qty: String(qty),
+        cls: qty ? 'picked' : '', imgOpacity: out ? '0.45' : '1',
+        canAdd: !out && !qty, picked: !out && qty > 0, isOut: out,
+        notified, notifyText: notified ? 'We’ll tell you' : 'Notify me',
+        notify: () => this.setState((st) => ({ notified: { ...st.notified, [r.id]: true }, announce: 'We’ll tell you when ' + r.name + ' is back' })),
+        add: () => setQty(r.id, 1), inc: () => setQty(r.id, qty + 1), dec: () => setQty(r.id, qty - 1),
+        addLabel: 'Add ' + r.name + ' to your box', incLabel: 'One more ' + r.name, decLabel: qty === 1 ? 'Remove ' + r.name : 'One less ' + r.name,
+        groupLabel: r.name + ' in your box, ' + qty
+      };
+    });
+    const cats = catDefs.map((c) => ({
+      label: c[1], count: String(c[0] === 'all' ? all.length : all.filter((r) => r.cat === c[0]).length),
+      on: String(!q && s.cat === c[0]), pick: () => this.setState({ cat: c[0], query: '' })
+    }));
+
+    const pickIds = Object.keys(s.picks);
+    const total = priceOf(s.picks);
+    const count = countOf(s.picks);
+    const picks = pickIds.map((k) => {
+      const r = R[k];
+      const qn = s.picks[k];
+      return {
+        name: r.name, unit: r.unit, img: r.img, qty: String(qn), totalText: rupees(r.price * qn),
+        inc: () => setQty(k, qn + 1), dec: () => setQty(k, qn - 1),
+        incLabel: 'One more ' + r.name, decLabel: qn === 1 ? 'Remove ' + r.name : 'One less ' + r.name, groupLabel: r.name + ', ' + qn
+      };
+    });
+
+    const existing = ['weekly basics', 'sunday sarson da saag'];
+    const savedDefs = [
+      ['Weekly basics', 'Spinach, fenugreek × 2, carrot 500 g, green peas 500 g', { spinach: 1, methi: 2, carrot: 1, peas: 1 }, 'last ordered 14 Oct'],
+      ['Sunday sarson da saag', 'Mustard greens 1 kg, spinach, fenugreek, ginger, green chilli, garlic', { sarson: 2, spinach: 1, methi: 1, ginger: 1, chilli: 1, garlic: 1 }, 'last ordered 4 Oct']
+    ];
+    const savedBoxes = savedDefs.map((b) => ({
+      name: b[0], items: b[1], priceText: rupees(priceOf(b[2])), last: b[3],
+      addLabel: 'Add ' + b[0] + ' to basket', loadLabel: 'Edit ' + b[0] + ' in the builder',
+      add: () => this.setState({ added: true, saved: false, announce: b[0] + ' added to basket' }),
+      load: () => load(b[2], b[0], 'Loaded ' + b[0])
+    }));
+
+    return {
+      dark,
+      themeClass: dark ? 'dark' : '',
+      cartCount: s.added ? '4' : '3',
+      cartTotal: s.added ? rupees(290 + total) : '₹290',
+      announce: s.announce,
+      templates,
+      cats,
+      query: s.query,
+      onQuery: (e) => this.setState({ query: e.target.value }),
+      clearQuery: () => this.setState({ query: '' }),
+      noResults: items.length === 0,
+      items,
+      hasPicks: pickIds.length > 0,
+      isEmpty: pickIds.length === 0,
+      picks,
+      countText: count + (count === 1 ? ' pack' : ' packs'),
+      totalText: rupees(total),
+      addText: pickIds.length ? 'Add box to basket · ' + rupees(total) : 'Add box to basket',
+      clearBox: () => this.setState((st) => ({ undoPicks: { picks: st.picks, name: st.boxName }, undoText: 'Box cleared.', picks: {}, saved: false, added: false, announce: 'Box cleared' })),
+      clearedUndo: !!s.undoPicks,
+      undoText: s.undoText,
+      undo: () => this.setState((st) => ({ picks: st.undoPicks.picks, boxName: st.undoPicks.name, undoPicks: null, announce: 'Restored your picks' })),
+      boxName: s.boxName,
+      onName: (e) => this.setState({ boxName: e.target.value, nameEmpty: false, nameTaken: false, saved: false }),
+      nameEmpty: s.nameEmpty,
+      nameTaken: s.nameTaken,
+      boxEmptyErr: s.boxEmptyErr,
+      nameInvalid: s.nameEmpty || s.nameTaken ? 'true' : 'false',
+      save: (e) => {
+        e.preventDefault();
+        const n = s.boxName.trim();
+        if (!pickIds.length) return this.setState({ boxEmptyErr: true });
+        if (!n) { this.setState({ nameEmpty: true }); return this.focusError('#fb-name'); }
+        const replacing = !!s.editing && s.editing.toLowerCase() === n.toLowerCase();
+        if (existing.includes(n.toLowerCase()) && !replacing) { this.setState({ nameTaken: true }); return this.focusError('#fb-name'); }
+        this.setState({ saved: true, savedName: n, savedVerb: replacing ? 'Updated' : 'Saved', added: false, announce: (replacing ? 'Updated ' : 'Saved ') + n });
+      },
+      saved: s.saved,
+      savedName: s.savedName,
+      savedVerb: s.savedVerb || 'Saved',
+      addToBasket: () => this.setState({ added: true, saved: false, announce: 'Box added to basket' }),
+      added: s.added,
+      savedBoxes
+    };
+  }
+}
+</script>
+</body>
+</html>

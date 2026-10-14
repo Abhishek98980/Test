@@ -1,0 +1,1206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>My account · Greeen Basket</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="gb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600&amp;family=Rubik:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+.acct-nav button{display:flex;align-items:center;gap:12px;width:100%;min-height:46px;padding:0 14px;border:0;border-radius:var(--r-sm);background:transparent;color:var(--text);font-size:15px;font-weight:500;text-align:left;transition:background-color 160ms ease-out,color 160ms ease-out}
+.acct-nav button[aria-current="page"]{background:var(--well-strong);color:var(--text-strong);font-weight:600}
+.acct-nav button[aria-current="page"] svg{color:var(--accent-text)}
+.acct-nav svg{flex:none;color:var(--text-muted)}
+@media (hover:hover){.acct-nav button:hover{background:var(--muted-bg);color:var(--text-strong)}.acct-nav button[aria-current="page"]:hover{background:var(--well-strong)}}
+.tl{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.tl li{display:flex;flex-direction:column;gap:8px;min-width:0}
+.tl .bar{height:4px;border-radius:999px}
+.thumbs{display:flex}
+.thumbs > span{width:44px;height:44px;margin-left:-8px;border-radius:999px;background:var(--well);box-shadow:0 0 0 2px var(--surface);display:inline-flex;align-items:center;justify-content:center;flex:none}
+.thumbs > span:first-child{margin-left:0}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px 24px}
+.kv dt{font-size:13px;color:var(--text-muted);font-weight:500}
+.kv dd{font-size:15px;color:var(--text-strong);font-weight:500;margin-top:2px}
+</style>
+</helmet>
+<div class="gb {{themeClass}}" style="min-height: 100%; background: var(--bg); color: var(--text); font-family: Rubik, 'Noto Sans Devanagari', system-ui, sans-serif;">
+  <dc-import name="Header" active="none" dark="{{dark}}" cart-count="{{cartCount}}" cart-total="{{cartTotal}}" hint-size="100%,190px"></dc-import>
+
+  <main id="main" class="wrap" style="padding-block: 40px 88px;">
+    <p aria-live="polite" class="sr-only">{{announce}}</p>
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 32px 48px;">
+
+      <aside aria-label="Your account" style="flex: 1 1 248px; min-width: 0; display: flex; flex-direction: column; gap: 16px;">
+        <div class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 18px;">
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <span aria-hidden="true" style="flex: none; width: 52px; height: 52px; border-radius: 999px; background: var(--accent-soft); color: var(--on-accent-soft); display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; letter-spacing: 0.02em;">SK</span>
+            <div style="min-width: 0;">
+              <p class="t-strong" style="font-weight: 600; font-size: 17px; line-height: 1.3;">{{name}}</p>
+              <p class="t-sm t-muted num">+91 98765 43210</p>
+            </div>
+          </div>
+          <nav aria-label="Account sections" class="acct-nav">
+            <ul style="display: grid; gap: 2px;">
+              <sc-for list="{{tabs}}" as="t" hint-placeholder-count="5">
+                <li>
+                  <button type="button" aria-current="{{t.current}}" onClick="{{t.go}}">
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="{{t.icon}}"></path></svg>
+                    <span style="flex: 1; min-width: 0;">{{t.label}}</span>
+                    <sc-if value="{{t.hasCount}}" hint-placeholder-val="{{false}}"><span class="badge num">{{t.count}}</span></sc-if>
+                  </button>
+                </li>
+              </sc-for>
+            </ul>
+          </nav>
+          <hr class="hr">
+          <button type="button" class="btn btn-ghost btn-sm" style="justify-content: flex-start; padding: 0 14px;" onClick="{{signOut}}">Sign out</button>
+        </div>
+        <div class="well" style="padding: 16px 18px;">
+          <p class="t-sm"><b class="t-strong">Need a hand?</b> WhatsApp us at <span class="ph">[SUPPORT PHONE]</span>, <span class="ph">[SUPPORT HOURS]</span>.</p>
+          <a href="Contact.dc.html" class="t-sm" style="display: inline-block; margin-top: 6px; font-weight: 600;">Contact us</a>
+        </div>
+      </aside>
+
+      <div style="flex: 999 1 620px; min-width: 0;">
+
+        <!-- Overview -->
+        <sc-if value="{{isOverview}}" hint-placeholder-val="{{true}}">
+          <section aria-labelledby="acct-h-overview" style="display: flex; flex-direction: column; gap: 28px;">
+            <div>
+              <h1 id="acct-h-overview" class="t-h1">Hi, {{firstName}}</h1>
+              <p class="t-muted" style="margin-top: 6px;">Your next delivery, your plan and recent orders.</p>
+            </div>
+
+            <sc-if value="{{signedOut}}" hint-placeholder-val="{{false}}">
+              <p role="status" class="t-sm" style="padding: 12px 16px; border-radius: var(--r-md); background: var(--muted-bg);">In a real session you’d now be signed out and back on the home page. <a href="Main.dc.html">Go to home</a></p>
+            </sc-if>
+
+            <article aria-labelledby="acct-next" style="padding: clamp(24px, 3.5vw, 36px); border-radius: var(--r-xl); background: var(--band); color: var(--on-band); display: flex; flex-direction: column; gap: 22px;">
+              <div style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 12px 24px;">
+                <div>
+                  <p class="t-sm" style="color: var(--on-band-muted); font-weight: 500;">Next delivery</p>
+                  <h2 id="acct-next" class="t-h2 num" style="color: var(--on-band); margin-top: 4px;">Today, 4–6&nbsp;PM</h2>
+                  <p class="num" style="margin-top: 6px; color: var(--on-band-muted);">Order GB-24871 · 6 items · ₹796 · Home, Sector 22-B</p>
+                </div>
+                <span class="badge badge-leaf" style="font-size: 13px; padding: 5px 12px;">Packed</span>
+              </div>
+              <ol class="tl" aria-label="Order progress">
+                <sc-for list="{{nextSteps}}" as="st" hint-placeholder-count="4">
+                  <li aria-current="{{st.current}}">
+                    <span class="bar" style="background: {{st.bar}};"></span>
+                    <span class="t-sm" style="font-weight: 600; color: {{st.color}};">{{st.label}}</span>
+                    <span class="t-xs num" style="color: var(--on-band-muted);">{{st.time}}</span>
+                  </li>
+                </sc-for>
+              </ol>
+              <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                <button type="button" class="btn btn-primary" onClick="{{trackNext}}">Track order</button>
+                <a href="Contact.dc.html" class="btn" style="color: var(--on-band); border-color: var(--on-band-muted);">Change something</a>
+              </div>
+              <p class="t-xs" style="color: var(--on-band-muted);">Packed orders can’t be edited online. Message us and we’ll do what we can before the rider leaves.</p>
+            </article>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+              <div class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 8px;">
+                <h2 class="t-sm t-muted" style="font-weight: 500; color: var(--text-muted);">Store credit</h2>
+                <p class="num" style="font-size: 34px; line-height: 1.1; font-weight: 600; letter-spacing: -0.02em; color: var(--text-strong);">₹45</p>
+                <p class="t-sm t-muted">From a refund on 8 Oct. Use it at checkout on any order.</p>
+                <a href="FAQ.dc.html#credit" class="t-sm" style="margin-top: auto; font-weight: 600;">How store credit works</a>
+              </div>
+              <div class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 8px;">
+                <h2 class="t-sm" style="font-weight: 500; color: var(--text-muted);">Subscription</h2>
+                <p class="t-h4">Weekly veg plan <span class="badge" style="vertical-align: 3px; margin-left: 4px;">{{subBadge}}</span></p>
+                <p class="t-sm t-muted num">Next: Thu 15 Oct, 8–10&nbsp;AM</p>
+                <p class="t-sm" style="padding: 6px 10px; border-radius: var(--r-xs); background: var(--warning-soft); color: var(--warning); font-weight: 500; align-self: flex-start;">Edit by 10 PM tonight</p>
+                <button type="button" class="btn btn-soft btn-sm" style="margin-top: auto; align-self: flex-start;" onClick="{{goSub}}">Edit this week’s basket</button>
+              </div>
+              <div class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 8px;">
+                <h2 class="t-sm" style="font-weight: 500; color: var(--text-muted);">Saved Farm Boxes</h2>
+                <p class="t-h4 num">{{boxCountText}}</p>
+                <p class="t-sm t-muted">{{boxNames}}</p>
+                <button type="button" class="btn btn-soft btn-sm" style="margin-top: auto; align-self: flex-start;" onClick="{{goBoxes}}">See your boxes</button>
+              </div>
+            </div>
+
+            <section aria-labelledby="acct-recent">
+              <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px;">
+                <h2 id="acct-recent" class="t-h3">Recent orders</h2>
+                <button type="button" class="btn btn-ghost btn-sm" onClick="{{goOrders}}">All orders</button>
+              </div>
+              <sc-if value="{{hasReorderMsg}}" hint-placeholder-val="{{false}}">
+                <div role="status" style="margin-top: 12px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; padding: 12px 16px; border-radius: var(--r-md); background: var(--success-soft); color: var(--success);">
+                  <p class="t-sm" style="font-weight: 500;">{{reorderMsg}}</p>
+                  <a href="Cart.dc.html" class="t-sm" style="font-weight: 600; color: var(--success);">Go to basket</a>
+                </div>
+              </sc-if>
+              <ul style="margin-top: 12px;">
+                <sc-for list="{{recent}}" as="o" hint-placeholder-count="3">
+                  <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; padding-block: 16px; border-top: 1px solid var(--line);">
+                    <span class="thumbs" aria-hidden="true">
+                      <sc-for list="{{o.thumbs}}" as="th" hint-placeholder-count="3"><span><img src="{{th}}" alt="" width="30" height="30"></span></sc-for>
+                    </span>
+                    <div style="flex: 1 1 220px; min-width: 0;">
+                      <p class="num" style="font-weight: 600; color: var(--text-strong);">{{o.id}} <span class="badge {{o.badgeCls}}" style="margin-left: 6px; vertical-align: 2px;">{{o.status}}</span></p>
+                      <p class="t-sm t-muted num">{{o.when}} · {{o.count}} items · {{o.totalText}}</p>
+                    </div>
+                    <div style="display: flex; gap: 6px;">
+                      <button type="button" class="btn btn-ghost btn-sm" onClick="{{o.details}}" aria-label="{{o.detailsLabel}}">Details</button>
+                      <sc-if value="{{o.canReorder}}" hint-placeholder-val="{{true}}"><button type="button" class="btn btn-soft btn-sm" onClick="{{o.reorder}}" aria-label="{{o.reorderLabel}}">Reorder</button></sc-if>
+                    </div>
+                  </li>
+                </sc-for>
+              </ul>
+            </section>
+          </section>
+        </sc-if>
+
+        <!-- Orders -->
+        <sc-if value="{{isOrders}}" hint-placeholder-val="{{false}}">
+          <section aria-labelledby="acct-h-orders" style="display: flex; flex-direction: column; gap: 24px;">
+            <div>
+              <h1 id="acct-h-orders" class="t-h1">Orders</h1>
+              <p class="t-muted" style="margin-top: 6px;">Track, cancel, reschedule or report a problem. Invoices are here too.</p>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px;">
+              <div class="seg" role="group" aria-label="Show orders">
+                <sc-for list="{{filters}}" as="f" hint-placeholder-count="3">
+                  <button type="button" aria-pressed="{{f.on}}" onClick="{{f.pick}}">{{f.label}} <span class="num t-muted" style="font-weight: 500;">{{f.count}}</span></button>
+                </sc-for>
+              </div>
+              <div class="field" style="flex: 0 1 300px;">
+                <label for="acct-find" class="sr-only">Find an order</label>
+                <input id="acct-find" class="input input-pill" type="search" name="order-search" autocomplete="off" spellcheck="false" placeholder="Order number or item…" value="{{query}}" onChange="{{onQuery}}">
+              </div>
+            </div>
+
+            <sc-if value="{{noOrders}}" hint-placeholder-val="{{false}}">
+              <div class="well" style="padding: 40px 24px; text-align: center;">
+                <p class="t-h4">No orders match “{{query}}”</p>
+                <p class="t-sm t-muted" style="margin-top: 6px;">Try an order number like GB-24790, or an item like tomato.</p>
+                <button type="button" class="btn btn-soft btn-sm" style="margin-top: 14px;" onClick="{{clearQuery}}">Show all orders</button>
+              </div>
+            </sc-if>
+
+            <ul style="display: flex; flex-direction: column; gap: 16px;">
+              <sc-for list="{{orders}}" as="o" hint-placeholder-count="4">
+                <li>
+                  <article aria-labelledby="{{o.hid}}" class="card" style="padding: 20px 22px; display: flex; flex-direction: column; gap: 16px;">
+                    <div style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 8px 20px;">
+                      <div>
+                        <h2 id="{{o.hid}}" class="t-h4 num">{{o.id}} <span class="badge {{o.badgeCls}}" style="margin-left: 6px; vertical-align: 2px;">{{o.status}}</span></h2>
+                        <p class="t-sm t-muted num">Placed {{o.placed}}</p>
+                      </div>
+                      <p class="price" style="font-size: 19px;">{{o.totalText}}</p>
+                    </div>
+                    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px;">
+                      <span class="thumbs" aria-hidden="true">
+                        <sc-for list="{{o.thumbs}}" as="th" hint-placeholder-count="4"><span><img src="{{th}}" alt="" width="30" height="30"></span></sc-for>
+                      </span>
+                      <dl class="t-sm num" style="display: flex; flex-wrap: wrap; gap: 4px 18px;">
+                        <div><dt class="sr-only">Delivery</dt><dd><b class="t-strong" style="font-weight: 600;">{{o.slot}}</b></dd></div>
+                        <div><dt class="sr-only">Address</dt><dd class="t-muted">{{o.address}}</dd></div>
+                        <div><dt class="sr-only">Payment</dt><dd class="t-muted">{{o.pay}}</dd></div>
+                      </dl>
+                    </div>
+                    <p class="t-sm" style="padding: 10px 14px; border-radius: var(--r-sm); background: {{o.noteBg}}; color: {{o.noteFg}};">{{o.note}}</p>
+
+                    <sc-if value="{{o.open}}" hint-placeholder-val="{{false}}">
+                      <div style="display: flex; flex-direction: column; gap: 16px; padding-top: 4px;">
+                        <sc-if value="{{o.hasTrack}}" hint-placeholder-val="{{false}}">
+                          <ol class="tl" aria-label="Order progress">
+                            <sc-for list="{{o.track}}" as="st" hint-placeholder-count="4">
+                              <li aria-current="{{st.current}}">
+                                <span class="bar" style="background: {{st.bar}};"></span>
+                                <span class="t-sm" style="font-weight: 600; color: {{st.color}};">{{st.label}}</span>
+                                <span class="t-xs t-muted num">{{st.time}}</span>
+                              </li>
+                            </sc-for>
+                          </ol>
+                        </sc-if>
+                        <ul class="t-sm num" aria-label="Items">
+                          <sc-for list="{{o.lines}}" as="l" hint-placeholder-count="3">
+                            <li style="display: flex; justify-content: space-between; gap: 12px; padding-block: 8px; border-top: 1px solid var(--line);"><span><b class="t-strong" style="font-weight: 500;">{{l.name}}</b> <span class="t-muted">{{l.qty}}</span></span><span>{{l.price}}</span></li>
+                          </sc-for>
+                          <li style="display: flex; justify-content: space-between; gap: 12px; padding-block: 8px; border-top: 1px solid var(--line); color: var(--text-muted);"><span>Delivery</span><span>{{o.deliveryText}}</span></li>
+                          <li style="display: flex; justify-content: space-between; gap: 12px; padding-block: 10px; border-top: 1px solid var(--line-strong); font-weight: 700; color: var(--text-strong);"><span>Total</span><span>{{o.totalText}}</span></li>
+                        </ul>
+                      </div>
+                    </sc-if>
+
+                    <!-- Cancel -->
+                    <sc-if value="{{o.cancelOpen}}" hint-placeholder-val="{{false}}">
+                      <form noValidate onSubmit="{{o.confirmCancel}}" class="well" style="padding: 18px 20px; display: flex; flex-direction: column; gap: 14px;" aria-labelledby="{{o.cancelHid}}">
+                        <h3 id="{{o.cancelHid}}" class="t-h4">Cancel {{o.id}}?</h3>
+                        <p class="t-sm">{{o.cancelText}}</p>
+                        <div class="field" style="max-width: 360px;">
+                          <label for="{{o.reasonId}}" class="label">Why are you cancelling? <span class="opt">(optional)</span></label>
+                          <select id="{{o.reasonId}}" class="input" name="cancel-reason">
+                            <option value="">Choose a reason…</option>
+                            <option>Ordered by mistake</option>
+                            <option>Need a different slot</option>
+                            <option>Want to change items</option>
+                            <option>Something else</option>
+                          </select>
+                        </div>
+                        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                          <button type="submit" class="btn btn-danger">Cancel order</button>
+                          <button type="button" class="btn btn-ghost" onClick="{{o.keep}}">Keep order</button>
+                        </div>
+                      </form>
+                    </sc-if>
+
+                    <!-- Reschedule -->
+                    <sc-if value="{{o.reschedOpen}}" hint-placeholder-val="{{false}}">
+                      <form noValidate onSubmit="{{o.confirmResched}}" class="well" style="padding: 18px 20px; display: flex; flex-direction: column; gap: 14px;">
+                        <fieldset style="border: 0; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px;">
+                          <legend class="t-h4" style="margin-bottom: 12px;">Pick a new slot</legend>
+                          <sc-for list="{{o.slots}}" as="sl" hint-placeholder-count="3">
+                            <label class="choice {{sl.cls}}"><input type="radio" name="resched" value="{{sl.id}}" checked="{{sl.on}}" onChange="{{sl.pick}}"><span><b class="t-strong">{{sl.day}}</b><br><span class="t-sm num">{{sl.time}}</span></span></label>
+                          </sc-for>
+                        </fieldset>
+                        <sc-if value="{{o.reschedErr}}" hint-placeholder-val="{{false}}"><p class="error" role="alert">Choose a slot first.</p></sc-if>
+                        <p class="t-xs t-muted">Rescheduling is free. You pay cash at the door, as before.</p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                          <button type="submit" class="btn btn-primary">Confirm new slot</button>
+                          <button type="button" class="btn btn-ghost" onClick="{{o.closeResched}}">Not now</button>
+                        </div>
+                      </form>
+                    </sc-if>
+
+                    <!-- Report a problem -->
+                    <sc-if value="{{o.reportOpen}}" hint-placeholder-val="{{false}}">
+                      <form noValidate onSubmit="{{submitReport}}" class="well" style="padding: clamp(18px, 2.5vw, 28px); display: flex; flex-direction: column; gap: 20px;" aria-labelledby="acct-report-h">
+                        <div>
+                          <h3 id="acct-report-h" class="t-h4">Report a problem with {{o.id}}</h3>
+                          <p class="t-sm t-muted" style="margin-top: 4px;">Tell us within <span class="ph">[REPORT WINDOW]</span> of delivery. Photos help us sort it faster.</p>
+                        </div>
+                        <fieldset style="border: 0; padding: 0; margin: 0;" aria-describedby="acct-rep-items-err">
+                          <legend class="label" style="margin-bottom: 4px;">Which items?</legend>
+                          <sc-for list="{{reportItems}}" as="ri" hint-placeholder-count="4">
+                            <label class="check" style="opacity: {{ri.opacity}};"><input type="checkbox" name="items" value="{{ri.id}}" checked="{{ri.on}}" disabled="{{ri.disabled}}" onChange="{{ri.toggle}}"><span><b class="t-strong" style="font-weight: 500;">{{ri.name}}</b> <span class="t-muted num">{{ri.qty}}</span><sc-if value="{{ri.disabled}}" hint-placeholder-val="{{false}}"><br><span class="t-xs t-muted">Already refunded on 8 Oct</span></sc-if></span></label>
+                          </sc-for>
+                          <p id="acct-rep-items-err" aria-live="polite"><sc-if value="{{repItemsErr}}" hint-placeholder-val="{{false}}"><span class="error">Tick at least one item.</span></sc-if></p>
+                        </fieldset>
+                        <div class="field" style="max-width: 380px;">
+                          <label for="acct-rep-reason" class="label">What went wrong?</label>
+                          <select id="acct-rep-reason" class="input" name="reason" value="{{repReason}}" onChange="{{onRepReason}}" aria-invalid="{{repReasonInvalid}}" aria-describedby="acct-rep-reason-err">
+                            <option value="">Choose a reason…</option>
+                            <sc-for list="{{repReasons}}" as="rr" hint-placeholder-count="5"><option value="{{rr.id}}">{{rr.label}}</option></sc-for>
+                          </select>
+                          <p id="acct-rep-reason-err" aria-live="polite"><sc-if value="{{repReasonErr}}" hint-placeholder-val="{{false}}"><span class="error">Choose what went wrong.</span></sc-if></p>
+                        </div>
+                        <div class="field">
+                          <span class="label" id="acct-rep-file-l">Photos <span class="opt">{{photoOpt}}</span></span>
+                          <label for="acct-rep-file" style="display: flex; align-items: center; gap: 14px; min-height: 88px; padding: 16px 18px; border: 1.5px dashed {{photoLine}}; border-radius: var(--r-md); background: var(--surface); cursor: pointer;">
+                            <svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex: none; color: var(--accent-text);"><rect x="3" y="5" width="18" height="14" rx="2"></rect><circle cx="12" cy="12" r="3.5"></circle><path d="M8 5l1.5-2h5L16 5"></path></svg>
+                            <span class="t-sm"><b class="t-strong">{{photoText}}</b><br><span class="t-muted">JPG or PNG, up to 3 photos, 5&nbsp;MB each</span></span>
+                          </label>
+                          <input id="acct-rep-file" type="file" name="photos" accept="image/jpeg,image/png" multiple aria-labelledby="acct-rep-file-l" aria-describedby="acct-rep-file-err" class="sr-only" onChange="{{onRepFiles}}">
+                          <p id="acct-rep-file-err" aria-live="polite"><sc-if value="{{repPhotoErr}}" hint-placeholder-val="{{false}}"><span class="error">Add at least one photo for damaged or stale items.</span></sc-if></p>
+                        </div>
+                        <fieldset style="border: 0; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+                          <legend class="label" style="margin-bottom: 10px;">How should we make it right?</legend>
+                          <sc-for list="{{fixes}}" as="fx" hint-placeholder-count="3">
+                            <label class="choice {{fx.cls}}"><input type="radio" name="resolution" value="{{fx.id}}" checked="{{fx.on}}" onChange="{{fx.pick}}"><span><b class="t-strong">{{fx.label}}</b><br><span class="t-sm t-muted">{{fx.sub}}</span></span></label>
+                          </sc-for>
+                        </fieldset>
+                        <div class="field">
+                          <label for="acct-rep-notes" class="label">Anything else? <span class="opt">(optional)</span></label>
+                          <textarea id="acct-rep-notes" class="input" name="notes" autocomplete="off" maxlength="500" placeholder="Like “Half the tomatoes were squashed”…" style="min-height: 104px;" onInput="{{onRepNotes}}" aria-describedby="acct-rep-count"></textarea>
+                          <p id="acct-rep-count" class="hint num" style="text-align: right;">{{repCount}} / 500</p>
+                        </div>
+                        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                          <button type="submit" class="btn btn-primary">Send report</button>
+                          <button type="button" class="btn btn-ghost" onClick="{{closeReport}}">Cancel</button>
+                        </div>
+                      </form>
+                    </sc-if>
+
+                    <sc-if value="{{o.reportSent}}" hint-placeholder-val="{{false}}">
+                      <div role="status" style="display: flex; gap: 12px; padding: 14px 16px; border-radius: var(--r-md); background: var(--success-soft); color: var(--success);">
+                        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 2px;"><circle cx="12" cy="12" r="9"></circle><path d="M8 12l3 3 5-6"></path></svg>
+                        <p class="t-sm"><b>Report GB-R-1043 is under review.</b> We reply on WhatsApp within <span class="ph">[RESPONSE TIME]</span>, with {{repFixText}}.</p>
+                      </div>
+                    </sc-if>
+
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                      <sc-for list="{{o.actions}}" as="a" hint-placeholder-count="3">
+                        <sc-if value="{{a.toggles}}" hint-placeholder-val="{{true}}"><button type="button" class="btn {{a.cls}} btn-sm" onClick="{{a.run}}" aria-expanded="{{a.expanded}}">{{a.label}}</button></sc-if>
+                        <sc-if value="{{a.plain}}" hint-placeholder-val="{{false}}"><button type="button" class="btn {{a.cls}} btn-sm" onClick="{{a.run}}">{{a.label}}</button></sc-if>
+                      </sc-for>
+                      <sc-if value="{{o.hasHelp}}" hint-placeholder-val="{{false}}"><a href="Contact.dc.html" class="btn btn-ghost btn-sm">Get help</a></sc-if>
+                      <sc-if value="{{o.hasInvoice}}" hint-placeholder-val="{{false}}"><a href="invoices/GB-24790.pdf" class="btn btn-ghost btn-sm" download>Download GST invoice</a></sc-if>
+                    </div>
+                  </article>
+                </li>
+              </sc-for>
+            </ul>
+          </section>
+        </sc-if>
+
+        <!-- Subscription -->
+        <sc-if value="{{isSub}}" hint-placeholder-val="{{false}}">
+          <section aria-labelledby="acct-h-sub" style="display: flex; flex-direction: column; gap: 28px;">
+            <div>
+              <h1 id="acct-h-sub" class="t-h1">Subscription</h1>
+              <p class="t-muted" style="margin-top: 6px;">Edit this week’s basket, skip a week, pause or change your plan.</p>
+            </div>
+
+            <sc-if value="{{subCancelled}}" hint-placeholder-val="{{false}}">
+              <div role="status" class="card" style="padding: 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 24px;">
+                <div style="flex: 1 1 320px;">
+                  <h2 class="t-h4">Your plan ends after Thu 15 Oct</h2>
+                  <p class="t-sm t-muted" style="margin-top: 4px;">That delivery still comes. Nothing more is charged after it. Your saved basket stays here if you restart.</p>
+                </div>
+                <button type="button" class="btn btn-primary" onClick="{{restart}}">Restart my plan</button>
+              </div>
+            </sc-if>
+
+            <article aria-labelledby="acct-plan" class="card" style="padding: clamp(20px, 3vw, 28px); display: flex; flex-direction: column; gap: 20px;">
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px 20px;">
+                <span class="well" style="flex: none; width: 72px; height: 72px; display: inline-flex; align-items: center; justify-content: center; border-radius: var(--r-md);"><img src="/_blob/d73620523f662d9ff31b2cb2eed5e5ae" alt="" width="56" height="56"></span>
+                <div style="flex: 1 1 260px; min-width: 0;">
+                  <h2 id="acct-plan" class="t-h3">{{planName}} <span class="badge {{subBadgeCls}}" style="vertical-align: 4px; margin-left: 6px;">{{subBadge}}</span></h2>
+                  <p class="t-muted num">{{planLine}}</p>
+                </div>
+              </div>
+              <dl class="kv num">
+                <div><dt>Delivers</dt><dd>Thursdays, 8–10&nbsp;AM</dd></div>
+                <div><dt>To</dt><dd>Home, Sector 22-B</dd></div>
+                <div><dt>Pays by</dt><dd>UPI AutoPay · simran@okhdfc</dd></div>
+                <div><dt>Edit cut-off</dt><dd>Wednesdays, 10&nbsp;PM</dd></div>
+              </dl>
+            </article>
+
+            <sc-if value="{{subPaused}}" hint-placeholder-val="{{false}}">
+              <div role="status" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; padding: 14px 16px; border-radius: var(--r-md); background: var(--muted-bg);">
+                <p class="t-sm"><b class="t-strong">Paused until {{pauseUntil}}.</b> No deliveries and no charges until then.</p>
+                <button type="button" class="btn btn-soft btn-sm" onClick="{{resume}}">Resume now</button>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{subLive}}" hint-placeholder-val="{{true}}">
+              <section aria-labelledby="acct-week" class="card" style="padding: clamp(20px, 3vw, 28px); display: flex; flex-direction: column; gap: 18px;">
+                <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px;">
+                  <h2 id="acct-week" class="t-h3">This week’s basket</h2>
+                  <p class="t-sm t-muted num">For Thu 15 Oct, 8–10&nbsp;AM</p>
+                </div>
+                <p role="status" class="t-sm" style="padding: 10px 14px; border-radius: var(--r-sm); background: var(--warning-soft); color: var(--warning);"><b>Edit by 10 PM tonight.</b> After that we pack it as it stands.</p>
+
+                <div>
+                  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px;">
+                    <p class="t-sm num" style="font-weight: 600; color: var(--text-strong);">{{usedText}} of {{allowanceText}} used</p>
+                    <p class="t-sm num" style="font-weight: 600; color: {{leftColor}};">{{leftText}}</p>
+                  </div>
+                  <div role="progressbar" aria-label="Allowance used" aria-valuemin="0" aria-valuemax="{{allowance}}" aria-valuenow="{{used}}" aria-valuetext="{{usedText}} of {{allowanceText}}" style="margin-top: 8px; height: 10px; border-radius: 999px; background: var(--line-strong); overflow: hidden;">
+                    <div style="height: 100%; width: {{usedWidth}}; border-radius: 999px; background: {{meterColor}}; transition: width 240ms ease-out;"></div>
+                  </div>
+                  <p aria-live="polite" class="t-sm" style="margin-top: 8px; color: {{overColor}};">{{overText}}</p>
+                </div>
+
+                <ul>
+                  <sc-for list="{{basket}}" as="b" hint-placeholder-count="6">
+                    <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding-block: 12px; border-top: 1px solid var(--line);">
+                      <span class="well" style="flex: none; width: 52px; height: 52px; display: inline-flex; align-items: center; justify-content: center; border-radius: var(--r-sm);"><img src="{{b.img}}" alt="" width="38" height="38"></span>
+                      <p style="flex: 1 1 180px; min-width: 0;"><b class="t-strong" style="font-weight: 600;">{{b.name}}</b> <span class="hi t-muted t-sm">{{b.hi}}</span><br><span class="t-sm t-muted num">{{b.unit}} · {{b.priceText}}</span></p>
+                      <div class="stepper" role="group" aria-label="{{b.groupLabel}}" style="width: 124px; background: var(--muted-bg); color: var(--text-strong);">
+                        <button type="button" aria-label="{{b.decLabel}}" onClick="{{b.dec}}">−</button>
+                        <span class="qty">{{b.qty}}</span>
+                        <button type="button" aria-label="{{b.incLabel}}" onClick="{{b.inc}}">+</button>
+                      </div>
+                      <p class="price num" style="width: 64px; text-align: right;">{{b.totalText}}</p>
+                    </li>
+                  </sc-for>
+                </ul>
+
+                <div>
+                  <h3 class="t-sm" style="font-weight: 600; color: var(--text-strong);">Add to fill the rest</h3>
+                  <ul style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px;">
+                    <sc-for list="{{suggest}}" as="sg" hint-placeholder-count="5">
+                      <li><button type="button" class="chip" onClick="{{sg.add}}" aria-label="{{sg.label}}"><img src="{{sg.img}}" alt="" width="22" height="22">{{sg.name}} <span class="t-muted num">{{sg.priceText}}</span><span aria-hidden="true" style="color: var(--accent-text); font-weight: 700;">+</span></button></li>
+                    </sc-for>
+                  </ul>
+                </div>
+
+                <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; padding-top: 6px;">
+                  <button type="button" class="btn btn-primary" onClick="{{saveBasket}}">Save this week’s basket</button>
+                  <p aria-live="polite" class="t-sm"><sc-if value="{{basketSaved}}" hint-placeholder-val="{{false}}"><span class="ok">Saved. We’ll pack this on Thursday morning.</span></sc-if></p>
+                </div>
+                <p class="t-xs t-muted">Unused allowance <span class="ph">[ROLLOVER RULE]</span>. Prices are today’s store prices.</p>
+              </section>
+
+              <section aria-labelledby="acct-upcoming">
+                <h2 id="acct-upcoming" class="t-h3">Coming up</h2>
+                <ul style="margin-top: 12px;">
+                  <sc-for list="{{upcoming}}" as="u" hint-placeholder-count="4">
+                    <li style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; padding-block: 14px; border-top: 1px solid var(--line);">
+                      <p class="num" style="opacity: {{u.opacity}};"><b class="t-strong" style="font-weight: 600;">{{u.date}}</b> <span class="t-sm t-muted">· {{u.sub}}</span></p>
+                      <sc-if value="{{u.canSkip}}" hint-placeholder-val="{{true}}"><button type="button" class="btn btn-ghost btn-sm" onClick="{{u.toggle}}" aria-label="{{u.btnLabel}}">{{u.btn}}</button></sc-if>
+                    </li>
+                  </sc-for>
+                </ul>
+              </section>
+            </sc-if>
+
+            <section aria-labelledby="acct-manage" style="display: flex; flex-direction: column; gap: 16px;">
+              <h2 id="acct-manage" class="t-h3">Manage your plan</h2>
+
+              <details class="card acc" style="padding: 0 22px;">
+                <summary>Change plan</summary>
+                <form noValidate onSubmit="{{savePlan}}" style="display: flex; flex-direction: column; gap: 14px; padding-bottom: 22px;">
+                  <fieldset style="border: 0; padding: 0; margin: 0; display: grid; gap: 10px;">
+                    <legend class="sr-only">Plans</legend>
+                    <sc-for list="{{plans}}" as="p" hint-placeholder-count="3">
+                      <label class="choice {{p.cls}}"><input type="radio" name="plan" value="{{p.id}}" checked="{{p.on}}" onChange="{{p.pick}}"><span style="flex: 1; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px;"><span><b class="t-strong">{{p.name}}</b><br><span class="t-sm t-muted">{{p.sub}}</span></span><b class="price num">{{p.price}}</b></span></label>
+                    </sc-for>
+                  </fieldset>
+                  <p class="t-xs t-muted">A new plan starts from the next delivery after tonight’s cut-off.</p>
+                  <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px;">
+                    <button type="submit" class="btn btn-ink">Switch plan</button>
+                    <p aria-live="polite" class="t-sm"><sc-if value="{{planSaved}}" hint-placeholder-val="{{false}}"><span class="ok">{{planSavedText}}</span></sc-if></p>
+                  </div>
+                </form>
+              </details>
+
+              <details class="card acc" style="padding: 0 22px;">
+                <summary>Pause deliveries</summary>
+                <form noValidate onSubmit="{{pause}}" style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px; padding-bottom: 22px;">
+                  <div class="field" style="flex: 0 1 260px;">
+                    <label for="acct-pause" class="label">Pause for</label>
+                    <select id="acct-pause" class="input" name="pause" value="{{pauseLen}}" onChange="{{onPauseLen}}">
+                      <option value="1">1 week, back on 22 Oct</option>
+                      <option value="2">2 weeks, back on 29 Oct</option>
+                      <option value="4">4 weeks, back on 12 Nov</option>
+                    </select>
+                  </div>
+                  <button type="submit" class="btn btn-ink">Pause plan</button>
+                  <p class="t-xs t-muted" style="flex-basis: 100%;">Tomorrow’s delivery still comes because tonight’s cut-off hasn’t passed. Skip it above if you don’t want it.</p>
+                </form>
+              </details>
+
+              <div class="card" style="padding: 18px 22px; display: flex; flex-direction: column; gap: 14px;">
+                <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px;">
+                  <div>
+                    <h3 class="t-sm" style="font-weight: 600; color: var(--text-strong); font-size: 16px;">Cancel subscription</h3>
+                    <p class="t-sm t-muted">You can cancel here any time. No calls, no forms to post.</p>
+                  </div>
+                  <sc-if value="{{showCancelBtn}}" hint-placeholder-val="{{true}}"><button type="button" class="btn btn-danger btn-sm" onClick="{{openCancelSub}}" aria-expanded="{{cancelSubExpanded}}">Cancel subscription</button></sc-if>
+                </div>
+                <sc-if value="{{cancelSubOpen}}" hint-placeholder-val="{{false}}">
+                  <form noValidate onSubmit="{{confirmCancelSub}}" class="well" style="padding: 18px 20px; display: flex; flex-direction: column; gap: 14px;">
+                    <h4 class="t-h4">Before you go</h4>
+                    <ul class="t-sm" style="display: grid; gap: 6px; list-style: disc; padding-left: 20px;">
+                      <li>Thursday’s delivery is already planned, so it still comes and is charged.</li>
+                      <li>Nothing is charged after that. UPI AutoPay is cancelled with the plan.</li>
+                      <li>Notice and refund terms: <span class="ph">[SUBSCRIPTION CANCELLATION TERMS]</span>.</li>
+                    </ul>
+                    <fieldset style="border: 0; padding: 0; margin: 0;">
+                      <legend class="label" style="margin-bottom: 4px;">What’s the main reason? <span class="opt">(optional, helps us improve)</span></legend>
+                      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0 16px;">
+                        <sc-for list="{{cancelReasons}}" as="cr" hint-placeholder-count="5">
+                          <label class="check"><input type="radio" name="sub-cancel-reason" value="{{cr}}">{{cr}}</label>
+                        </sc-for>
+                      </div>
+                    </fieldset>
+                    <p class="t-sm" style="padding: 10px 14px; border-radius: var(--r-sm); background: var(--accent-soft); color: var(--on-accent-soft);">Going away for a while? <button type="button" onClick="{{pauseInstead}}" style="padding: 0; border: 0; background: transparent; color: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 3px;">Pause for 2 weeks instead</button></p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                      <button type="submit" class="btn btn-danger">Cancel subscription</button>
+                      <button type="button" class="btn btn-ghost" onClick="{{closeCancelSub}}">Keep my plan</button>
+                    </div>
+                  </form>
+                </sc-if>
+              </div>
+            </section>
+          </section>
+        </sc-if>
+
+        <!-- Saved boxes -->
+        <sc-if value="{{isBoxes}}" hint-placeholder-val="{{false}}">
+          <section aria-labelledby="acct-h-boxes" style="display: flex; flex-direction: column; gap: 24px;">
+            <div>
+              <h1 id="acct-h-boxes" class="t-h1">Saved Farm Boxes</h1>
+              <p class="t-muted" style="margin-top: 6px;">Boxes you’ve built. Add one to your basket in a tap. Prices update to today’s.</p>
+            </div>
+            <sc-if value="{{boxUndo}}" hint-placeholder-val="{{false}}">
+              <div role="status" class="card" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px;">
+                <p class="t-sm">Deleted “{{boxUndoName}}”.</p>
+                <button type="button" class="btn btn-soft btn-sm" onClick="{{undoBox}}">Undo</button>
+              </div>
+            </sc-if>
+            <sc-if value="{{hasBoxMsg}}" hint-placeholder-val="{{false}}">
+              <div role="status" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; padding: 12px 16px; border-radius: var(--r-md); background: var(--success-soft); color: var(--success);">
+                <p class="t-sm" style="font-weight: 500;">{{boxMsg}}</p>
+                <a href="Cart.dc.html" class="t-sm" style="font-weight: 600; color: var(--success);">Go to basket</a>
+              </div>
+            </sc-if>
+            <ul style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;">
+              <sc-for list="{{boxes}}" as="bx" hint-placeholder-count="3">
+                <li class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 12px;">
+                  <span class="thumbs" aria-hidden="true">
+                    <sc-for list="{{bx.thumbs}}" as="th" hint-placeholder-count="4"><span><img src="{{th}}" alt="" width="30" height="30"></span></sc-for>
+                  </span>
+                  <h2 class="t-h4">{{bx.name}}</h2>
+                  <p class="t-sm t-muted">{{bx.items}}</p>
+                  <p class="t-sm num"><b class="price">{{bx.priceText}}</b> <span class="t-muted">today · {{bx.last}}</span></p>
+                  <div style="margin-top: auto; display: flex; flex-wrap: wrap; gap: 6px; padding-top: 6px;">
+                    <button type="button" class="btn btn-primary btn-sm" onClick="{{bx.add}}" aria-label="{{bx.addLabel}}">Add to basket</button>
+                    <a href="FarmBox.dc.html" class="btn btn-ghost btn-sm" aria-label="{{bx.editLabel}}">Edit</a>
+                    <button type="button" class="btn btn-ghost btn-sm" onClick="{{bx.del}}" aria-label="{{bx.delLabel}}">Delete</button>
+                  </div>
+                </li>
+              </sc-for>
+              <li>
+                <a href="FarmBox.dc.html" style="height: 100%; min-height: 220px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 20px; border: 1.5px dashed var(--field-line); border-radius: var(--r-lg); text-decoration: none; color: var(--accent-text); font-weight: 600;">
+                  <span aria-hidden="true" style="font-size: 28px; line-height: 1;">+</span>Build a new box
+                </a>
+              </li>
+            </ul>
+          </section>
+        </sc-if>
+
+        <!-- Settings -->
+        <sc-if value="{{isSettings}}" hint-placeholder-val="{{false}}">
+          <section aria-labelledby="acct-h-settings" style="display: flex; flex-direction: column; gap: 24px;">
+            <div>
+              <h1 id="acct-h-settings" class="t-h1">Profile and settings</h1>
+              <p class="t-muted" style="margin-top: 6px;">Your details, addresses, messages and privacy.</p>
+            </div>
+
+            <form noValidate onSubmit="{{saveProfile}}" aria-labelledby="acct-prof" class="card" style="padding: clamp(20px, 3vw, 28px); display: flex; flex-direction: column; gap: 18px;">
+              <h2 id="acct-prof" class="t-h3">Profile</h2>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px 20px;">
+                <div class="field">
+                  <label for="acct-name" class="label">Full name</label>
+                  <input id="acct-name" class="input" type="text" name="name" autocomplete="name" value="{{name}}" onChange="{{onName}}" aria-invalid="{{nameInvalid}}" aria-describedby="acct-name-err">
+                  <p id="acct-name-err" aria-live="polite"><sc-if value="{{nameErr}}" hint-placeholder-val="{{false}}"><span class="error">Enter your name so the rider knows who to ask for.</span></sc-if></p>
+                </div>
+                <div class="field">
+                  <span class="label" id="acct-phone-l">Mobile number</span>
+                  <p style="display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 48px; padding: 0 6px 0 14px; border-radius: var(--r-sm); background: var(--muted-bg);"><span class="num t-strong" style="font-weight: 500;">+91 98765 43210 <span class="badge" style="margin-left: 6px;">Verified</span></span><a href="Signup.dc.html" class="btn btn-ghost btn-sm" style="min-height: 36px; padding: 0 12px;">Change</a></p>
+                  <p class="hint">We’ll send a code to the new number to confirm it.</p>
+                </div>
+                <div class="field">
+                  <label for="acct-email" class="label">Email <span class="opt">(optional, for invoices)</span></label>
+                  <input id="acct-email" class="input" type="email" name="email" autocomplete="email" inputmode="email" spellcheck="false" placeholder="you@example.com…" value="{{email}}" onChange="{{onEmail}}" aria-invalid="{{emailInvalid}}" aria-describedby="acct-email-err">
+                  <p id="acct-email-err" aria-live="polite"><sc-if value="{{emailErr}}" hint-placeholder-val="{{false}}"><span class="error">That email doesn’t look right. Check for a missing @ or dot.</span></sc-if></p>
+                </div>
+                <div class="field">
+                  <span class="label" id="acct-type-l">Buying for</span>
+                  <div class="seg" role="group" aria-labelledby="acct-type-l" style="align-self: flex-start;">
+                    <button type="button" aria-pressed="{{isHome}}" onClick="{{setHome}}">My home</button>
+                    <button type="button" aria-pressed="{{isBiz}}" onClick="{{setBiz}}">A business</button>
+                  </div>
+                </div>
+                <sc-if value="{{isBizBool}}" hint-placeholder-val="{{false}}">
+                  <div class="field">
+                    <label for="acct-biz" class="label">Business name</label>
+                    <input id="acct-biz" class="input" type="text" name="organization" autocomplete="organization" placeholder="Like Kaur’s Kitchen…">
+                  </div>
+                </sc-if>
+                <sc-if value="{{isBizBool}}" hint-placeholder-val="{{false}}">
+                  <div class="field">
+                    <label for="acct-gst" class="label">GSTIN <span class="opt">(optional, for GST invoices)</span></label>
+                    <input id="acct-gst" class="input num" type="text" name="gstin" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="15" placeholder="Like 03ABCDE1234F1Z5…" value="{{gst}}" onChange="{{onGst}}" aria-invalid="{{gstInvalid}}" aria-describedby="acct-gst-err">
+                    <p id="acct-gst-err" aria-live="polite"><sc-if value="{{gstErr}}" hint-placeholder-val="{{false}}"><span class="error">A GSTIN has 15 characters, like 03ABCDE1234F1Z5.</span></sc-if></p>
+                  </div>
+                </sc-if>
+              </div>
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px;">
+                <button type="submit" class="btn btn-ink">Save profile</button>
+                <p aria-live="polite" class="t-sm"><sc-if value="{{profileSaved}}" hint-placeholder-val="{{false}}"><span class="ok">Profile saved.</span></sc-if></p>
+              </div>
+            </form>
+
+            <section aria-labelledby="acct-addr" class="card" style="padding: clamp(20px, 3vw, 28px); display: flex; flex-direction: column; gap: 14px;">
+              <h2 id="acct-addr" class="t-h3">Addresses</h2>
+              <sc-if value="{{addrUndo}}" hint-placeholder-val="{{false}}">
+                <div role="status" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 14px; border-radius: var(--r-sm); background: var(--muted-bg);">
+                  <p class="t-sm">Deleted the {{addrUndoName}} address.</p>
+                  <button type="button" class="btn btn-soft btn-sm" onClick="{{undoAddr}}">Undo</button>
+                </div>
+              </sc-if>
+              <ul style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;">
+                <sc-for list="{{addresses}}" as="ad" hint-placeholder-count="2">
+                  <li style="padding: 16px 18px; border: 1px solid var(--line-strong); border-radius: var(--r-md); display: flex; flex-direction: column; gap: 6px;">
+                    <p><b class="t-strong">{{ad.label}}</b> <sc-if value="{{ad.isDefault}}" hint-placeholder-val="{{false}}"><span class="badge" style="margin-left: 4px;">Default</span></sc-if></p>
+                    <p class="t-sm">{{ad.line}}</p>
+                    <p class="t-xs t-muted">{{ad.note}}</p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px;">
+                      <a href="Checkout.dc.html" class="btn btn-ghost btn-sm" style="min-height: 36px; padding: 0 10px;" aria-label="{{ad.editLabel}}">Edit</a>
+                      <sc-if value="{{ad.canDefault}}" hint-placeholder-val="{{true}}"><button type="button" class="btn btn-ghost btn-sm" style="min-height: 36px; padding: 0 10px;" onClick="{{ad.makeDefault}}">Make default</button></sc-if>
+                      <sc-if value="{{ad.canDelete}}" hint-placeholder-val="{{true}}"><button type="button" class="btn btn-ghost btn-sm" style="min-height: 36px; padding: 0 10px;" onClick="{{ad.del}}" aria-label="{{ad.delLabel}}">Delete</button></sc-if>
+                    </div>
+                  </li>
+                </sc-for>
+              </ul>
+              <p class="t-xs t-muted">Your default address can’t be deleted. Make another one default first. Your subscription delivers to Home.</p>
+              <a href="Checkout.dc.html" class="btn btn-soft btn-sm" style="align-self: flex-start;">Add an address</a>
+            </section>
+
+            <form noValidate onSubmit="{{saveNotify}}" aria-labelledby="acct-notify" class="card" style="padding: clamp(20px, 3vw, 28px); display: flex; flex-direction: column; gap: 18px;">
+              <div>
+                <h2 id="acct-notify" class="t-h3">Messages</h2>
+                <p class="t-sm t-muted" style="margin-top: 4px;">Choose how we reach you about each thing.</p>
+              </div>
+              <sc-for list="{{notify}}" as="n" hint-placeholder-count="3">
+                <fieldset style="border: 0; padding: 0 0 14px; margin: 0; border-bottom: 1px solid var(--line);">
+                  <legend class="label">{{n.title}}</legend>
+                  <p class="hint">{{n.sub}}</p>
+                  <div style="display: flex; flex-wrap: wrap; gap: 0 24px;">
+                    <sc-for list="{{n.channels}}" as="c" hint-placeholder-count="3">
+                      <label class="check"><input type="checkbox" name="{{c.name}}" checked="{{c.on}}" onChange="{{c.toggle}}">{{c.label}}</label>
+                    </sc-for>
+                  </div>
+                  <sc-if value="{{n.err}}" hint-placeholder-val="{{false}}"><p class="error" role="alert">Keep at least one way on, so we can reach you about deliveries.</p></sc-if>
+                </fieldset>
+              </sc-for>
+              <div>
+                <p class="label">Offers and seasonal picks</p>
+                <label class="check"><input type="checkbox" name="marketing" checked="{{marketing}}" onChange="{{toggleMarketing}}"><span>Send me offers and what’s in season on WhatsApp, about once a week. <span class="t-muted">You can turn this off any time.</span></span></label>
+              </div>
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px;">
+                <button type="submit" class="btn btn-ink">Save message settings</button>
+                <p aria-live="polite" class="t-sm"><sc-if value="{{notifySaved}}" hint-placeholder-val="{{false}}"><span class="ok">Message settings saved.</span></sc-if></p>
+              </div>
+            </form>
+
+            <section aria-labelledby="acct-pay" class="card" style="padding: clamp(20px, 3vw, 28px); display: flex; flex-direction: column; gap: 12px;">
+              <h2 id="acct-pay" class="t-h3">Payment methods</h2>
+              <ul>
+                <li style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; padding-block: 12px; border-top: 1px solid var(--line);">
+                  <p><b class="t-strong">UPI · simran@okhdfc</b><br><span class="t-sm t-muted">AutoPay for your Weekly veg plan</span></p>
+                  <span class="t-xs t-muted" style="max-width: 24ch;">Cancel the plan to remove AutoPay.</span>
+                </li>
+                <li style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; padding-block: 12px; border-top: 1px solid var(--line);">
+                  <p><b class="t-strong num">Visa ending 4821</b><br><span class="t-sm t-muted">Saved with <span class="ph">[GATEWAY NAME]</span>. We never see your full card number.</span></p>
+                  <button type="button" class="btn btn-ghost btn-sm" onClick="{{removeCard}}" aria-label="Remove Visa ending 4821">{{cardBtn}}</button>
+                </li>
+              </ul>
+            </section>
+
+            <section aria-labelledby="acct-privacy" class="card" style="padding: clamp(20px, 3vw, 28px); display: flex; flex-direction: column; gap: 16px;">
+              <div>
+                <h2 id="acct-privacy" class="t-h3">Privacy and your data</h2>
+                <p class="t-sm t-muted" style="margin-top: 4px;">Your rights under India’s Digital Personal Data Protection Act. Read the <a href="Privacy.dc.html">privacy policy</a>.</p>
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px;">
+                <div style="padding: 16px 18px; border: 1px solid var(--line-strong); border-radius: var(--r-md); display: flex; flex-direction: column; gap: 8px;">
+                  <h3 class="t-sm" style="font-weight: 600; font-size: 16px; color: var(--text-strong);">Get a copy of your data</h3>
+                  <p class="t-sm t-muted">Orders, addresses and settings, as a file.</p>
+                  <button type="button" class="btn btn-outline btn-sm" style="align-self: flex-start; margin-top: auto;" onClick="{{exportData}}" disabled="{{exportDone}}">{{exportBtn}}</button>
+                  <p aria-live="polite" class="t-xs"><sc-if value="{{exportDone}}" hint-placeholder-val="{{false}}"><span class="ok">We’ll send a download link to WhatsApp within <span class="ph">[EXPORT WINDOW]</span>.</span></sc-if></p>
+                </div>
+                <div style="padding: 16px 18px; border: 1px solid var(--line-strong); border-radius: var(--r-md); display: flex; flex-direction: column; gap: 8px;">
+                  <h3 class="t-sm" style="font-weight: 600; font-size: 16px; color: var(--text-strong);">Signed-in devices</h3>
+                  <p class="t-sm t-muted">This phone and 1 other device.</p>
+                  <button type="button" class="btn btn-outline btn-sm" style="align-self: flex-start; margin-top: auto;" onClick="{{signOutAll}}">Sign out everywhere else</button>
+                  <p aria-live="polite" class="t-xs"><sc-if value="{{signedOutAll}}" hint-placeholder-val="{{false}}"><span class="ok">Done. Only this device is signed in now.</span></sc-if></p>
+                </div>
+              </div>
+
+              <div style="padding: 16px 18px; border: 1px solid var(--line-strong); border-radius: var(--r-md); display: flex; flex-direction: column; gap: 12px;">
+                <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px;">
+                  <div>
+                    <h3 class="t-sm" style="font-weight: 600; font-size: 16px; color: var(--text-strong);">Delete your account</h3>
+                    <p class="t-sm t-muted">Erases your profile, addresses and saved boxes.</p>
+                  </div>
+                  <sc-if value="{{showDeleteBtn}}" hint-placeholder-val="{{true}}"><button type="button" class="btn btn-danger btn-sm" onClick="{{openDelete}}" aria-expanded="{{deleteExpanded}}">Delete account</button></sc-if>
+                </div>
+                <sc-if value="{{deleteOpen}}" hint-placeholder-val="{{false}}">
+                  <form noValidate onSubmit="{{confirmDelete}}" style="display: flex; flex-direction: column; gap: 14px; padding: 16px 18px; border-radius: var(--r-sm); background: var(--danger-soft);">
+                    <ul class="t-sm" style="display: grid; gap: 6px; list-style: disc; padding-left: 20px; color: var(--text);">
+                      <li>Your Weekly veg plan is cancelled. Thursday’s delivery still comes.</li>
+                      <li>₹45 of store credit is lost.</li>
+                      <li>Invoices are kept for <span class="ph">[RETENTION PERIOD]</span>, because tax law needs them.</li>
+                      <li>You have <span class="ph">[GRACE PERIOD]</span> to change your mind by signing in again.</li>
+                    </ul>
+                    <div class="field" style="max-width: 320px;">
+                      <label for="acct-del" class="label">Type DELETE to confirm</label>
+                      <input id="acct-del" class="input" type="text" name="confirm-delete" autocomplete="off" autocapitalize="characters" spellcheck="false" value="{{delText}}" onInput="{{onDelText}}">
+                    </div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                      <button type="submit" class="btn btn-danger" disabled="{{delDisabled}}" style="background: var(--surface);">Delete my account</button>
+                      <button type="button" class="btn btn-ghost" onClick="{{closeDelete}}">Keep my account</button>
+                    </div>
+                  </form>
+                </sc-if>
+                <sc-if value="{{deleted}}" hint-placeholder-val="{{false}}">
+                  <p role="status" class="t-sm" style="padding: 12px 14px; border-radius: var(--r-sm); background: var(--muted-bg);"><b class="t-strong">Request received.</b> Your account will be deleted after <span class="ph">[GRACE PERIOD]</span>. Sign in before then to cancel it.</p>
+                </sc-if>
+              </div>
+              <p class="t-xs t-muted">Questions about your data? Write to our grievance officer at <span class="ph">[GRIEVANCE OFFICER EMAIL]</span>.</p>
+            </section>
+          </section>
+        </sc-if>
+
+      </div>
+    </div>
+  </main>
+
+  <dc-import name="Footer" dark="{{dark}}" hint-size="100%,760px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"tab":{"editor":"enum","options":["overview","orders","subscription","boxes","settings"],"default":"overview"},"$preview":{"width":1440,"height":2600}}'>
+class Component extends DCLogic {
+  focusError(sel) {
+    setTimeout(() => {
+      const el = document.querySelector(sel || '.gb [aria-invalid="true"]');
+      if (el && el.focus) el.focus();
+    }, 0);
+  }
+
+  constructor(...args) {
+    super(...args);
+    const tab = (this.props && this.props.tab) || 'overview';
+    this.state = {
+      tab,
+      announce: '',
+      signedOut: false,
+      reorderMsg: '',
+      // orders
+      filter: 'all', query: '',
+      open: tab === 'orders' ? { 'GB-24790': true } : {},
+      status: {}, cancelOpen: null, reschedOpen: null, reschedSlot: '', reschedErr: false, newSlot: {},
+      report: tab === 'orders' ? 'GB-24790' : null, reportSent: false,
+      repItems: { spinach: true }, repReason: 'damaged', repFiles: 0, repFix: 'credit', repNotes: 0,
+      repItemsErr: false, repReasonErr: false, repPhotoErr: false,
+      // subscription
+      basket: { tomato: 1, onion: 2, potato: 2, spinach: 1, carrot: 2, cauliflower: 1, peas: 1, coriander: 1, ginger: 1, okra: 1, lemon: 1 },
+      basketSaved: false, skipped: {}, plan: 'veg', planChoice: 'veg', planSaved: false,
+      paused: false, pauseLen: '2', cancelSubOpen: false, subCancelled: false,
+      // boxes
+      boxes: ['basics', 'sunday', 'office'], boxUndo: null, boxMsg: '',
+      // settings
+      name: 'Simran Kaur', nameErr: false, email: 'simran.k@example.com', emailErr: false,
+      biz: false, gst: '', gstErr: false, profileSaved: false,
+      addresses: ['home', 'work'], defaultAddr: 'home', addrUndo: null,
+      ch: { order_wa: true, order_sms: true, order_email: false, sub_wa: true, sub_sms: false, sub_email: false, inv_wa: false, inv_sms: false, inv_email: true },
+      marketing: false, notifySaved: false, cardRemoved: false,
+      exportDone: false, signedOutAll: false, deleteOpen: false, delText: '', deleted: false
+    };
+  }
+
+  renderVals() {
+    const s = this.state;
+    const dark = this.props.dark ?? false;
+    const B = '/_blob/';
+    const img = {
+      tomato: '90234e112587bcb63afe69728f9038ca', onion: '1684583e7b1031c43645cbd222ff8d0d', potato: '0665993fcaf8a6b84a0bae1442b3275a',
+      spinach: 'd7b00861d43b60387799340029aefdd9', carrot: '99f9649155ba9e54671aa750df2ac8bf', cauliflower: '87391db060b820345c97945df91fdf38',
+      peas: '99d528df8f7004e9085c7f2e546e04b7', coriander: '591d27931e70b0646c12012b692f0728', ginger: '1932feaa1fef036c4f9bb795103d9d8e',
+      okra: '5bc8dcee307c27bd019357e52ebc8622', lemon: 'f1a2386feb02283967fd240b543fe554', methi: '0e0c61ea89660ecc92ca466f7b232d85',
+      chilli: 'cee1cb3f5f1baed9733148199dd08bcf', mint: 'e9783c31faff466044eeb9b6b54a7cec', capsicum: '3a13a0c46dda2bec27b66f58476203e6',
+      guava: '82a29c90957eb1aff44cb26d6d2ac079', banana: '590b099cfdb53ca100dc3bed19c350d7', apple: '8581b06e9c225f563a590d141aab53d4',
+      pomegranate: 'b86b503ad231db0343ee9b4e92d93cde', kinnow: 'fd2079b5997095279838843a25a8bb23', farmbox: '2c8a148c213c5f35e32717ac2f4aff86',
+      crateOnion: '1a9a9f3e89da774510c12b4ced02cb98', papaya: '098e97ad4e8646df20e3263842c5981d', sarson: 'f3730179c06a1d1d53d8373b8d8c1671',
+      garlic: '06add378e1fe0e411db7b2871f613b8f', cabbage: 'd1ad49bece09ba7e232593354a93fefd', brinjal: '46978ecafb0bda958b2c1cc694863247'
+    };
+    const pic = (k) => B + img[k];
+    const rupees = (n) => '₹' + Number(n).toLocaleString('en-IN');
+    const set = (patch) => this.setState(patch);
+
+    // ---------- tabs ----------
+    const icons = {
+      overview: 'M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z',
+      orders: 'M6 3h12l1 4H5zM5 7h14v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1zM9 11h6',
+      subscription: 'M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4',
+      boxes: 'M3 8l9-5 9 5v8l-9 5-9-5zM3 8l9 5 9-5M12 13v8',
+      settings: 'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z'
+    };
+    const tabLabels = { overview: 'Overview', orders: 'Orders', subscription: 'Subscription', boxes: 'Saved Farm Boxes', settings: 'Profile and settings' };
+    const go = (t, extra) => this.setState({ tab: t, announce: 'Showing ' + tabLabels[t], ...(extra || {}) });
+
+    // ---------- orders ----------
+    const O = [
+      { id: 'GB-24903', kind: 'confirmed', placed: 'Wed 14 Oct, 11:05 AM', slot: 'Fri 16 Oct, 8–10 AM', address: 'Home, Sector 22-B', pay: 'UPI · simran@okhdfc', delivery: 30,
+        lines: [['Apple, Shimla', '1 kg', 140, 'apple'], ['Pomegranate', '500 g', 90, 'pomegranate'], ['Banana', '6 pcs', 45, 'banana'], ['Guava', '500 g × 2', 80, 'guava']] },
+      { id: 'GB-24871', kind: 'packed', placed: 'Wed 14 Oct, 9:12 AM', slot: 'Today, 4–6 PM', address: 'Home, Sector 22-B', pay: 'UPI · simran@okhdfc', delivery: 0, coupon: 44,
+        lines: [['Tomato', '1 kg × 2', 80, 'tomato'], ['Kinnow', '1 kg', 70, 'kinnow'], ['Apple, Shimla', '1 kg', 140, 'apple'], ['Coriander', '1 bunch', 10, 'coriander'], ['Farm Box: Weekly basics', '4 items', 140, 'farmbox'], ['Onion, wholesale', '10 kg', 400, 'crateOnion']] },
+      { id: 'GB-24790', kind: 'delivered', placed: 'Tue 6 Oct, 8:40 PM', slot: 'Delivered Wed 7 Oct, 9:24 AM', address: 'Home, Sector 22-B', pay: 'UPI · simran@okhdfc', delivery: 0,
+        lines: [['Tomato', '1 kg × 2', 80, 'tomato'], ['Spinach', '1 bunch × 2', 40, 'spinach'], ['Kinnow', '1 kg × 2', 140, 'kinnow'], ['Banana', '6 pcs', 45, 'banana'], ['Onion', '1 kg × 2', 90, 'onion'], ['Papaya', '1 pc', 60, 'papaya'], ['Mustard greens', '500 g × 3', 90, 'sarson']] },
+      { id: 'GB-24712', kind: 'failed', placed: 'Thu 1 Oct, 7:15 PM', slot: 'Missed Fri 2 Oct, 6–8 PM', address: 'Work, Phase 7, Mohali', pay: 'Cash on delivery', delivery: 30,
+        lines: [['Potato', '1 kg × 2', 60, 'potato'], ['Onion', '1 kg × 2', 90, 'onion'], ['Cabbage', '1 pc', 30, 'cabbage'], ['Brinjal', '500 g', 30, 'brinjal'], ['Garlic', '100 g', 25, 'garlic']] },
+      { id: 'GB-24655', kind: 'cancelled', placed: 'Sun 27 Sep, 6:30 PM', slot: 'Was for Mon 28 Sep, 8–10 AM', address: 'Home, Sector 22-B', pay: 'UPI · simran@okhdfc', delivery: 30,
+        lines: [['Apple, Shimla', '1 kg', 140, 'apple'], ['Pomegranate', '500 g', 90, 'pomegranate'], ['Mint', '1 bunch', 10, 'mint'], ['Lemon', '250 g', 30, 'lemon']] }
+    ];
+    const orderTotal = (o) => o.lines.reduce((n, l) => n + l[2], 0) + o.delivery - (o.coupon || 0);
+    const kindOf = (o) => s.status[o.id] || o.kind;
+    const badgeOf = { confirmed: ['Confirmed', 'badge-line'], packed: ['Packed', 'badge-leaf'], delivered: ['Delivered', ''], failed: ['Delivery missed', 'badge-warn'], cancelled: ['Cancelled', 'badge-line'] };
+    const notes = {
+      confirmed: (o) => s.newSlot[o.id] ? ['Rescheduled to ' + s.newSlot[o.id] + '. We’ll message you when it’s packed.', 'var(--accent-soft)', 'var(--on-accent-soft)'] : ['You can cancel or change this until we start packing, about 2 hours before your slot.', 'var(--muted-bg)', 'var(--text)'],
+      packed: () => ['Packed at 1:40 PM. Our rider should leave by about 3:45 PM.', 'var(--accent-soft)', 'var(--on-accent-soft)'],
+      delivered: () => ['Refund of ₹40 approved on 8 Oct for a short tomato pack. It went back to your UPI.', 'var(--success-soft)', 'var(--success)'],
+      failed: () => ['We couldn’t reach you at 6:40 PM and took the items back. Nothing was charged. Pick a new slot to get them.', 'var(--warning-soft)', 'var(--warning)'],
+      cancelled: (o) => [s.status[o.id] ? 'Cancelled just now. ' + (o.pay.startsWith('Cash') ? 'Nothing was charged.' : rupees(orderTotal(o)) + ' is on its way back to your UPI, usually within 5–7 working days.') : 'You cancelled this on 27 Sep. ₹300 went back to your UPI on 28 Sep.', 'var(--muted-bg)', 'var(--text)']
+    };
+    const isActive = (k) => k === 'confirmed' || k === 'packed' || k === 'failed';
+    const toggleOpen = (id) => this.setState((st) => ({ open: { ...st.open, [id]: !st.open[id] } }));
+    const reorder = (o) => this.setState({ reorderMsg: o.lines.length + ' items from ' + o.id + ' are in your basket at today’s prices.', announce: 'Added to basket' });
+
+    const slotChoices = [['tom-8', 'Tomorrow', '8–10 AM'], ['tom-6', 'Tomorrow', '6–8 PM'], ['fri-4', 'Fri 16 Oct', '4–6 PM']];
+    const buildOrder = (o) => {
+      const k = kindOf(o);
+      const note = notes[k](o);
+      const total = orderTotal(o);
+      const acts = [];
+      const open = !!s.open[o.id];
+      if (k === 'confirmed') {
+        acts.push({ label: open ? 'Hide details' : 'View details', cls: 'btn-outline', run: () => toggleOpen(o.id), expanded: String(open) });
+        acts.push({ label: 'Cancel order', cls: 'btn-danger', run: () => set({ cancelOpen: o.id }), expanded: String(s.cancelOpen === o.id) });
+      } else if (k === 'packed') {
+        acts.push({ label: open ? 'Hide tracking' : 'Track order', cls: 'btn-primary', run: () => toggleOpen(o.id), expanded: String(open) });
+      } else if (k === 'delivered') {
+        acts.push({ label: 'Reorder', cls: 'btn-soft', run: () => reorder(o) });
+        acts.push({ label: open ? 'Hide items' : 'View items', cls: 'btn-ghost', run: () => toggleOpen(o.id), expanded: String(open) });
+        if (!s.reportSent) acts.push({ label: 'Report a problem', cls: 'btn-outline', run: () => set({ report: s.report === o.id ? null : o.id }), expanded: String(s.report === o.id) });
+      } else if (k === 'failed') {
+        acts.push({ label: 'Pick a new slot', cls: 'btn-primary', run: () => set({ reschedOpen: o.id, reschedSlot: '', reschedErr: false }), expanded: String(s.reschedOpen === o.id) });
+        acts.push({ label: 'Cancel order', cls: 'btn-ghost', run: () => set({ cancelOpen: o.id }), expanded: String(s.cancelOpen === o.id) });
+      } else {
+        acts.push({ label: 'Reorder', cls: 'btn-soft', run: () => reorder(o) });
+        acts.push({ label: open ? 'Hide items' : 'View items', cls: 'btn-ghost', run: () => toggleOpen(o.id), expanded: String(open) });
+      }
+      const trackDefs = [['Placed', '9:12 AM', 'done'], ['Packed', '1:40 PM', 'done'], ['On the way', 'About 3:45 PM', 'now'], ['Delivered', '4–6 PM', 'todo']];
+      return {
+        id: o.id, hid: 'acct-o-' + o.id, placed: o.placed,
+        slot: s.newSlot[o.id] || o.slot, address: o.address, pay: o.pay,
+        status: badgeOf[k][0], badgeCls: badgeOf[k][1],
+        totalText: rupees(total), deliveryText: o.delivery ? rupees(o.delivery) : 'Free',
+        thumbs: o.lines.slice(0, 4).map((l) => pic(l[3])),
+        note: note[0], noteBg: note[1], noteFg: note[2],
+        open, hasTrack: k === 'packed',
+        track: trackDefs.map((t) => ({ label: t[0], time: t[1], current: t[2] === 'now' ? 'step' : 'false', bar: t[2] === 'todo' ? 'var(--line-strong)' : 'var(--accent)', color: t[2] === 'todo' ? 'var(--text-muted)' : 'var(--text-strong)' })),
+        lines: o.lines.map((l) => ({ name: l[0], qty: l[1], price: rupees(l[2]) })).concat(o.coupon ? [{ name: 'Coupon FRESH10', qty: '', price: '−' + rupees(o.coupon) }] : []),
+        actions: acts.map((a) => ({ ...a, toggles: a.expanded !== undefined, plain: a.expanded === undefined, expanded: a.expanded || 'false' })),
+        hasInvoice: k === 'delivered',
+        hasHelp: k === 'packed',
+        cancelOpen: s.cancelOpen === o.id, cancelHid: 'acct-cancel-' + o.id, reasonId: 'acct-cr-' + o.id,
+        cancelText: o.pay.startsWith('Cash') ? 'Nothing has been charged, so there’s nothing to refund.' : rupees(total) + ' goes back to your UPI, usually within 5–7 working days.',
+        confirmCancel: (e) => { e.preventDefault(); this.setState((st) => ({ status: { ...st.status, [o.id]: 'cancelled' }, cancelOpen: null, reschedOpen: null, announce: o.id + ' cancelled' })); },
+        keep: () => set({ cancelOpen: null }),
+        reschedOpen: s.reschedOpen === o.id, reschedErr: s.reschedErr,
+        slots: slotChoices.map((c) => ({ id: c[0], day: c[1], time: c[2], on: s.reschedSlot === c[0], cls: s.reschedSlot === c[0] ? 'on' : '', pick: () => set({ reschedSlot: c[0], reschedErr: false }) })),
+        confirmResched: (e) => {
+          e.preventDefault();
+          const c = slotChoices.find((x) => x[0] === s.reschedSlot);
+          if (!c) return set({ reschedErr: true });
+          this.setState((st) => ({ status: { ...st.status, [o.id]: 'confirmed' }, newSlot: { ...st.newSlot, [o.id]: c[1] + ', ' + c[2] }, reschedOpen: null, announce: 'New slot confirmed' }));
+        },
+        closeResched: () => set({ reschedOpen: null }),
+        reportOpen: s.report === o.id && !s.reportSent,
+        reportSent: k === 'delivered' && s.reportSent
+      };
+    };
+    const q = s.query.trim().toLowerCase();
+    const matches = (o) => !q || o.id.toLowerCase().includes(q) || o.lines.some((l) => l[0].toLowerCase().includes(q));
+    const inFilter = (o) => s.filter === 'all' || (s.filter === 'active' ? isActive(kindOf(o)) : !isActive(kindOf(o)));
+    const orders = O.filter((o) => inFilter(o) && matches(o)).map(buildOrder);
+    const activeCount = O.filter((o) => isActive(kindOf(o))).length;
+    const filters = [['all', 'All', O.length], ['active', 'Active', activeCount], ['past', 'Past', O.length - activeCount]].map((f) => ({
+      label: f[1], count: String(f[2]), on: String(s.filter === f[0]), pick: () => set({ filter: f[0] })
+    }));
+
+    // report form
+    const delivered = O[2];
+    const reportItems = delivered.lines.map((l) => {
+      const id = l[3];
+      const disabled = id === 'tomato';
+      return { id, name: l[0], qty: l[1], on: !!s.repItems[id], disabled, opacity: disabled ? '0.6' : '1',
+        toggle: () => this.setState((st) => ({ repItems: { ...st.repItems, [id]: !st.repItems[id] }, repItemsErr: false })) };
+    });
+    const reasons = [['missing', 'An item is missing'], ['short', 'Less than I paid for'], ['damaged', 'Damaged or bruised'], ['stale', 'Not fresh'], ['wrong', 'Wrong item']];
+    const needsPhoto = s.repReason === 'damaged' || s.repReason === 'stale';
+    const fixDefs = [['refund', 'Refund to UPI', 'Back in 5–7 working days'], ['credit', 'Store credit', 'Added today, use it next time'], ['replace', 'Replace it', 'Free, with your next delivery']];
+
+    // ---------- subscription ----------
+    const P = {
+      tomato: ['Tomato', 'टमाटर', '1 kg', 40], onion: ['Onion', 'प्याज़', '1 kg', 45], potato: ['Potato', 'आलू', '1 kg', 30],
+      spinach: ['Spinach', 'पालक', '1 bunch', 20], carrot: ['Carrot', 'गाजर', '500 g', 30], cauliflower: ['Cauliflower', 'गोभी', '1 pc', 40],
+      peas: ['Green peas', 'मटर', '500 g', 60], coriander: ['Coriander', 'धनिया', '1 bunch', 10], ginger: ['Ginger', 'अदरक', '100 g', 18],
+      okra: ['Okra', 'भिंडी', '500 g', 35], lemon: ['Lemon', 'नींबू', '250 g', 30], methi: ['Fenugreek', 'मेथी', '1 bunch', 15],
+      chilli: ['Green chilli', 'हरी मिर्च', '100 g', 10], mint: ['Mint', 'पुदीना', '1 bunch', 10], capsicum: ['Capsicum', 'शिमला मिर्च', '250 g', 25],
+      guava: ['Guava', 'अमरूद', '500 g', 40], banana: ['Banana', 'केला', '6 pcs', 45]
+    };
+    const plansDef = [
+      ['veg', 'Weekly veg', 'Up to ₹540 of vegetables and greens a week', '₹499 a week', 540],
+      ['vegfruit', 'Weekly veg and fruit', 'Up to ₹920 of anything in the store a week', '₹849 a week', 920],
+      ['family', 'Monthly family', '4 deliveries a month, up to ₹900 each', '₹3,299 a month', 900]
+    ];
+    const plan = plansDef.find((p) => p[0] === s.plan) || plansDef[0];
+    const allowance = plan[4];
+    const setB = (id, n) => this.setState((st) => {
+      const b = { ...st.basket };
+      if (n <= 0) delete b[id]; else b[id] = n;
+      return { basket: b, basketSaved: false };
+    });
+    const ids = Object.keys(s.basket);
+    const used = ids.reduce((n, id) => n + P[id][3] * s.basket[id], 0);
+    const over = used - allowance;
+    const basket = ids.map((id) => {
+      const p = P[id];
+      const qn = s.basket[id];
+      return {
+        name: p[0], hi: p[1], unit: p[2], priceText: rupees(p[3]), img: pic(id), qty: String(qn), totalText: rupees(p[3] * qn),
+        inc: () => setB(id, qn + 1), dec: () => setB(id, qn - 1),
+        incLabel: 'Add one more ' + p[0], decLabel: qn === 1 ? 'Remove ' + p[0] : 'Remove one ' + p[0], groupLabel: p[0] + ' quantity, ' + qn
+      };
+    });
+    const suggest = ['methi', 'chilli', 'mint', 'capsicum', 'guava', 'banana'].filter((id) => !s.basket[id]).map((id) => ({
+      name: P[id][0], img: pic(id), priceText: rupees(P[id][3]), label: 'Add ' + P[id][0] + ', ' + rupees(P[id][3]),
+      add: () => setB(id, 1)
+    }));
+    const upcomingDefs = [['w42', 'Thu 15 Oct', 'Editing now', false], ['w43', 'Thu 22 Oct', 'Your saved basket', true], ['w44', 'Thu 29 Oct', 'Your saved basket', true], ['w45', 'Thu 5 Nov', 'Your saved basket', true]];
+    const upcoming = upcomingDefs.map((u) => {
+      const sk = !!s.skipped[u[0]];
+      return {
+        date: u[1], sub: sk ? 'Skipped, not charged' : u[2], canSkip: u[3], opacity: sk ? '0.55' : '1',
+        btn: sk ? 'Undo skip' : 'Skip', btnLabel: (sk ? 'Undo skip for ' : 'Skip ') + u[1],
+        toggle: () => this.setState((st) => ({ skipped: { ...st.skipped, [u[0]]: !st.skipped[u[0]] }, announce: (sk ? 'Unskipped ' : 'Skipped ') + u[1] }))
+      };
+    });
+    const pauseBack = { '1': 'Thu 22 Oct', '2': 'Thu 29 Oct', '4': 'Thu 12 Nov' };
+    const subState = s.subCancelled ? 'cancelled' : (s.paused ? 'paused' : 'active');
+
+    // ---------- boxes ----------
+    const BX = {
+      basics: { name: 'Weekly basics', items: 'Spinach, fenugreek, carrot 500 g, green peas 500 g', price: 140, last: 'last ordered 14 Oct', thumbs: ['spinach', 'methi', 'carrot', 'peas'] },
+      sunday: { name: 'Sunday sarson da saag', items: 'Mustard greens 1 kg, spinach, fenugreek, ginger, green chilli, garlic', price: 148, last: 'last ordered 4 Oct', thumbs: ['sarson', 'spinach', 'ginger', 'garlic'] },
+      office: { name: 'Fruit for the office', items: 'Banana 12 pcs, apple 2 kg, guava 1 kg, kinnow 2 kg', price: 590, last: 'never ordered', thumbs: ['banana', 'apple', 'guava', 'kinnow'] }
+    };
+    const boxes = s.boxes.map((k) => {
+      const b = BX[k];
+      return {
+        name: b.name, items: b.items, priceText: rupees(b.price), last: b.last, thumbs: b.thumbs.map(pic),
+        addLabel: 'Add ' + b.name + ' to basket', editLabel: 'Edit ' + b.name, delLabel: 'Delete ' + b.name,
+        add: () => set({ boxMsg: '“' + b.name + '” is in your basket.', announce: b.name + ' added' }),
+        del: () => this.setState((st) => ({ boxes: st.boxes.filter((x) => x !== k), boxUndo: { k, i: st.boxes.indexOf(k) }, boxMsg: '' }))
+      };
+    });
+
+    // ---------- settings ----------
+    const AD = {
+      home: { label: 'Home', line: 'House 1234, Sector 22-B, Chandigarh 160022', note: 'Ring twice. Leave with the guard if no one answers.' },
+      work: { label: 'Work', line: 'SCO 45, Phase 7 market, Mohali 160062', note: 'Weekdays only, 9 AM–6 PM' }
+    };
+    const addresses = s.addresses.map((k) => ({
+      label: AD[k].label, line: AD[k].line, note: AD[k].note,
+      isDefault: s.defaultAddr === k, canDefault: s.defaultAddr !== k, canDelete: s.defaultAddr !== k,
+      editLabel: 'Edit ' + AD[k].label + ' address', delLabel: 'Delete ' + AD[k].label + ' address',
+      makeDefault: () => set({ defaultAddr: k, announce: AD[k].label + ' is now your default address' }),
+      del: () => this.setState((st) => ({ addresses: st.addresses.filter((x) => x !== k), addrUndo: k }))
+    }));
+    const notifyDefs = [
+      ['order', 'Order and delivery updates', 'Confirmed, packed, on the way, delivered, and any problems.', true],
+      ['sub', 'Subscription reminders', 'A nudge the day before each cut-off.', false],
+      ['inv', 'Invoices and refunds', 'Your GST invoice and refund receipts.', false]
+    ];
+    const chanDefs = [['wa', 'WhatsApp'], ['sms', 'SMS'], ['email', 'Email']];
+    const notify = notifyDefs.map((n) => {
+      const allOff = chanDefs.every((c) => !s.ch[n[0] + '_' + c[0]]);
+      return {
+        title: n[1], sub: n[2], err: n[3] && allOff,
+        channels: chanDefs.map((c) => {
+          const key = n[0] + '_' + c[0];
+          return { name: key, label: c[1], on: !!s.ch[key], toggle: () => this.setState((st) => ({ ch: { ...st.ch, [key]: !st.ch[key] }, notifySaved: false })) };
+        })
+      };
+    });
+    const orderAllOff = chanDefs.every((c) => !s.ch['order_' + c[0]]);
+    const emailOk = (v) => !v || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+    const gstOk = (v) => !v || /^\d{2}[A-Z]{5}\d{4}[A-Z][1-9A-Z]Z[0-9A-Z]$/.test(v);
+
+    const nextSteps = [['Placed', '9:12 AM', 'done'], ['Packed', '1:40 PM', 'done'], ['On the way', 'About 3:45 PM', 'todo'], ['Delivered', '4–6 PM', 'todo']].map((t, i) => ({
+      label: t[0], time: t[1], current: i === 1 ? 'step' : 'false',
+      bar: t[2] === 'done' ? 'var(--accent)' : 'var(--band-overlay)', color: t[2] === 'done' ? 'var(--on-band)' : 'var(--on-band-muted)'
+    }));
+    const recentIds = ['GB-24871', 'GB-24790', 'GB-24712'];
+    const recent = O.filter((o) => recentIds.includes(o.id)).map((o) => {
+      const k = kindOf(o);
+      return {
+        id: o.id, status: badgeOf[k][0], badgeCls: badgeOf[k][1], when: s.newSlot[o.id] || o.slot,
+        count: String(o.lines.length), totalText: rupees(orderTotal(o)), thumbs: o.lines.slice(0, 3).map((l) => pic(l[3])),
+        canReorder: k === 'delivered' || k === 'cancelled',
+        details: () => go('orders', { open: { ...s.open, [o.id]: true }, filter: 'all', query: '' }),
+        reorder: () => reorder(o),
+        detailsLabel: 'Details for ' + o.id, reorderLabel: 'Reorder ' + o.id
+      };
+    });
+
+    return {
+      dark,
+      themeClass: dark ? 'dark' : '',
+      cartCount: '3',
+      cartTotal: '₹290',
+      announce: s.announce,
+      name: s.name,
+      firstName: (s.name.trim().split(' ')[0]) || 'there',
+      tabs: Object.keys(tabLabels).map((t) => ({
+        label: tabLabels[t], icon: icons[t], current: s.tab === t ? 'page' : 'false', go: () => go(t),
+        hasCount: t === 'orders' && activeCount > 0, count: String(activeCount)
+      })),
+      signOut: () => set({ signedOut: true, tab: 'overview' }),
+      signedOut: s.signedOut,
+      isOverview: s.tab === 'overview', isOrders: s.tab === 'orders', isSub: s.tab === 'subscription', isBoxes: s.tab === 'boxes', isSettings: s.tab === 'settings',
+
+      // overview
+      nextSteps,
+      trackNext: () => go('orders', { open: { ...s.open, 'GB-24871': true }, filter: 'all', query: '' }),
+      subBadge: subState === 'active' ? 'Active' : (subState === 'paused' ? 'Paused' : 'Ending'),
+      subBadgeCls: subState === 'active' ? '' : 'badge-warn',
+      goSub: () => go('subscription'),
+      goBoxes: () => go('boxes'),
+      goOrders: () => go('orders'),
+      boxCountText: s.boxes.length + (s.boxes.length === 1 ? ' box' : ' boxes'),
+      boxNames: s.boxes.map((k) => BX[k].name).join(' · ') || 'None yet',
+      recent,
+      hasReorderMsg: !!s.reorderMsg,
+      reorderMsg: s.reorderMsg,
+
+      // orders
+      filters,
+      query: s.query,
+      onQuery: (e) => set({ query: e.target.value }),
+      clearQuery: () => set({ query: '', filter: 'all' }),
+      noOrders: orders.length === 0,
+      orders,
+      reportItems,
+      repItemsErr: s.repItemsErr,
+      repReasons: reasons.map((r) => ({ id: r[0], label: r[1], on: s.repReason === r[0] })),
+      repReason: s.repReason,
+      onRepReason: (e) => set({ repReason: e.target.value, repReasonErr: false, repPhotoErr: false }),
+      repReasonErr: s.repReasonErr,
+      repReasonInvalid: s.repReasonErr ? 'true' : 'false',
+      photoOpt: needsPhoto ? '(needed for damaged or stale items)' : '(optional)',
+      photoText: s.repFiles ? s.repFiles + (s.repFiles === 1 ? ' photo chosen. Tap to change' : ' photos chosen. Tap to change') : 'Take or choose photos',
+      photoLine: s.repPhotoErr ? 'var(--danger)' : 'var(--field-line)',
+      onRepFiles: (e) => set({ repFiles: Math.min(3, (e.target.files && e.target.files.length) || 0), repPhotoErr: false }),
+      repPhotoErr: s.repPhotoErr,
+      fixes: fixDefs.map((f) => ({ id: f[0], label: f[1], sub: f[2], on: s.repFix === f[0], cls: s.repFix === f[0] ? 'on' : '', pick: () => set({ repFix: f[0] }) })),
+      onRepNotes: (e) => set({ repNotes: e.target.value.length }),
+      repCount: String(s.repNotes),
+      repFixText: s.repFix === 'refund' ? 'a refund to your UPI' : (s.repFix === 'replace' ? 'a free replacement in your next delivery' : 'store credit added the same day'),
+      submitReport: (e) => {
+        e.preventDefault();
+        const noItems = !Object.keys(s.repItems).some((k) => s.repItems[k]);
+        const noReason = !s.repReason;
+        const noPhoto = needsPhoto && !s.repFiles;
+        if (noItems || noReason || noPhoto) { set({ repItemsErr: noItems, repReasonErr: noReason, repPhotoErr: noPhoto }); return this.focusError(noItems ? 'input[name="items"]:not(:disabled)' : (noReason ? '#acct-rep-reason' : '#acct-rep-file')); }
+        set({ reportSent: true, report: null, announce: 'Report sent' });
+      },
+      closeReport: () => set({ report: null }),
+
+      // subscription
+      planName: plan[1] + ' plan',
+      planLine: plan[3] + ' · ' + plan[2].toLowerCase() + ' · free delivery',
+      subPaused: subState === 'paused',
+      subCancelled: subState === 'cancelled',
+      subLive: subState === 'active',
+      pauseUntil: pauseBack[s.pauseLen],
+      resume: () => set({ paused: false, announce: 'Plan resumed' }),
+      restart: () => set({ subCancelled: false, announce: 'Plan restarted' }),
+      allowance: String(allowance),
+      used: String(used),
+      usedText: rupees(used),
+      allowanceText: rupees(allowance),
+      usedWidth: Math.min(100, Math.round((used / allowance) * 100)) + '%',
+      meterColor: over > 0 ? 'var(--warning)' : 'var(--accent)',
+      leftText: over > 0 ? rupees(over) + ' over' : rupees(allowance - used) + ' left',
+      leftColor: over > 0 ? 'var(--warning)' : 'var(--accent-text)',
+      overText: over > 0 ? 'You’re ' + rupees(over) + ' over your allowance. We’ll add it to this week’s UPI charge, or remove something to stay inside it.' : 'Fill it up to ' + rupees(allowance) + '. Anything above that is charged at store prices.',
+      overColor: over > 0 ? 'var(--warning)' : 'var(--text-muted)',
+      basket,
+      suggest,
+      saveBasket: () => set({ basketSaved: true, announce: 'Basket saved' }),
+      basketSaved: s.basketSaved,
+      upcoming,
+      plans: plansDef.map((p) => ({ id: p[0], name: p[1], sub: p[2], price: p[3], on: s.planChoice === p[0], cls: s.planChoice === p[0] ? 'on' : '', pick: () => set({ planChoice: p[0], planSaved: false }) })),
+      savePlan: (e) => {
+        e.preventDefault();
+        const np = plansDef.find((p) => p[0] === s.planChoice);
+        if (s.planChoice === s.plan) return set({ planSaved: true, planSavedText: 'You’re already on ' + np[1] + '.' });
+        set({ plan: s.planChoice, planSaved: true, planSavedText: 'Switched to ' + np[1] + ', from Thu 22 Oct.' });
+      },
+      planSaved: s.planSaved,
+      planSavedText: s.planSavedText || '',
+      pauseLen: s.pauseLen,
+      onPauseLen: (e) => set({ pauseLen: e.target.value }),
+      pause: (e) => { e.preventDefault(); set({ paused: true, cancelSubOpen: false, announce: 'Plan paused' }); },
+      showCancelBtn: !s.cancelSubOpen && !s.subCancelled,
+      cancelSubOpen: s.cancelSubOpen && !s.subCancelled,
+      cancelSubExpanded: String(s.cancelSubOpen),
+      openCancelSub: () => set({ cancelSubOpen: true }),
+      closeCancelSub: () => set({ cancelSubOpen: false }),
+      pauseInstead: () => set({ paused: true, pauseLen: '2', cancelSubOpen: false, announce: 'Paused for 2 weeks' }),
+      cancelReasons: ['Too much produce', 'It costs too much', 'Quality wasn’t right', 'Moving or travelling', 'Something else'],
+      confirmCancelSub: (e) => { e.preventDefault(); set({ subCancelled: true, cancelSubOpen: false, paused: false, announce: 'Subscription cancelled' }); },
+
+      // boxes
+      boxes,
+      boxUndo: !!s.boxUndo,
+      boxUndoName: s.boxUndo ? BX[s.boxUndo.k].name : '',
+      undoBox: () => this.setState((st) => {
+        const list = st.boxes.slice();
+        list.splice(st.boxUndo.i, 0, st.boxUndo.k);
+        return { boxes: list, boxUndo: null };
+      }),
+      hasBoxMsg: !!s.boxMsg,
+      boxMsg: s.boxMsg,
+
+      // settings
+      onName: (e) => set({ name: e.target.value, nameErr: false, profileSaved: false }),
+      nameErr: s.nameErr, nameInvalid: s.nameErr ? 'true' : 'false',
+      email: s.email,
+      onEmail: (e) => set({ email: e.target.value.trim(), emailErr: false, profileSaved: false }),
+      emailErr: s.emailErr, emailInvalid: s.emailErr ? 'true' : 'false',
+      isHome: String(!s.biz), isBiz: String(s.biz), isBizBool: s.biz,
+      setHome: () => set({ biz: false, profileSaved: false }),
+      setBiz: () => set({ biz: true, profileSaved: false }),
+      gst: s.gst,
+      onGst: (e) => set({ gst: e.target.value.toUpperCase().replace(/\s/g, ''), gstErr: false }),
+      gstErr: s.gstErr, gstInvalid: s.gstErr ? 'true' : 'false',
+      saveProfile: (e) => {
+        e.preventDefault();
+        const nameErr = !s.name.trim();
+        const emailErr = !emailOk(s.email);
+        const gstErr = s.biz && !gstOk(s.gst);
+        if (nameErr || emailErr || gstErr) { set({ nameErr, emailErr, gstErr }); return this.focusError(); }
+        set({ profileSaved: true, announce: 'Profile saved' });
+      },
+      profileSaved: s.profileSaved,
+      addresses,
+      addrUndo: !!s.addrUndo,
+      addrUndoName: s.addrUndo ? AD[s.addrUndo].label : '',
+      undoAddr: () => this.setState((st) => ({ addresses: Object.keys(AD).filter((k) => st.addresses.includes(k) || k === st.addrUndo), addrUndo: null })),
+      notify,
+      marketing: s.marketing,
+      toggleMarketing: () => set({ marketing: !s.marketing, notifySaved: false }),
+      saveNotify: (e) => { e.preventDefault(); if (orderAllOff) return; set({ notifySaved: true, announce: 'Message settings saved' }); },
+      notifySaved: s.notifySaved,
+      cardBtn: s.cardRemoved ? 'Removed' : 'Remove',
+      removeCard: () => set({ cardRemoved: true, announce: 'Card removed' }),
+      exportData: () => set({ exportDone: true }),
+      exportDone: s.exportDone,
+      exportBtn: s.exportDone ? 'Requested' : 'Request my data',
+      signOutAll: () => set({ signedOutAll: true }),
+      signedOutAll: s.signedOutAll,
+      showDeleteBtn: !s.deleteOpen && !s.deleted,
+      deleteOpen: s.deleteOpen && !s.deleted,
+      deleteExpanded: String(s.deleteOpen),
+      openDelete: () => set({ deleteOpen: true, delText: '' }),
+      closeDelete: () => set({ deleteOpen: false, delText: '' }),
+      delText: s.delText,
+      onDelText: (e) => set({ delText: e.target.value }),
+      delDisabled: s.delText.trim().toUpperCase() !== 'DELETE',
+      confirmDelete: (e) => { e.preventDefault(); if (s.delText.trim().toUpperCase() !== 'DELETE') return; set({ deleted: true, deleteOpen: false, announce: 'Deletion requested' }); },
+      deleted: s.deleted
+    };
+  }
+}
+</script>
+</body>
+</html>

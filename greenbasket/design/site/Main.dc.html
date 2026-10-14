@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Greeen Basket, fresh produce for the Tricity</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="gb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600&amp;family=Rubik:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div class="gb {{themeClass}}" style="min-height: 100%; background: var(--bg); color: var(--text); font-family: Rubik, 'Noto Sans Devanagari', system-ui, sans-serif;">
+  <dc-import name="Header" active="none" dark="{{dark}}" cart-count="{{cartCount}}" cart-total="{{cartTotal}}" hint-size="100%,190px"></dc-import>
+
+  <main id="main">
+    <section aria-labelledby="hero-title" class="wrap" style="display: flex; flex-wrap: wrap; align-items: stretch; gap: 40px 56px; padding-block: clamp(40px, 6vw, 80px) clamp(48px, 6vw, 72px);">
+      <div style="flex: 1 1 520px; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 24px;">
+        <p class="t-eyebrow">Fresh produce · Chandigarh, Mohali, Panchkula</p>
+        <h1 id="hero-title" class="t-d1" style="max-width: 12em;">Fresh from the mandi, in the slot you pick.</h1>
+        <p class="t-lead" style="max-width: 34em;">Vegetables, fruit, greens and exotics in fixed-price packs. Choose a delivery slot that suits your day and our own riders bring it to your door.</p>
+
+        <form onSubmit="{{checkPin}}" noValidate class="card" style="padding: 16px; display: flex; flex-direction: column; gap: 10px; max-width: 520px;">
+          <label for="hero-pin" class="label">Check delivery to your area</label>
+          <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+            <input id="hero-pin" class="input num" type="text" name="pin" inputmode="numeric" autocomplete="postal-code" maxlength="6" spellcheck="false" placeholder="6-digit PIN code, like 160022…" value="{{pin}}" onChange="{{onPin}}" aria-invalid="{{pinInvalid}}" aria-describedby="hero-pin-msg" style="flex: 1 1 200px; width: auto;">
+            <button type="submit" class="btn btn-ink">Check PIN code</button>
+          </div>
+          <div id="hero-pin-msg" aria-live="polite">
+            <sc-if value="{{pinOk}}" hint-placeholder-val="{{false}}"><p class="ok"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg>{{pinMsg}}</p></sc-if>
+            <sc-if value="{{pinNo}}" hint-placeholder-val="{{false}}"><p class="t-sm" style="color: var(--warning); font-weight: 500;">{{pinMsg}} <a href="Contact.dc.html">Ask us to come to your area</a></p></sc-if>
+            <sc-if value="{{pinErr}}" hint-placeholder-val="{{false}}"><p class="error">{{pinMsg}}</p></sc-if>
+            <sc-if value="{{pinIdle}}" hint-placeholder-val="{{true}}"><p class="hint">We deliver across the Tricity. Exact PIN codes are listed before launch.</p></sc-if>
+          </div>
+        </form>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+          <a href="#shop" class="btn btn-primary btn-lg">Shop all {{productCount}} products</a>
+          <a href="FarmBox.dc.html" class="btn btn-outline btn-lg">Build a Farm Box</a>
+        </div>
+      </div>
+
+      <div aria-hidden="true" style="flex: 1 1 440px; min-width: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px;">
+        <div class="well" style="grid-column: span 2; position: relative; display: flex; align-items: center; justify-content: center; min-height: 340px; border-radius: var(--r-xl); overflow: hidden;">
+          <img src="/_blob/2c8a148c213c5f35e32717ac2f4aff86" alt="" width="300" height="300" style="width: min(300px, 70%); height: auto;">
+          <span class="card-raised" style="position: absolute; left: 22px; top: 24px; display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px 8px 8px; border-radius: var(--r-pill);"><img src="/_blob/90234e112587bcb63afe69728f9038ca" alt="" width="32" height="32"><span class="t-sm"><b class="t-strong">Tomato</b> <span class="t-muted num">1 kg · ₹40</span></span></span>
+          <span class="card-raised" style="position: absolute; right: 22px; bottom: 28px; display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px 8px 8px; border-radius: var(--r-pill);"><img src="/_blob/0e0c61ea89660ecc92ca466f7b232d85" alt="" width="32" height="32"><span class="t-sm"><b class="t-strong">Fenugreek</b> <span class="hi t-muted">मेथी</span> <span class="t-muted num">· ₹15</span></span></span>
+        </div>
+        <div style="padding: 20px; border-radius: var(--r-xl); background: var(--band); color: var(--on-band); display: flex; flex-direction: column; gap: 6px; min-height: 140px; justify-content: space-between;">
+          <span class="t-xs" style="opacity: 0.8;">Next open slot</span>
+          <span style="font-size: 28px; line-height: 1.1; font-weight: 600; letter-spacing: -0.02em;" class="num">Today<br>4–6&nbsp;PM</span>
+          <span class="t-xs" style="opacity: 0.8;">Slots close when they fill up</span>
+        </div>
+        <div style="padding: 20px; border-radius: var(--r-xl); background: var(--olive-soft); color: var(--on-olive-soft); display: flex; flex-direction: column; justify-content: space-between; min-height: 140px;">
+          <span class="t-xs" style="font-weight: 600;">Fixed pack prices</span>
+          <span style="font-size: 20px; line-height: 1.25; font-weight: 600; letter-spacing: -0.01em; color: var(--text-strong);">The price on the pack is the price you pay.</span>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="cat-title" class="wrap" style="padding-block: 8px 24px;">
+      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 20px;">
+        <h2 id="cat-title" class="t-h2">Shop by category</h2>
+        <a href="#shop" class="t-sm" style="font-weight: 600;">See everything</a>
+      </div>
+      <ul style="display: grid; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 14px;">
+        <sc-for list="{{tiles}}" as="t" hint-placeholder-count="6">
+          <li>
+            <a href="{{t.href}}" onClick="{{t.pick}}" class="card lift" style="display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 20px 14px 18px; text-decoration: none; color: var(--text-strong); text-align: center; height: 100%;">
+              <span style="width: 104px; height: 104px; border-radius: 50%; background: var(--well); display: inline-flex; align-items: center; justify-content: center;"><img src="{{t.img}}" alt="" width="76" height="76" loading="lazy"></span>
+              <span style="font-size: 16px; font-weight: 600; line-height: 1.3;">{{t.label}}</span>
+              <span class="t-xs t-muted">{{t.sub}}</span>
+            </a>
+          </li>
+        </sc-for>
+      </ul>
+    </section>
+
+    <section aria-labelledby="ways-title" class="wrap section">
+      <div style="max-width: 720px; margin-bottom: 32px;">
+        <p class="t-eyebrow">Four ways to shop</p>
+        <h2 id="ways-title" class="t-h1" style="margin-top: 10px;">One fresh stock, shopped the way your week works.</h2>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 16px;">
+        <article class="card" style="flex: 2 1 540px; min-width: 0; display: flex; flex-direction: column; gap: 20px; padding: clamp(22px, 3vw, 36px); border-radius: var(--r-xl);">
+          <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px;" aria-hidden="true">
+            <span class="well" style="aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; border-radius: var(--r-md);"><img src="/_blob/90234e112587bcb63afe69728f9038ca" alt="" width="64" height="64" loading="lazy"></span>
+            <span class="well" style="aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; border-radius: var(--r-md);"><img src="/_blob/8581b06e9c225f563a590d141aab53d4" alt="" width="64" height="64" loading="lazy"></span>
+            <span class="well" style="aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; border-radius: var(--r-md);"><img src="/_blob/d7b00861d43b60387799340029aefdd9" alt="" width="64" height="64" loading="lazy"></span>
+            <span class="well" style="aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; border-radius: var(--r-md);"><img src="/_blob/fd2079b5997095279838843a25a8bb23" alt="" width="64" height="64" loading="lazy"></span>
+          </div>
+          <div>
+            <h3 class="t-h3">Everyday store</h3>
+            <p style="margin-top: 8px; max-width: 46ch;">Fruit and vegetables in fixed packs or by the piece. Add retail, Farm Box and wholesale items to the same basket.</p>
+          </div>
+          <a href="#shop" class="btn btn-ink" style="align-self: flex-start; margin-top: auto;">Start shopping</a>
+        </article>
+        <article style="flex: 1 1 280px; min-width: 0; display: flex; flex-direction: column; gap: 16px; padding: clamp(22px, 3vw, 32px); border-radius: var(--r-xl); background: var(--olive-soft); color: var(--on-olive-soft);">
+          <img src="/_blob/2c8a148c213c5f35e32717ac2f4aff86" alt="" width="132" height="132" loading="lazy">
+          <h3 class="t-h3">Farm Box</h3>
+          <p style="color: var(--text);">Pick every item. No minimum. Save it and reorder next week in one tap.</p>
+          <a href="FarmBox.dc.html" class="btn btn-outline" style="align-self: flex-start; margin-top: auto;">Build a box</a>
+        </article>
+        <div style="flex: 1 1 280px; min-width: 0; display: flex; flex-direction: column; gap: 16px;">
+          <article style="flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 24px; border-radius: var(--r-xl); background: var(--band); color: var(--on-band);">
+            <h3 class="t-h4" style="color: var(--on-band);">Subscriptions</h3>
+            <p class="t-sm" style="opacity: 0.88;">A fixed weekly or monthly plan. You choose what fills it, and edit, skip or pause any week.</p>
+            <a href="Subscriptions.dc.html" style="margin-top: auto; color: var(--on-band); font-weight: 600;">See plans</a>
+          </article>
+          <article style="flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 24px; border-radius: var(--r-xl); background: var(--accent); color: var(--on-accent);">
+            <h3 class="t-h4" style="color: var(--on-accent);">Wholesale</h3>
+            <p class="t-sm">Lower per-kg rates from 5 kg, open to every customer. No business account needed.</p>
+            <a href="Wholesale.dc.html" style="margin-top: auto; color: var(--on-accent); font-weight: 600;">See wholesale rates</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="deals" aria-labelledby="deals-title" class="wrap" style="padding-bottom: clamp(40px, 5vw, 64px);">
+      <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; margin-bottom: 20px;">
+        <h2 id="deals-title" class="t-h2">This week’s deals</h2>
+        <p class="t-sm t-muted">Deal prices hold until Sunday, or until stock runs out.</p>
+      </div>
+      <ul style="display: grid; grid-template-columns: repeat(auto-fill, minmax(196px, 1fr)); gap: 16px;">
+        <sc-for list="{{deals}}" as="p" hint-placeholder-count="4">
+          <li style="min-width: 0;"><dc-import name="ProductCard" item="{{p}}" dark="{{dark}}" show-hindi="{{showHindi}}" hint-size="100%,440px"></dc-import></li>
+        </sc-for>
+        <li class="well" style="display: flex; flex-direction: column; justify-content: center; gap: 10px; padding: 24px; border-radius: var(--r-lg);">
+          <h3 class="t-h4">How our prices work</h3>
+          <p class="t-sm">Every pack has a fixed price and a price per kg, so you can compare. We never re-weigh and re-bill at your door.</p>
+        </li>
+      </ul>
+    </section>
+
+    <section id="shop" aria-labelledby="shop-title" class="wrap" style="padding-block: clamp(40px, 5vw, 64px); border-top: 1px solid var(--line);">
+      <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 24px;">
+        <div>
+          <h2 id="shop-title" class="t-h1">Shop fresh produce</h2>
+          <p class="t-muted" style="margin-top: 6px;">{{resultsText}}</p>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <label for="shop-sort" class="t-sm t-muted">Sort by</label>
+          <select id="shop-sort" name="sort" class="input" value="{{sort}}" onChange="{{onSort}}" style="width: auto; height: 44px;">
+            <option value="popular">Most bought</option>
+            <option value="low">Price, low to high</option>
+            <option value="high">Price, high to low</option>
+            <option value="az">Name, A to Z</option>
+          </select>
+        </div>
+      </div>
+      <div role="group" aria-label="Filter by category" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;">
+        <sc-for list="{{chips}}" as="c" hint-placeholder-count="5">
+          <button type="button" class="chip" aria-pressed="{{c.pressed}}" onClick="{{c.pick}}">{{c.label}} <span class="num" style="opacity: 0.75;">{{c.count}}</span></button>
+        </sc-for>
+        <label class="check" style="margin-left: auto; min-height: 40px; padding-block: 8px; font-size: 14px;"><input type="checkbox" name="season" checked="{{season}}" onChange="{{onSeason}}">In season only</label>
+      </div>
+
+      <sc-if value="{{noResults}}" hint-placeholder-val="{{false}}">
+        <div class="well" style="margin-top: 32px; padding: 40px 24px; text-align: center;">
+          <p class="t-h4">Nothing in season in this category right now.</p>
+          <p class="t-muted" style="margin-top: 6px;">Turn off “In season only” to see everything we stock.</p>
+          <button type="button" class="btn btn-ink" style="margin-top: 18px;" onClick="{{clearFilters}}">Show all products</button>
+        </div>
+      </sc-if>
+
+      <sc-for list="{{sections}}" as="sec" hint-placeholder-count="4">
+        <section aria-labelledby="{{sec.hid}}" style="margin-top: 36px;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-bottom: 12px; margin-bottom: 18px; border-bottom: 1px solid var(--line);">
+            <h3 id="{{sec.hid}}" class="t-h3">{{sec.title}} <sc-if value="{{showHindi}}" hint-placeholder-val="{{true}}"><span class="hi t-muted" style="font-size: 16px; font-weight: 400; margin-left: 6px;">{{sec.hi}}</span></sc-if></h3>
+            <span class="t-sm t-muted">{{sec.countText}}</span>
+          </div>
+          <ul style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px;">
+            <sc-for list="{{sec.items}}" as="p" hint-placeholder-count="6">
+              <li style="min-width: 0;"><dc-import name="ProductCard" item="{{p}}" dark="{{dark}}" show-hindi="{{showHindi}}" hint-size="100%,420px"></dc-import></li>
+            </sc-for>
+          </ul>
+        </section>
+      </sc-for>
+    </section>
+
+    <section aria-labelledby="fb-title" class="wrap section" style="display: flex; flex-wrap: wrap; align-items: center; gap: 40px 64px;">
+      <div class="well" aria-hidden="true" style="flex: 1 1 440px; min-height: 420px; display: flex; align-items: center; justify-content: center; border-radius: var(--r-xl);">
+        <img src="/_blob/2c8a148c213c5f35e32717ac2f4aff86" alt="" width="320" height="320" loading="lazy" style="width: min(320px, 70%); height: auto;">
+      </div>
+      <div style="flex: 1 1 440px; min-width: 0;">
+        <p class="t-eyebrow">Farm Box</p>
+        <h2 class="t-h1" id="fb-title" style="margin-top: 10px;">Build your own box. No minimum.</h2>
+        <ol style="margin-top: 28px; display: grid; gap: 20px;">
+          <li style="display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 16px;"><span class="num" style="width: 40px; height: 40px; border-radius: 50%; background: var(--accent-soft); color: var(--on-accent-soft); display: inline-flex; align-items: center; justify-content: center; font-weight: 700;">1</span><div><h3 class="t-h4">Pick every item</h3><p class="t-muted" style="margin-top: 2px;">Choose from the same fresh stock as the store, in any quantity.</p></div></li>
+          <li style="display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 16px;"><span class="num" style="width: 40px; height: 40px; border-radius: 50%; background: var(--accent-soft); color: var(--on-accent-soft); display: inline-flex; align-items: center; justify-content: center; font-weight: 700;">2</span><div><h3 class="t-h4">Save it with a name</h3><p class="t-muted" style="margin-top: 2px;">“Weekly basics” or “Sunday sabzi”. A saved box keeps your picks, not today’s prices.</p></div></li>
+          <li style="display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 16px;"><span class="num" style="width: 40px; height: 40px; border-radius: 50%; background: var(--accent-soft); color: var(--on-accent-soft); display: inline-flex; align-items: center; justify-content: center; font-weight: 700;">3</span><div><h3 class="t-h4">Reorder in one tap</h3><p class="t-muted" style="margin-top: 2px;">Next week, fill the same box again and pick a fresh slot.</p></div></li>
+        </ol>
+        <a href="FarmBox.dc.html" class="btn btn-primary btn-lg" style="margin-top: 32px;">Start a Farm Box</a>
+      </div>
+    </section>
+
+    <section aria-labelledby="sub-title" class="wrap">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 32px 56px; padding: clamp(32px, 5vw, 64px); border-radius: var(--r-xl); background: var(--band); color: var(--on-band);">
+        <div style="flex: 2 1 460px; min-width: 0;">
+          <h2 id="sub-title" class="t-h1" style="color: var(--on-band);">Your week’s produce, sorted every week.</h2>
+          <p class="t-lead" style="margin-top: 14px; opacity: 0.9; max-width: 36em;">Choose a weekly or monthly plan, fill it with what you like up to its allowance, and change the basket before each cut-off.</p>
+          <ul style="margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px;">
+            <li class="badge" style="background: var(--band-overlay); color: var(--on-band); padding: 6px 12px; font-size: 13px;">Edit or skip any week</li>
+            <li class="badge" style="background: var(--band-overlay); color: var(--on-band); padding: 6px 12px; font-size: 13px;">Pause while you travel</li>
+            <li class="badge" style="background: var(--band-overlay); color: var(--on-band); padding: 6px 12px; font-size: 13px;">Cancel from your account</li>
+          </ul>
+        </div>
+        <div style="flex: 1 1 260px; display: flex; flex-direction: column; gap: 12px; align-items: flex-start;">
+          <p class="t-sm" style="opacity: 0.85;">Plans from</p>
+          <p class="num" style="font-size: 44px; line-height: 1; font-weight: 600; letter-spacing: -0.03em;">₹499 <span style="font-size: 18px; font-weight: 400; opacity: 0.85;">a week</span></p>
+          <a href="Subscriptions.dc.html" class="btn btn-primary btn-lg" style="margin-top: 8px;">Choose a plan</a>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="how-title" class="wrap section">
+      <h2 id="how-title" class="t-h1" style="max-width: 16em;">From basket to doorstep in four steps</h2>
+      <ol style="margin-top: 36px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 28px;">
+        <li style="display: flex; flex-direction: column; gap: 10px; padding-top: 18px; border-top: 2px solid var(--accent);"><span class="t-sm num" style="font-weight: 700; color: var(--accent-text);">01</span><h3 class="t-h4">Fill your basket</h3><p class="t-muted">Choose packs from the store, build a Farm Box, or both.</p></li>
+        <li style="display: flex; flex-direction: column; gap: 10px; padding-top: 18px; border-top: 2px solid var(--line-strong);"><span class="t-sm num" style="font-weight: 700; color: var(--text-muted);">02</span><h3 class="t-h4">Pick a delivery slot</h3><p class="t-muted">See which slots are open for your PIN code and choose one. We hold it while you pay.</p></li>
+        <li style="display: flex; flex-direction: column; gap: 10px; padding-top: 18px; border-top: 2px solid var(--line-strong);"><span class="t-sm num" style="font-weight: 700; color: var(--text-muted);">03</span><h3 class="t-h4">Pay your way</h3><p class="t-muted">UPI, card or net banking, cash on delivery where eligible, or bank transfer.</p></li>
+        <li style="display: flex; flex-direction: column; gap: 10px; padding-top: 18px; border-top: 2px solid var(--line-strong);"><span class="t-sm num" style="font-weight: 700; color: var(--text-muted);">04</span><h3 class="t-h4">We pack and deliver</h3><p class="t-muted">Your order is packed fresh and our own riders bring it in your slot.</p></li>
+      </ol>
+    </section>
+
+    <section aria-labelledby="ws-title" class="wrap" style="padding-bottom: clamp(56px, 7vw, 96px);">
+      <div class="card" style="display: flex; flex-wrap: wrap; gap: 32px 56px; align-items: center; padding: clamp(24px, 4vw, 48px); border-radius: var(--r-xl);">
+        <div style="flex: 1 1 380px; min-width: 0;">
+          <p class="t-eyebrow">Wholesale</p>
+          <h2 id="ws-title" class="t-h2" style="margin-top: 10px;">Buying for a restaurant, a shop or a big family?</h2>
+          <p style="margin-top: 12px; max-width: 44ch;">Reach a quantity tier and its rate applies to every kilo, not only the extra ones. The same product on two lines counts together.</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px;">
+            <a href="Wholesale.dc.html" class="btn btn-ink">See wholesale rates</a>
+            <a href="Wholesale.dc.html#quote" class="btn btn-outline">Request a quote</a>
+          </div>
+        </div>
+        <div style="flex: 1 1 380px; min-width: 0; overflow-x: auto;">
+          <table class="table">
+            <caption class="sr-only">Sample wholesale rates per kilo</caption>
+            <thead><tr><th scope="col">Product, per kg</th><th scope="col" class="r">First tier</th><th scope="col" class="r">Best tier</th></tr></thead>
+            <tbody>
+              <tr><th scope="row" style="font-weight: 500; color: var(--text-strong); padding: 14px;">Onion</th><td class="r">₹40<span class="t-xs t-muted" style="display: block;">from 10 kg</span></td><td class="r" style="color: var(--accent-text); font-weight: 600;">₹37<span class="t-xs t-muted" style="display: block; font-weight: 400;">from 25 kg</span></td></tr>
+              <tr><th scope="row" style="font-weight: 500; color: var(--text-strong); padding: 14px;">Potato</th><td class="r">₹26<span class="t-xs t-muted" style="display: block;">from 10 kg</span></td><td class="r" style="color: var(--accent-text); font-weight: 600;">₹24<span class="t-xs t-muted" style="display: block; font-weight: 400;">from 25 kg</span></td></tr>
+              <tr><th scope="row" style="font-weight: 500; color: var(--text-strong); padding: 14px;">Tomato</th><td class="r">₹36<span class="t-xs t-muted" style="display: block;">from 5 kg</span></td><td class="r" style="color: var(--accent-text); font-weight: 600;">₹33<span class="t-xs t-muted" style="display: block; font-weight: 400;">from 20 kg</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="trust-title" class="wrap" style="padding-bottom: clamp(56px, 7vw, 96px);">
+      <h2 id="trust-title" class="sr-only">What you can count on</h2>
+      <ul style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 28px;">
+        <li style="display: flex; flex-direction: column; gap: 8px;"><svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-text);"><path d="M20 12l-8 8-9-9V3h8z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle></svg><h3 class="t-h4">Fixed pack prices</h3><p class="t-sm t-muted">You pay the price on the pack. Short or damaged items are refunded, never quietly swapped.</p></li>
+        <li style="display: flex; flex-direction: column; gap: 8px;"><svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-text);"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg><h3 class="t-h4">Slots that hold</h3><p class="t-sm t-muted">Each slot takes a set number of orders and closes when full, so yours isn’t squeezed in late.</p></li>
+        <li style="display: flex; flex-direction: column; gap: 8px;"><svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-text);"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"></path><circle cx="7" cy="18" r="2"></circle><circle cx="17" cy="18" r="2"></circle></svg><h3 class="t-h4">Our own riders</h3><p class="t-sm t-muted">Every order is packed and delivered by the Greeen Basket team across the Tricity.</p></li>
+        <li style="display: flex; flex-direction: column; gap: 8px;"><svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-text);"><path d="M12 21c4.5-2 8-5.5 8-11V5l-8-3-8 3v5c0 5.5 3.5 9 8 11z"></path><path d="M9 12l2 2 4-4"></path></svg><h3 class="t-h4">Refunds reviewed by people</h3><p class="t-sm t-muted">Report a problem from your account and our support team reviews every request.</p></li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="faq-title" class="wrap" style="padding-bottom: clamp(56px, 7vw, 96px); display: flex; flex-wrap: wrap; gap: 24px 64px;">
+      <div style="flex: 1 1 300px;">
+        <h2 id="faq-title" class="t-h2">Questions, answered</h2>
+        <p class="t-muted" style="margin-top: 10px;">Can’t find what you need? <a href="Contact.dc.html">Contact us</a>.</p>
+        <a href="FAQ.dc.html" class="btn btn-outline" style="margin-top: 20px;">See all FAQs</a>
+      </div>
+      <div style="flex: 2 1 520px; min-width: 0;">
+        <details class="acc"><summary>Where do you deliver?</summary><div class="acc-body"><p>Across Chandigarh, Mohali and Panchkula. Enter your PIN code at the top of this page to check your area before you shop.</p></div></details>
+        <details class="acc"><summary>How do delivery slots work?</summary><div class="acc-body"><p>You pick a slot at checkout. Each slot takes a set number of orders and closes when it is full. We hold your slot while you pay.</p></div></details>
+        <details class="acc"><summary>What if an item is short or damaged?</summary><div class="acc-body"><p>We never swap an item without asking you. If something is short we refund it, and you can report damaged items from your account for review.</p></div></details>
+        <details class="acc"><summary>Can I pay cash on delivery?</summary><div class="acc-body"><p>Yes, where eligible. Checkout shows whether cash on delivery is available for your order and area.</p></div></details>
+      </div>
+    </section>
+  </main>
+
+  <dc-import name="Footer" dark="{{dark}}" hint-size="100%,760px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"showHindi":{"editor":"boolean","default":true},"$preview":{"width":1440,"height":8800}}'>
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { cat: 'all', sort: 'popular', season: false, cart: { tomato: 2, coriander: 1 }, notified: {}, pin: '', pinState: 'idle', pinMsg: '' };
+  }
+
+  catalog() {
+    const I = {
+      apple: '8581b06e9c225f563a590d141aab53d4', avocado: '2447e17cc0ff6aedfa2f5de6e404a4b5', banana: '590b099cfdb53ca100dc3bed19c350d7',
+      brinjal: '46978ecafb0bda958b2c1cc694863247', broccoli: 'd61ba8ec720798ffd8cefeca8dfef4f9', cabbage: 'd1ad49bece09ba7e232593354a93fefd',
+      capred: 'd1a0806d7a40b1d3f3afc3fa708c575a', capyellow: '765d596025370a1cf60de03802a344e5', capsicum: '3a13a0c46dda2bec27b66f58476203e6',
+      carrot: '99f9649155ba9e54671aa750df2ac8bf', cauliflower: '87391db060b820345c97945df91fdf38', cherrytomato: 'c6dad24929836806f85f635de05f562a',
+      chilli: 'cee1cb3f5f1baed9733148199dd08bcf', coriander: '591d27931e70b0646c12012b692f0728', cucumber: '175931b7916d79898c6002b8a6cbb618',
+      curry: '9440e2e56fcb68d3772bcd8bcea161a5', garlic: '06add378e1fe0e411db7b2871f613b8f', ginger: '1932feaa1fef036c4f9bb795103d9d8e',
+      gourd: 'c551e019ed7ec3e63d6767a71328c3aa', grapes: '487a4517f37e0d2f9c047211890d4827', guava: '82a29c90957eb1aff44cb26d6d2ac079',
+      kinnow: 'fd2079b5997095279838843a25a8bb23', lemon: 'f1a2386feb02283967fd240b543fe554', lettuce: '7b8bdc87598e05565f598fc2d999c55a',
+      methi: '0e0c61ea89660ecc92ca466f7b232d85', mint: 'e9783c31faff466044eeb9b6b54a7cec', mushroom: '58432e7642616e8f7705e8c1a86564b6',
+      okra: '5bc8dcee307c27bd019357e52ebc8622', onion: '1684583e7b1031c43645cbd222ff8d0d', papaya: '098e97ad4e8646df20e3263842c5981d',
+      pear: '8c12cb497b2b1bd5c2e981e964bf418a', peas: '99d528df8f7004e9085c7f2e546e04b7', pomegranate: 'b86b503ad231db0343ee9b4e92d93cde',
+      potato: '0665993fcaf8a6b84a0bae1442b3275a', sarson: 'f3730179c06a1d1d53d8373b8d8c1671', spinach: 'd7b00861d43b60387799340029aefdd9',
+      sweetlime: 'c3cd753725215358867f33c1c98e1a6c', tomato: '90234e112587bcb63afe69728f9038ca', zucchini: 'd2d85fc2b4541e3d38e332e6bbdd2a57',
+      farmbox: '2c8a148c213c5f35e32717ac2f4aff86', crateonion: '1a9a9f3e89da774510c12b4ced02cb98'
+    };
+    const cats = [
+      { key: 'veg', title: 'Vegetables', hi: 'सब्ज़ियाँ', icon: 'tomato' },
+      { key: 'fruit', title: 'Fruits', hi: 'फल', icon: 'apple' },
+      { key: 'greens', title: 'Leafy greens and herbs', hi: 'साग और हरी पत्तियाँ', icon: 'spinach' },
+      { key: 'exotic', title: 'Exotic vegetables', hi: 'विदेशी सब्ज़ियाँ', icon: 'broccoli' }
+    ];
+    const rows = [
+      ['tomato', 'veg', 'Tomato', 'टमाटर', '1 kg', 40, 48, '₹40/kg', '', 'low', 6, 'Wholesale: 5 kg and up at ₹36/kg'],
+      ['onion', 'veg', 'Onion', 'प्याज़', '1 kg', 45, 0, '₹45/kg', '', 'in', 0, 'Wholesale: 10 kg and up at ₹40/kg'],
+      ['potato', 'veg', 'Potato', 'आलू', '1 kg', 30, 0, '₹30/kg', '', 'in', 0, 'Wholesale: 10 kg and up at ₹26/kg'],
+      ['carrot', 'veg', 'Carrot', 'गाजर', '500 g', 30, 0, '₹60/kg', 'season', 'in', 0, ''],
+      ['okra', 'veg', 'Okra', 'भिंडी', '500 g', 35, 0, '₹70/kg', '', 'in', 0, ''],
+      ['cauliflower', 'veg', 'Cauliflower', 'गोभी', '1 pc, about 600 g', 40, 0, '₹40/pc', 'season', 'in', 0, ''],
+      ['cabbage', 'veg', 'Cabbage', 'पत्ता गोभी', '1 pc, about 800 g', 30, 0, '₹30/pc', '', 'in', 0, ''],
+      ['brinjal', 'veg', 'Brinjal', 'बैंगन', '500 g', 30, 0, '₹60/kg', '', 'in', 0, ''],
+      ['capsicum', 'veg', 'Capsicum', 'शिमला मिर्च', '250 g', 25, 0, '₹100/kg', '', 'in', 0, ''],
+      ['cucumber', 'veg', 'Cucumber', 'खीरा', '500 g', 25, 0, '₹50/kg', '', 'in', 0, ''],
+      ['peas', 'veg', 'Green peas', 'मटर', '500 g', 60, 70, '₹120/kg', 'season', 'in', 0, ''],
+      ['gourd', 'veg', 'Bottle gourd', 'लौकी', '1 pc', 35, 0, '₹35/pc', '', 'out', 0, ''],
+      ['ginger', 'veg', 'Ginger', 'अदरक', '100 g', 18, 0, '₹180/kg', '', 'in', 0, ''],
+      ['garlic', 'veg', 'Garlic', 'लहसुन', '100 g', 25, 0, '₹250/kg', '', 'in', 0, ''],
+      ['chilli', 'veg', 'Green chilli', 'हरी मिर्च', '100 g', 10, 0, '₹100/kg', '', 'in', 0, ''],
+      ['spinach', 'greens', 'Spinach', 'पालक', '1 bunch, about 250 g', 20, 0, '₹20/bunch', 'season', 'in', 0, ''],
+      ['methi', 'greens', 'Fenugreek', 'मेथी', '1 bunch', 15, 0, '₹15/bunch', 'season', 'in', 0, ''],
+      ['sarson', 'greens', 'Mustard greens', 'सरसों का साग', '500 g', 30, 0, '₹60/kg', 'season', 'in', 0, ''],
+      ['coriander', 'greens', 'Coriander', 'धनिया', '1 bunch', 10, 0, '₹10/bunch', '', 'in', 0, ''],
+      ['mint', 'greens', 'Mint', 'पुदीना', '1 bunch', 10, 0, '₹10/bunch', '', 'in', 0, ''],
+      ['curry', 'greens', 'Curry leaves', 'करी पत्ता', '1 bunch', 10, 0, '₹10/bunch', '', 'in', 0, ''],
+      ['banana', 'fruit', 'Banana', 'केला', '6 pcs', 45, 0, '₹7.50/pc', '', 'in', 0, ''],
+      ['apple', 'fruit', 'Apple, Shimla', 'सेब', '1 kg', 140, 160, '₹140/kg', 'season', 'in', 0, ''],
+      ['pomegranate', 'fruit', 'Pomegranate', 'अनार', '500 g', 90, 0, '₹180/kg', '', 'in', 0, ''],
+      ['guava', 'fruit', 'Guava', 'अमरूद', '500 g', 40, 0, '₹80/kg', 'season', 'in', 0, ''],
+      ['papaya', 'fruit', 'Papaya', 'पपीता', '1 pc, about 1 kg', 60, 0, '₹60/pc', '', 'in', 0, ''],
+      ['kinnow', 'fruit', 'Kinnow', 'किन्नू', '1 kg', 70, 0, '₹70/kg', '', 'low', 4, ''],
+      ['sweetlime', 'fruit', 'Sweet lime', 'मौसमी', '1 kg', 80, 0, '₹80/kg', '', 'in', 0, ''],
+      ['lemon', 'fruit', 'Lemon', 'नींबू', '250 g', 30, 0, '₹120/kg', '', 'in', 0, ''],
+      ['pear', 'fruit', 'Pear', 'नाशपाती', '500 g', 60, 0, '₹120/kg', '', 'in', 0, ''],
+      ['grapes', 'fruit', 'Grapes', 'अंगूर', '500 g', 80, 0, '₹160/kg', '', 'out', 0, ''],
+      ['broccoli', 'exotic', 'Broccoli', 'ब्रोकली', '1 pc, about 300 g', 60, 0, '₹60/pc', '', 'in', 0, ''],
+      ['zucchini', 'exotic', 'Zucchini', 'ज़ुकिनी', '500 g', 70, 0, '₹140/kg', '', 'in', 0, ''],
+      ['mushroom', 'exotic', 'Button mushroom', 'मशरूम', '200 g', 45, 0, '₹225/kg', '', 'in', 0, ''],
+      ['cherrytomato', 'exotic', 'Cherry tomato', 'चेरी टमाटर', '200 g', 50, 0, '₹250/kg', '', 'in', 0, ''],
+      ['capred', 'exotic', 'Red capsicum', 'लाल शिमला मिर्च', '250 g', 65, 0, '₹260/kg', '', 'in', 0, ''],
+      ['capyellow', 'exotic', 'Yellow capsicum', 'पीली शिमला मिर्च', '250 g', 65, 0, '₹260/kg', '', 'in', 0, ''],
+      ['avocado', 'exotic', 'Avocado', 'एवोकाडो', '1 pc', 120, 0, '₹120/pc', '', 'low', 3, ''],
+      ['lettuce', 'exotic', 'Iceberg lettuce', 'लेट्यूस', '1 pc', 60, 0, '₹60/pc', '', 'in', 0, '']
+    ];
+    const items = rows.map((r, i) => ({
+      id: r[0], cat: r[1], name: r[2], hi: r[3], unit: r[4], price: r[5], mrp: r[6], perUnit: r[7],
+      badge: r[8], stock: r[9], left: r[10], ws: r[11], img: '/_blob/' + I[r[0]], rank: i
+    }));
+    return { cats, items, img: (k) => '/_blob/' + I[k] };
+  }
+
+  renderVals() {
+    const s = this.state;
+    const dark = this.props.dark ?? false;
+    const showHindi = this.props.showHindi ?? true;
+    const { cats, items, img } = this.catalog();
+    const rupees = (n) => '₹' + Number(n).toLocaleString('en-IN');
+    const setQty = (id, n) => this.setState((st) => {
+      const cart = { ...st.cart };
+      if (n <= 0) delete cart[id]; else cart[id] = n;
+      return { cart };
+    });
+    const live = (p) => {
+      const qty = s.cart[p.id] || 0;
+      return {
+        ...p, qty, notified: !!s.notified[p.id],
+        add: () => setQty(p.id, 1), inc: () => setQty(p.id, qty + 1), dec: () => setQty(p.id, qty - 1),
+        notify: () => this.setState((st) => ({ notified: { ...st.notified, [p.id]: true } }))
+      };
+    };
+
+    let list = items.filter((p) => !s.season || p.badge === 'season');
+    if (s.sort === 'low') list = list.slice().sort((a, b) => a.price - b.price);
+    if (s.sort === 'high') list = list.slice().sort((a, b) => b.price - a.price);
+    if (s.sort === 'az') list = list.slice().sort((a, b) => a.name.localeCompare(b.name));
+    const pick = (key) => () => this.setState({ cat: key });
+    const chips = [{ key: 'all', title: 'All', n: list.length }]
+      .concat(cats.map((c) => ({ key: c.key, title: c.title, n: list.filter((p) => p.cat === c.key).length })))
+      .map((c) => ({ label: c.title, count: String(c.n), pick: pick(c.key), pressed: s.cat === c.key ? 'true' : 'false' }));
+    const sections = cats
+      .filter((c) => s.cat === 'all' || s.cat === c.key)
+      .map((c) => {
+        const its = list.filter((p) => p.cat === c.key).map(live);
+        return { title: c.title, hi: c.hi, hid: 'shop-' + c.key, items: its, has: its.length > 0, countText: its.length + (its.length === 1 ? ' item' : ' items') };
+      })
+      .filter((c) => c.has);
+    const shown = sections.reduce((n, x) => n + x.items.length, 0);
+
+    const tiles = cats.map((c) => ({
+      label: c.title, sub: items.filter((p) => p.cat === c.key).length + ' items', img: img(c.icon), href: '#shop', pick: pick(c.key)
+    })).concat([
+      { label: 'Farm Box', sub: 'Build your own', img: img('farmbox'), href: 'FarmBox.dc.html', pick: undefined },
+      { label: 'Wholesale', sub: 'From 5 kg', img: img('crateonion'), href: 'Wholesale.dc.html', pick: undefined }
+    ]);
+
+    const deals = items.filter((p) => p.mrp).map(live);
+
+    let count = 0;
+    let total = 0;
+    items.forEach((p) => { const q = s.cart[p.id] || 0; count += q; total += q * p.price; });
+
+    const pinMsgs = { ok: s.pinState === 'ok', no: s.pinState === 'no', err: s.pinState === 'err' };
+    return {
+      dark,
+      showHindi,
+      themeClass: dark ? 'dark' : '',
+      productCount: String(items.length),
+      tiles,
+      deals,
+      chips,
+      sections,
+      sort: s.sort,
+      onSort: (e) => this.setState({ sort: e.target.value }),
+      season: s.season,
+      onSeason: (e) => this.setState({ season: e.target.checked }),
+      clearFilters: () => this.setState({ season: false, cat: 'all' }),
+      noResults: sections.length === 0,
+      resultsText: (s.cat === 'all' && !s.season) ? items.length + ' products, priced per pack' : 'Showing ' + shown + ' of ' + items.length + ' products',
+      cartCount: count,
+      cartTotal: rupees(total),
+      pin: s.pin,
+      onPin: (e) => this.setState({ pin: e.target.value.replace(/\D/g, '').slice(0, 6), pinState: 'idle' }),
+      checkPin: (e) => {
+        e.preventDefault();
+        const p = s.pin;
+        if (p.length !== 6) return this.setState({ pinState: 'err', pinMsg: 'Enter all 6 digits of your PIN code.' });
+        const mohali = ['160055', '160059', '160062', '160071', '140308'];
+        let city = '';
+        if (mohali.includes(p)) city = 'Mohali';
+        else if (p.startsWith('1600') || p === '160101' || p === '160102') city = 'Chandigarh';
+        else if (['134109', '134112', '134113', '134114', '134116', '134117'].includes(p)) city = 'Panchkula';
+        if (city) return this.setState({ pinState: 'ok', pinMsg: 'We deliver to ' + p + ', ' + city + '. Next open slot: today, 4–6 PM.' });
+        return this.setState({ pinState: 'no', pinMsg: 'We don’t deliver to ' + p + ' yet.' });
+      },
+      pinOk: pinMsgs.ok,
+      pinNo: pinMsgs.no,
+      pinErr: pinMsgs.err,
+      pinIdle: s.pinState === 'idle',
+      pinMsg: s.pinMsg,
+      pinInvalid: pinMsgs.err ? 'true' : 'false'
+    };
+  }
+}
+</script>
+</body>
+</html>

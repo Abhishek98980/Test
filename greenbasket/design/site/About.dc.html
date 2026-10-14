@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>About us · Greeen Basket</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="gb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600&amp;family=Rubik:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+.bento{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px}
+.bento > *{border-radius:var(--r-xl);padding:26px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.b-wide{grid-column:span 4}.b-mid{grid-column:span 3}.b-small{grid-column:span 2}
+@media (max-width: 900px){.b-wide,.b-mid,.b-small{grid-column:span 6}}
+.pic{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.pic span{aspect-ratio:1;border-radius:var(--r-lg);background:var(--well);display:flex;align-items:center;justify-content:center}
+.pic img{width:62%;height:auto}
+</style>
+</helmet>
+<div class="gb {{themeClass}}" style="min-height: 100%; background: var(--bg); color: var(--text); font-family: Rubik, 'Noto Sans Devanagari', system-ui, sans-serif;">
+  <dc-import name="Header" active="none" dark="{{dark}}" hint-size="100%,190px"></dc-import>
+
+  <main id="main">
+    <section aria-labelledby="ab-h" class="wrap" style="padding-block: clamp(48px, 7vw, 96px) clamp(32px, 4vw, 56px);">
+      <p class="t-eyebrow">About Greeen Basket</p>
+      <h1 id="ab-h" class="t-d1" style="margin-top: 14px; max-width: 13em;">Fresh produce for the Tricity, packed the morning it arrives.</h1>
+      <p class="t-lead t-muted" style="margin-top: 20px; max-width: 38em;">We’re a Chandigarh team selling fruit and vegetables online to homes, kitchens and shops across Chandigarh, Mohali and Panchkula. We pack every order ourselves and deliver it with our own riders.</p>
+    </section>
+
+    <section aria-labelledby="story-h" class="wrap section-sm" style="display: flex; flex-wrap: wrap; align-items: center; gap: 40px 72px;">
+      <div style="flex: 1 1 440px; min-width: 0;">
+        <h2 id="story-h" class="t-h1">Why we started</h2>
+        <div class="prose" style="margin-top: 18px; max-width: none;">
+          <p>Buying good produce shouldn’t mean an early trip to the mandi, or a delivery where half the tomatoes are soft and the coriander has been swapped for something else.</p>
+          <p>So we built a shop that works the way we wanted to buy: clear prices on every pack, slots that don’t get overbooked, and nothing changed without asking you first.</p>
+          <p>Greeen Basket started in <span class="ph">[FOUNDED YEAR]</span>, founded by <span class="ph">[FOUNDER NAMES]</span>.</p>
+        </div>
+      </div>
+      <div class="pic" aria-hidden="true" style="flex: 1 1 380px; min-width: 0;">
+        <span><img src="/_blob/90234e112587bcb63afe69728f9038ca" alt="" width="120" height="120"></span>
+        <span style="background: var(--accent-soft);"><img src="/_blob/d7b00861d43b60387799340029aefdd9" alt="" width="120" height="120"></span>
+        <span><img src="/_blob/fd2079b5997095279838843a25a8bb23" alt="" width="120" height="120"></span>
+        <span style="background: var(--olive-soft);"><img src="/_blob/99f9649155ba9e54671aa750df2ac8bf" alt="" width="120" height="120"></span>
+        <span><img src="/_blob/2c8a148c213c5f35e32717ac2f4aff86" alt="" width="120" height="120"></span>
+        <span style="background: var(--accent-soft);"><img src="/_blob/8581b06e9c225f563a590d141aab53d4" alt="" width="120" height="120"></span>
+      </div>
+    </section>
+
+    <section aria-labelledby="promise-h" class="wrap section-sm">
+      <h2 id="promise-h" class="t-h1">What we promise</h2>
+      <div class="bento" style="margin-top: 28px;">
+        <article class="b-wide" style="background: var(--band); color: var(--on-band);">
+          <p class="t-sm" style="color: var(--on-band-muted); font-weight: 500;">01</p>
+          <h3 class="t-h2" style="color: var(--on-band); max-width: 14em;">The price on the pack is what you pay.</h3>
+          <p style="color: var(--on-band-muted); max-width: 40em;">Every pack shows its weight and its price per kilo or piece. No weighing at the door, no surprise top-ups.</p>
+        </article>
+        <article class="b-small well">
+          <p class="t-sm t-muted" style="font-weight: 500;">02</p>
+          <h3 class="t-h3">Nothing swapped without asking.</h3>
+          <p class="t-muted">If an item runs short, we refund it or call you first. Your choice, set at checkout.</p>
+        </article>
+        <article class="b-mid card">
+          <p class="t-sm t-muted" style="font-weight: 500;">03</p>
+          <h3 class="t-h3">Slots that hold.</h3>
+          <p class="t-muted">Each slot takes a set number of orders and closes when it’s full, so your delivery isn’t squeezed in late.</p>
+        </article>
+        <article class="b-mid" style="background: var(--accent-soft); color: var(--on-accent-soft);">
+          <p class="t-sm" style="font-weight: 500;">04</p>
+          <h3 class="t-h3" style="color: var(--on-accent-soft);">A person reads every report.</h3>
+          <p>Short, damaged or not fresh? Tell us from your account. Our support team reviews every request, with photos.</p>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="journey-h" class="wrap section-sm">
+      <h2 id="journey-h" class="t-h1">From the field to your door</h2>
+      <ol style="margin-top: 32px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 28px;">
+        <li style="display: flex; flex-direction: column; gap: 10px; padding-top: 18px; border-top: 2px solid var(--accent);"><span class="t-sm num" style="font-weight: 700; color: var(--accent-text);">Evening</span><h3 class="t-h4">We buy for tomorrow</h3><p class="t-muted">From <span class="ph">[SOURCING: farms, mandis, suppliers]</span>, sized to the orders already placed.</p></li>
+        <li style="display: flex; flex-direction: column; gap: 10px; padding-top: 18px; border-top: 2px solid var(--accent);"><span class="t-sm num" style="font-weight: 700; color: var(--accent-text);">Before dawn</span><h3 class="t-h4">Sorted and graded</h3><p class="t-muted">At our store in <span class="ph">[STORE AREA]</span>. What doesn’t pass, doesn’t go out.</p></li>
+        <li style="display: flex; flex-direction: column; gap: 10px; padding-top: 18px; border-top: 2px solid var(--olive);"><span class="t-sm num" style="font-weight: 700; color: var(--accent-text);">Morning</span><h3 class="t-h4">Packed for your slot</h3><p class="t-muted">Weighed, labelled with price and weight, and checked against your order.</p></li>
+        <li style="display: flex; flex-direction: column; gap: 10px; padding-top: 18px; border-top: 2px solid var(--ink);"><span class="t-sm num" style="font-weight: 700; color: var(--accent-text);">Your slot</span><h3 class="t-h4">Delivered by our riders</h3><p class="t-muted">Our own team, not a courier. You get a WhatsApp message when they leave.</p></li>
+      </ol>
+    </section>
+
+    <section aria-labelledby="where-h" class="wrap section-sm">
+      <h2 id="where-h" class="t-h1">Where we deliver</h2>
+      <ul style="margin-top: 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px;">
+        <li class="card" style="padding: 24px; display: flex; flex-direction: column; gap: 6px;"><h3 class="t-h3">Chandigarh</h3><p class="t-muted">Sectors across the city. <span class="ph">[CONFIRM CHANDIGARH AREAS]</span></p></li>
+        <li class="card" style="padding: 24px; display: flex; flex-direction: column; gap: 6px;"><h3 class="t-h3">Mohali</h3><p class="t-muted">Phases 1 to 11 and nearby sectors. <span class="ph">[CONFIRM MOHALI AREAS]</span></p></li>
+        <li class="card" style="padding: 24px; display: flex; flex-direction: column; gap: 6px;"><h3 class="t-h3">Panchkula</h3><p class="t-muted">Main sectors of Panchkula. <span class="ph">[CONFIRM PANCHKULA AREAS]</span></p></li>
+      </ul>
+      <a href="Main.dc.html" class="btn btn-ink" style="margin-top: 22px;">Check your PIN code</a>
+    </section>
+
+    <section aria-labelledby="join-h" class="wrap" style="padding-block: clamp(36px, 4.5vw, 56px) clamp(56px, 7vw, 96px);">
+      <h2 id="join-h" class="t-h2">Work with us</h2>
+      <ul style="margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px;">
+        <li class="card lift" style="padding: 24px; display: flex; flex-direction: column; gap: 8px;">
+          <h3 class="t-h4">Farmers and suppliers</h3>
+          <p class="t-muted">Grow or trade fruit and vegetables near the Tricity? We buy every day.</p>
+          <a href="Contact.dc.html" class="btn btn-outline btn-sm" style="align-self: flex-start; margin-top: 8px;">Talk to our buying team</a>
+        </li>
+        <li class="card lift" style="padding: 24px; display: flex; flex-direction: column; gap: 8px;">
+          <h3 class="t-h4">Riders, packers and the team</h3>
+          <p class="t-muted">Packing and delivery roles across the Tricity. <span class="ph">[OPEN ROLES]</span></p>
+          <a href="Contact.dc.html" class="btn btn-outline btn-sm" style="align-self: flex-start; margin-top: 8px;">Ask about open roles</a>
+        </li>
+        <li class="card lift" style="padding: 24px; display: flex; flex-direction: column; gap: 8px;">
+          <h3 class="t-h4">Restaurants and shops</h3>
+          <p class="t-muted">Wholesale tiers from 2 kg, morning delivery and GST invoices.</p>
+          <a href="Wholesale.dc.html" class="btn btn-outline btn-sm" style="align-self: flex-start; margin-top: 8px;">See wholesale</a>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <dc-import name="Footer" dark="{{dark}}" hint-size="100%,760px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":3800}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const dark = this.props.dark ?? false;
+    return { dark, themeClass: dark ? 'dark' : '' };
+  }
+}
+</script>
+</body>
+</html>

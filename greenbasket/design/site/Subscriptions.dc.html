@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Subscriptions · Greeen Basket</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="gb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600&amp;family=Rubik:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+.plan{display:flex;flex-direction:column;gap:16px;padding:28px;border-radius:var(--r-xl);border:1.5px solid var(--line-strong);background:var(--surface);transition:border-color 160ms ease-out,box-shadow 160ms ease-out}
+.plan.feature{background:var(--band);color:var(--on-band);border-color:var(--band)}
+.plan.feature h3,.plan.feature .price{color:var(--on-band)}
+.plan.feature .t-muted{color:var(--on-band-muted)}
+.plan.sel{box-shadow:0 0 0 3px var(--accent)}
+.plan li{display:flex;gap:10px;align-items:flex-start;font-size:15px;line-height:1.45}
+.plan li svg{flex:none;margin-top:3px;color:var(--accent)}
+.days{display:flex;flex-wrap:wrap;gap:8px}
+</style>
+</helmet>
+<div class="gb {{themeClass}}" style="min-height: 100%; background: var(--bg); color: var(--text); font-family: Rubik, 'Noto Sans Devanagari', system-ui, sans-serif;">
+  <dc-import name="Header" active="subscriptions" dark="{{dark}}" hint-size="100%,190px"></dc-import>
+
+  <main id="main">
+    <p aria-live="polite" class="sr-only">{{announce}}</p>
+
+    <section aria-labelledby="sub-h" class="wrap" style="padding-block: clamp(40px, 6vw, 80px) clamp(32px, 4vw, 56px); display: flex; flex-wrap: wrap; align-items: center; gap: 32px 64px;">
+      <div style="flex: 3 1 520px; min-width: 0;">
+        <p class="t-eyebrow">Subscriptions</p>
+        <h1 id="sub-h" class="t-d2" style="margin-top: 12px; max-width: 13em;">Your week’s produce, sorted every week.</h1>
+        <p class="t-lead t-muted" style="margin-top: 16px; max-width: 34em;">Pick a plan, fill it with what you like up to its allowance, and change the basket any time before the cut-off.</p>
+        <div style="margin-top: 28px; display: flex; flex-wrap: wrap; gap: 10px;">
+          <a href="#plans" class="btn btn-primary btn-lg">See plans</a>
+          <a href="#how" class="btn btn-outline btn-lg">How it works</a>
+        </div>
+      </div>
+      <ul style="flex: 2 1 340px; min-width: 0; display: grid; gap: 12px;">
+        <li class="well" style="padding: 18px 20px; display: flex; gap: 14px; align-items: flex-start;"><span class="num" style="flex: none; width: 36px; height: 36px; border-radius: 999px; background: var(--accent); color: var(--on-accent); display: inline-flex; align-items: center; justify-content: center; font-weight: 700;">1</span><p><b class="t-strong">Edit or skip any week</b><br><span class="t-sm t-muted">Change the basket until 10 PM the night before.</span></p></li>
+        <li class="well" style="padding: 18px 20px; display: flex; gap: 14px; align-items: flex-start;"><span class="num" style="flex: none; width: 36px; height: 36px; border-radius: 999px; background: var(--accent); color: var(--on-accent); display: inline-flex; align-items: center; justify-content: center; font-weight: 700;">2</span><p><b class="t-strong">Pause while you travel</b><br><span class="t-sm t-muted">One, two or four weeks. Nothing is charged while paused.</span></p></li>
+        <li class="well" style="padding: 18px 20px; display: flex; gap: 14px; align-items: flex-start;"><span class="num" style="flex: none; width: 36px; height: 36px; border-radius: 999px; background: var(--accent); color: var(--on-accent); display: inline-flex; align-items: center; justify-content: center; font-weight: 700;">3</span><p><b class="t-strong">Cancel from your account</b><br><span class="t-sm t-muted">A button, not a phone call.</span></p></li>
+      </ul>
+    </section>
+
+    <section id="plans" aria-labelledby="plans-h" class="wrap section-sm">
+      <h2 id="plans-h" class="t-h1">Choose a plan</h2>
+      <p class="t-muted" style="margin-top: 6px; max-width: 44em;">Every plan gets you more produce than you pay for, plus free delivery. Prices shown are samples.</p>
+      <ul style="margin-top: 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; align-items: stretch;">
+        <sc-for list="{{plans}}" as="p" hint-placeholder-count="3">
+          <li class="plan {{p.cls}}">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 26px;">
+              <h3 class="t-h4">{{p.name}}</h3>
+              <sc-if value="{{p.isFeature}}" hint-placeholder-val="{{false}}"><span class="badge badge-leaf">Most chosen</span></sc-if>
+            </div>
+            <p class="num"><span class="price" style="font-size: 44px; line-height: 1; letter-spacing: -0.03em; font-weight: 600;">{{p.priceText}}</span> <span class="t-muted">{{p.per}}</span></p>
+            <p style="font-weight: 500;">{{p.allowanceText}}</p>
+            <p class="t-sm" style="padding: 8px 12px; border-radius: var(--r-sm); background: {{p.saveBg}}; color: {{p.saveFg}}; font-weight: 500; align-self: flex-start;">{{p.saveText}}</p>
+            <ul style="display: grid; gap: 8px;">
+              <sc-for list="{{p.features}}" as="f" hint-placeholder-count="4">
+                <li><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg><span>{{f}}</span></li>
+              </sc-for>
+            </ul>
+            <button type="button" class="btn {{p.btnCls}} btn-block" style="margin-top: auto;" onClick="{{p.choose}}" aria-pressed="{{p.selected}}">{{p.btnText}}</button>
+          </li>
+        </sc-for>
+      </ul>
+    </section>
+
+    <section aria-labelledby="calc-h" class="wrap section-sm">
+      <div class="well" style="padding: clamp(24px, 4vw, 44px); border-radius: var(--r-xl); display: flex; flex-wrap: wrap; gap: 32px 48px;">
+        <div style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 22px;">
+          <div>
+            <h2 id="calc-h" class="t-h2">Which plan fits your kitchen?</h2>
+            <p class="t-muted" style="margin-top: 6px;">Two questions. We’ll suggest a plan and show what a week could look like.</p>
+          </div>
+          <div class="field">
+            <span id="calc-who" class="label">How many people eat at home?</span>
+            <div class="seg" role="group" aria-labelledby="calc-who" style="align-self: flex-start; background: var(--surface);">
+              <sc-for list="{{whoOpts}}" as="w" hint-placeholder-count="3"><button type="button" aria-pressed="{{w.on}}" onClick="{{w.pick}}">{{w.label}}</button></sc-for>
+            </div>
+          </div>
+          <div class="field">
+            <span id="calc-what" class="label">What do you buy each week?</span>
+            <div class="seg" role="group" aria-labelledby="calc-what" style="align-self: flex-start; background: var(--surface);">
+              <sc-for list="{{whatOpts}}" as="w" hint-placeholder-count="2"><button type="button" aria-pressed="{{w.on}}" onClick="{{w.pick}}">{{w.label}}</button></sc-for>
+            </div>
+          </div>
+          <div aria-live="polite" class="card" style="padding: 18px 20px;">
+            <p class="t-sm t-muted">We suggest</p>
+            <p class="t-h3" style="margin-top: 2px;">{{recName}}</p>
+            <p class="t-sm" style="margin-top: 4px;">{{recWhy}}</p>
+            <button type="button" class="btn btn-primary btn-sm" style="margin-top: 14px;" onClick="{{chooseRec}}">Start with this plan</button>
+          </div>
+        </div>
+        <div style="flex: 1 1 380px; min-width: 0;">
+          <h3 class="t-h4">A sample week on {{recName}}</h3>
+          <ul style="margin-top: 10px;" class="num">
+            <sc-for list="{{sample}}" as="sm" hint-placeholder-count="8">
+              <li style="display: flex; align-items: center; gap: 12px; padding-block: 8px; border-top: 1px solid var(--line-strong);">
+                <img src="{{sm.img}}" alt="" width="28" height="28">
+                <span style="flex: 1; min-width: 0;" class="t-sm"><b class="t-strong" style="font-weight: 500;">{{sm.name}}</b> <span class="t-muted">{{sm.qty}}</span></span>
+                <span class="t-sm">{{sm.price}}</span>
+              </li>
+            </sc-for>
+            <li style="display: flex; justify-content: space-between; gap: 12px; padding-block: 10px; border-top: 1px solid var(--text-muted); font-weight: 700; color: var(--text-strong);"><span>{{sampleCountText}}</span><span>{{sampleTotalText}} of {{recAllowanceText}}</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="how" aria-labelledby="how-h" class="wrap section-sm">
+      <h2 id="how-h" class="t-h1">How a week works</h2>
+      <ol style="margin-top: 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 28px;">
+        <li style="display: flex; flex-direction: column; gap: 8px; padding-top: 18px; border-top: 2px solid var(--accent);"><span class="t-sm num" style="font-weight: 700; color: var(--accent-text);">Any time</span><h3 class="t-h4">Fill your basket</h3><p class="t-muted">Add what you like up to the allowance. Your last basket is kept as the default.</p></li>
+        <li style="display: flex; flex-direction: column; gap: 8px; padding-top: 18px; border-top: 2px solid var(--accent);"><span class="t-sm num" style="font-weight: 700; color: var(--accent-text);">Day before, 6 PM</span><h3 class="t-h4">We remind you</h3><p class="t-muted">A WhatsApp nudge with your basket and a link to change it.</p></li>
+        <li style="display: flex; flex-direction: column; gap: 8px; padding-top: 18px; border-top: 2px solid var(--olive);"><span class="t-sm num" style="font-weight: 700; color: var(--accent-text);">Day before, 10 PM</span><h3 class="t-h4">Cut-off</h3><p class="t-muted">The basket locks and your plan is charged. Didn’t edit? We pack your saved basket.</p></li>
+        <li style="display: flex; flex-direction: column; gap: 8px; padding-top: 18px; border-top: 2px solid var(--ink);"><span class="t-sm num" style="font-weight: 700; color: var(--accent-text);">Delivery day</span><h3 class="t-h4">Packed and delivered</h3><p class="t-muted">Packed that morning, at your door in your slot. Short or damaged items are refunded.</p></li>
+      </ol>
+    </section>
+
+    <section id="start" aria-labelledby="start-h" style="padding-block: clamp(48px, 6vw, 80px); border-top: 1px solid var(--line);">
+      <div class="wrap" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 32px 48px;">
+        <div style="flex: 999 1 600px; min-width: 0;">
+          <h2 id="start-h" class="t-h1">Start your subscription</h2>
+          <p class="t-muted" style="margin-top: 6px;">Signed in as Simran Kaur · +91 98765 43210. <a href="Signup.dc.html">Not you?</a></p>
+
+          <sc-if value="{{done}}" hint-placeholder-val="{{false}}">
+            <div role="status" class="card" style="margin-top: 24px; padding: 28px; display: flex; flex-direction: column; gap: 12px; border-color: var(--accent-text);">
+              <p class="badge badge-leaf" style="align-self: flex-start;">You’re subscribed</p>
+              <h3 class="t-h2">First delivery {{firstText}}</h3>
+              <p>{{doneNote}}</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px;">
+                <a href="Account-subscription.dc.html" class="btn btn-primary">Fill my first basket</a>
+                <a href="Main.dc.html" class="btn btn-ghost">Back to the store</a>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{notDone}}" hint-placeholder-val="{{true}}">
+            <form noValidate onSubmit="{{submit}}" style="margin-top: 24px; display: flex; flex-direction: column; gap: 28px;">
+              <sc-if value="{{hasErrors}}" hint-placeholder-val="{{false}}">
+                <div role="alert" style="padding: 14px 16px; border-radius: var(--r-md); background: var(--danger-soft); color: var(--danger);">
+                  <p class="t-sm" style="font-weight: 600;">{{errorCountText}}</p>
+                </div>
+              </sc-if>
+
+              <fieldset style="border: 0; padding: 0; margin: 0; display: grid; gap: 10px;">
+                <legend class="t-h4" style="margin-bottom: 12px;">1. Plan</legend>
+                <sc-for list="{{planChoices}}" as="pc" hint-placeholder-count="3">
+                  <label class="choice {{pc.cls}}"><input type="radio" name="plan" value="{{pc.id}}" checked="{{pc.on}}" onChange="{{pc.pick}}"><span style="flex: 1; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px;"><span><b class="t-strong">{{pc.name}}</b><br><span class="t-sm t-muted">{{pc.sub}}</span></span><b class="price num">{{pc.price}}</b></span></label>
+                </sc-for>
+              </fieldset>
+
+              <fieldset style="border: 0; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px;">
+                <legend class="t-h4" style="margin-bottom: 12px;">2. Delivery day and slot</legend>
+                <div class="field">
+                  <span id="day-l" class="label">Day of the week</span>
+                  <div class="days" role="group" aria-labelledby="day-l">
+                    <sc-for list="{{days}}" as="d" hint-placeholder-count="6"><button type="button" class="chip" aria-pressed="{{d.on}}" onClick="{{d.pick}}" style="min-width: 64px; justify-content: center;">{{d.label}}</button></sc-for>
+                  </div>
+                </div>
+                <span id="slot-l" class="label">Time</span>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-top: -6px;" role="group" aria-labelledby="slot-l">
+                  <sc-for list="{{slots}}" as="sl" hint-placeholder-count="3">
+                    <label class="choice {{sl.cls}}"><input type="radio" name="slot" value="{{sl.id}}" checked="{{sl.on}}" onChange="{{sl.pick}}"><span><b class="t-strong num">{{sl.label}}</b><br><span class="t-sm t-muted">{{sl.sub}}</span></span></label>
+                  </sc-for>
+                </div>
+                <p id="slot-err" aria-live="polite"><sc-if value="{{slotErr}}" hint-placeholder-val="{{false}}"><span class="error">Choose a time slot.</span></sc-if></p>
+                <p class="t-sm" style="padding: 10px 14px; border-radius: var(--r-sm); background: var(--accent-soft); color: var(--on-accent-soft);"><b>First delivery: {{firstText}}.</b> {{cutText}}</p>
+              </fieldset>
+
+              <fieldset style="border: 0; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px 20px;">
+                <legend class="t-h4" style="margin-bottom: 12px;">3. Address</legend>
+                <div class="field" style="grid-column: 1 / -1;">
+                  <label for="s-a1" class="label">House, flat or shop number</label>
+                  <input id="s-a1" class="input" type="text" name="address-line1" autocomplete="address-line1" placeholder="Like House 1234…" value="{{a1}}" onChange="{{onA1}}" aria-invalid="{{a1Invalid}}" aria-describedby="s-a1-err">
+                  <p id="s-a1-err" aria-live="polite"><sc-if value="{{a1Err}}" hint-placeholder-val="{{false}}"><span class="error">Enter your house, flat or shop number.</span></sc-if></p>
+                </div>
+                <div class="field">
+                  <label for="s-a2" class="label">Sector, phase or area</label>
+                  <input id="s-a2" class="input" type="text" name="address-line2" autocomplete="address-line2" placeholder="Like Sector 22-B…" value="{{a2}}" onChange="{{onA2}}">
+                </div>
+                <div class="field">
+                  <label for="s-pin" class="label">PIN code</label>
+                  <input id="s-pin" class="input num" type="text" name="postal-code" inputmode="numeric" autocomplete="postal-code" maxlength="6" spellcheck="false" placeholder="6 digits, like 160022…" value="{{pin}}" onChange="{{onPin}}" onBlur="{{checkPin}}" aria-invalid="{{pinInvalid}}" aria-describedby="s-pin-msg">
+                  <p id="s-pin-msg" aria-live="polite">
+                    <sc-if value="{{pinOk}}" hint-placeholder-val="{{false}}"><span class="ok">{{pinMsg}}</span></sc-if>
+                    <sc-if value="{{pinBad}}" hint-placeholder-val="{{false}}"><span class="error">{{pinMsg}}</span></sc-if>
+                  </p>
+                </div>
+              </fieldset>
+
+              <fieldset style="border: 0; padding: 0; margin: 0; display: grid; gap: 10px;">
+                <legend class="t-h4" style="margin-bottom: 12px;">4. Payment</legend>
+                <sc-for list="{{pays}}" as="py" hint-placeholder-count="3">
+                  <label class="choice {{py.cls}}"><input type="radio" name="pay" value="{{py.id}}" checked="{{py.on}}" onChange="{{py.pick}}"><span><b class="t-strong">{{py.label}}</b><br><span class="t-sm t-muted">{{py.sub}}</span></span></label>
+                </sc-for>
+                <sc-if value="{{isUpi}}" hint-placeholder-val="{{true}}">
+                  <div class="field" style="max-width: 420px; margin-top: 6px;">
+                    <label for="s-upi" class="label">UPI ID for AutoPay</label>
+                    <input id="s-upi" class="input" type="text" name="upi" autocomplete="off" autocapitalize="none" spellcheck="false" inputmode="email" placeholder="Like name@okhdfc…" value="{{upi}}" onChange="{{onUpi}}" aria-invalid="{{upiInvalid}}" aria-describedby="s-upi-msg">
+                    <p id="s-upi-msg" aria-live="polite"><sc-if value="{{upiErr}}" hint-placeholder-val="{{false}}"><span class="error">A UPI ID looks like name@bank, for example simran@okhdfc.</span></sc-if><sc-if value="{{upiHint}}" hint-placeholder-val="{{true}}"><span class="hint">Your UPI app asks you to approve the mandate once. Each charge appears in your app.</span></sc-if></p>
+                  </div>
+                </sc-if>
+              </fieldset>
+
+              <div style="display: flex; flex-direction: column; gap: 2px;">
+                <label class="check"><input type="checkbox" name="agree" checked="{{agree}}" onChange="{{toggleAgree}}" aria-invalid="{{agreeInvalid}}" aria-describedby="s-agree-err"><span>I agree to be charged {{chargeText}} until I pause or cancel, and to the <a href="Terms.dc.html">terms</a> and <a href="Cancellation.dc.html">cancellation policy</a>.</span></label>
+                <p id="s-agree-err" aria-live="polite"><sc-if value="{{agreeErr}}" hint-placeholder-val="{{false}}"><span class="error">Tick this to start the plan.</span></sc-if></p>
+                <label class="check"><input type="checkbox" name="reminders" checked="{{remind}}" onChange="{{toggleRemind}}"><span>Remind me on WhatsApp the day before each cut-off. <span class="t-muted">(recommended)</span></span></label>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-lg" style="align-self: flex-start;" aria-busy="{{busy}}">{{submitText}}</button>
+            </form>
+          </sc-if>
+        </div>
+
+        <aside aria-labelledby="sum-h" style="flex: 1 1 340px; min-width: 0;">
+          <div class="card" style="padding: 24px; display: flex; flex-direction: column; gap: 14px;">
+            <h2 id="sum-h" class="t-h4">Your plan</h2>
+            <div style="display: flex; gap: 14px; align-items: center;">
+              <span class="well" style="flex: none; width: 64px; height: 64px; display: inline-flex; align-items: center; justify-content: center; border-radius: var(--r-md);"><img src="{{planImg}}" alt="" width="48" height="48"></span>
+              <p><b class="t-strong">{{selName}}</b><br><span class="t-sm t-muted num">{{selPrice}}</span></p>
+            </div>
+            <dl class="num" style="display: grid; gap: 8px; font-size: 14px;">
+              <div style="display: flex; justify-content: space-between; gap: 12px;"><dt class="t-muted">Allowance</dt><dd class="t-strong">{{selAllowance}}</dd></div>
+              <div style="display: flex; justify-content: space-between; gap: 12px;"><dt class="t-muted">Delivers</dt><dd class="t-strong">{{selWhen}}</dd></div>
+              <div style="display: flex; justify-content: space-between; gap: 12px;"><dt class="t-muted">First delivery</dt><dd class="t-strong">{{firstShort}}</dd></div>
+              <div style="display: flex; justify-content: space-between; gap: 12px;"><dt class="t-muted">Delivery fee</dt><dd class="t-strong">Free</dd></div>
+            </dl>
+            <p class="t-xs t-muted">You pay the plan price at each cut-off. Anything above the allowance is added at store prices.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section aria-labelledby="sfaq-h" class="wrap" style="padding-bottom: clamp(56px, 7vw, 96px);">
+      <h2 id="sfaq-h" class="t-h2">Subscription questions</h2>
+      <div style="margin-top: 16px; max-width: 820px; border-top: 1px solid var(--line);">
+        <details class="acc"><summary>What is the allowance?</summary><div class="acc-body"><p>It’s how much produce, at store prices, you can put in each delivery. It’s always more than the plan price, so the difference is your saving.</p></div></details>
+        <details class="acc"><summary>What if my basket goes over?</summary><div class="acc-body"><p>We add the extra at store prices to that week’s charge. You’ll see the amount before the cut-off.</p></div></details>
+        <details class="acc"><summary>What if I don’t use all of it?</summary><div class="acc-body"><p>Unused allowance <span class="ph">[ROLLOVER RULE]</span>. We’ll remind you the day before the cut-off so it isn’t wasted.</p></div></details>
+        <details class="acc"><summary>Can I skip a week or pause?</summary><div class="acc-body"><p>Yes. Skip any week before its cut-off, or pause for one, two or four weeks from <a href="Account-subscription.dc.html">My account</a>. You aren’t charged for skipped or paused weeks.</p></div></details>
+        <details class="acc"><summary>How do I cancel?</summary><div class="acc-body"><p>From My account, with one button and a confirmation. A delivery already past its cut-off still arrives. See the <a href="Cancellation.dc.html">cancellation policy</a>.</p></div></details>
+      </div>
+    </section>
+  </main>
+
+  <dc-import name="Footer" dark="{{dark}}" hint-size="100%,760px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":4600}}'>
+class Component extends DCLogic {
+  focusError(sel) {
+    setTimeout(() => {
+      const el = document.querySelector(sel || '.gb [aria-invalid="true"]');
+      if (el && el.focus) el.focus();
+    }, 0);
+  }
+
+  constructor(...args) {
+    super(...args);
+    this.state = {
+      plan: 'veg', who: '3-4', what: 'veg', day: 'thu', slot: 'am8',
+      a1: '', a2: '', pin: '', pinState: 'idle', pinMsg: '', pay: 'upi', upi: '',
+      agree: false, remind: true, tried: false, done: false, busy: false, announce: ''
+    };
+    this.timer = null;
+  }
+
+  componentWillUnmount() { if (this.timer) clearTimeout(this.timer); }
+
+  renderVals() {
+    const s = this.state;
+    const dark = this.props.dark ?? false;
+    const B = '/_blob/';
+    const rupees = (n) => '₹' + Number(n).toLocaleString('en-IN');
+    const P = {
+      veg: { name: 'Weekly veg', price: 499, per: 'a week', perShort: '/week', allowance: 540, scope: 'vegetables and greens', when: 'Every week', img: 'd73620523f662d9ff31b2cb2eed5e5ae',
+        features: ['One delivery a week', 'Vegetables and greens', 'Edit or skip before cut-off', 'Free delivery'] },
+      vegfruit: { name: 'Weekly veg and fruit', price: 849, per: 'a week', perShort: '/week', allowance: 920, scope: 'anything in the store', when: 'Every week', img: 'd73620523f662d9ff31b2cb2eed5e5ae',
+        features: ['One delivery a week', 'Vegetables, greens, fruit and exotics', 'Edit or skip before cut-off', 'Free delivery'] },
+      family: { name: 'Monthly family', price: 3299, per: 'a month', perShort: '/month', allowance: 900, scope: 'anything in the store', when: 'Every week, billed monthly', img: '71cc3d44961c73a268d4d1abb40dd507',
+        features: ['Four deliveries a month', 'Anything in the store', 'Pause a week without losing the month', 'Free delivery'] }
+    };
+    const order = ['veg', 'vegfruit', 'family'];
+    const sel = P[s.plan];
+    const choose = (id) => this.setState({ plan: id, announce: P[id].name + ' chosen' });
+
+    const plans = order.map((id) => {
+      const p = P[id];
+      const feature = id === 'vegfruit';
+      const yearly = id === 'family' ? p.allowance * 4 - p.price : p.allowance - p.price;
+      const picked = s.plan === id;
+      return {
+        name: p.name, priceText: rupees(p.price), per: p.per, isFeature: feature,
+        allowanceText: id === 'family' ? 'Fill up to ' + rupees(p.allowance) + ' each delivery, ' + rupees(p.allowance * 4) + ' a month' : 'Fill up to ' + rupees(p.allowance) + ' of ' + p.scope + ' each week',
+        saveText: 'You get ' + rupees(yearly) + ' more ' + (id === 'family' ? 'each month' : 'each week'),
+        saveBg: feature ? 'var(--band-overlay)' : 'var(--accent-soft)', saveFg: feature ? 'var(--on-band)' : 'var(--on-accent-soft)',
+        features: p.features,
+        cls: (feature ? 'feature' : '') + (picked ? ' sel' : ''),
+        btnCls: picked ? 'btn-primary' : (feature ? 'btn-primary' : 'btn-outline'),
+        btnText: picked ? 'Chosen' : 'Choose ' + p.name,
+        selected: String(picked),
+        choose: () => choose(id)
+      };
+    });
+
+    // calculator
+    const rec = s.who === '5+' ? 'family' : (s.what === 'both' ? 'vegfruit' : 'veg');
+    const recWhy = {
+      veg: s.who === '1-2' ? '₹540 covers a week of sabzi and greens for one or two, with room for top-ups.' : '₹540 covers a week of everyday vegetables for three or four. Add fruit from the store when you need it.',
+      vegfruit: '₹920 covers vegetables and a fruit bowl for the week.',
+      family: 'Four bigger deliveries a month at the best rate, with fruit and exotics included.'
+    }[rec];
+    const samples = {
+      veg: [['tomato', 'Tomato', '1 kg', 40], ['onion', 'Onion', '2 kg', 90], ['potato', 'Potato', '2 kg', 60], ['spinach', 'Spinach', '1 bunch', 20], ['carrot', 'Carrot', '1 kg', 60], ['cauliflower', 'Cauliflower', '1 pc', 40], ['peas', 'Green peas', '500 g', 60], ['okra', 'Okra', '500 g', 35], ['coriander', 'Coriander', '1 bunch', 10], ['ginger', 'Ginger', '100 g', 18], ['lemon', 'Lemon', '250 g', 30]],
+      vegfruit: [['tomato', 'Tomato', '1 kg', 40], ['onion', 'Onion', '2 kg', 90], ['potato', 'Potato', '2 kg', 60], ['spinach', 'Spinach', '1 bunch', 20], ['carrot', 'Carrot', '1 kg', 60], ['peas', 'Green peas', '500 g', 60], ['okra', 'Okra', '500 g', 35], ['coriander', 'Coriander', '1 bunch', 10], ['apple', 'Apple, Shimla', '1 kg', 140], ['banana', 'Banana', '12 pcs', 90], ['guava', 'Guava', '1 kg', 80], ['pomegranate', 'Pomegranate', '500 g', 90], ['papaya', 'Papaya', '1 pc', 60]],
+      family: [['tomato', 'Tomato', '2 kg', 80], ['onion', 'Onion', '3 kg', 135], ['potato', 'Potato', '3 kg', 90], ['spinach', 'Spinach', '2 bunches', 40], ['cauliflower', 'Cauliflower', '1 pc', 40], ['peas', 'Green peas', '1 kg', 120], ['okra', 'Okra', '500 g', 35], ['coriander', 'Coriander', '2 bunches', 20], ['apple', 'Apple, Shimla', '1 kg', 140], ['banana', 'Banana', '12 pcs', 90], ['kinnow', 'Kinnow', '1 kg', 70], ['lemon', 'Lemon', '250 g', 30]]
+    };
+    const img = {
+      tomato: '90234e112587bcb63afe69728f9038ca', onion: '1684583e7b1031c43645cbd222ff8d0d', potato: '0665993fcaf8a6b84a0bae1442b3275a',
+      spinach: 'd7b00861d43b60387799340029aefdd9', carrot: '99f9649155ba9e54671aa750df2ac8bf', cauliflower: '87391db060b820345c97945df91fdf38',
+      peas: '99d528df8f7004e9085c7f2e546e04b7', okra: '5bc8dcee307c27bd019357e52ebc8622', coriander: '591d27931e70b0646c12012b692f0728',
+      ginger: '1932feaa1fef036c4f9bb795103d9d8e', lemon: 'f1a2386feb02283967fd240b543fe554', apple: '8581b06e9c225f563a590d141aab53d4',
+      banana: '590b099cfdb53ca100dc3bed19c350d7', guava: '82a29c90957eb1aff44cb26d6d2ac079', pomegranate: 'b86b503ad231db0343ee9b4e92d93cde',
+      papaya: '098e97ad4e8646df20e3263842c5981d', kinnow: 'fd2079b5997095279838843a25a8bb23'
+    };
+    const sampleRows = samples[rec];
+    const sampleTotal = sampleRows.reduce((n, r) => n + r[3], 0);
+
+    // form
+    const dayDefs = [['mon', 'Mon', 'Monday', 'Mon 19 Oct'], ['tue', 'Tue', 'Tuesday', 'Tue 20 Oct'], ['wed', 'Wed', 'Wednesday', 'Wed 21 Oct'], ['thu', 'Thu', 'Thursday', 'Thu 15 Oct'], ['fri', 'Fri', 'Friday', 'Fri 16 Oct'], ['sat', 'Sat', 'Saturday', 'Sat 17 Oct']];
+    const slotDefs = [['am6', '6–8 AM', 'Before work'], ['am8', '8–10 AM', 'Most chosen'], ['pm6', '6–8 PM', 'After work']];
+    const d = dayDefs.find((x) => x[0] === s.day) || dayDefs[3];
+    const sl = slotDefs.find((x) => x[0] === s.slot);
+    const firstShort = d[3];
+    const firstText = d[3] + (sl ? ', ' + sl[1] : '');
+    const cutText = s.day === 'thu' ? 'Start now and fill your first basket before 10 PM tonight.' : 'Your first cut-off is 10 PM the night before.';
+
+    const upiOk = /^[\w.\-]{2,}@[a-z]{2,}$/i.test(s.upi.trim());
+    const pinCity = (p) => {
+      if (p.length !== 6) return '';
+      if (['160055', '160059', '160062', '160071', '140308'].includes(p)) return 'Mohali';
+      if (p.startsWith('1600') || p === '160101' || p === '160102') return 'Chandigarh';
+      if (['134109', '134112', '134113', '134114', '134116', '134117'].includes(p)) return 'Panchkula';
+      return '';
+    };
+    const pinOk = s.pinState === 'ok';
+    const errs = {
+      slot: !sl,
+      a1: !s.a1.trim(),
+      pin: !pinCity(s.pin),
+      upi: s.pay === 'upi' && !upiOk,
+      agree: !s.agree
+    };
+    const errCount = Object.keys(errs).filter((k) => errs[k]).length;
+    const show = (k) => s.tried && errs[k];
+    const checkPin = () => {
+      const p = s.pin;
+      if (!p) return this.setState({ pinState: 'idle', pinMsg: '' });
+      if (p.length !== 6) return this.setState({ pinState: 'bad', pinMsg: 'Enter all 6 digits of your PIN code.' });
+      const city = pinCity(p);
+      if (city) return this.setState({ pinState: 'ok', pinMsg: 'We deliver to ' + p + ', ' + city + '.' });
+      this.setState({ pinState: 'bad', pinMsg: 'We don’t deliver to ' + p + ' yet. Subscriptions need an address in Chandigarh, Mohali or Panchkula.' });
+    };
+    const pays = [
+      ['upi', 'UPI AutoPay', 'Approve once in your UPI app. Charged at each cut-off.'],
+      ['card', 'Card AutoPay', 'Saved securely with ' + '[GATEWAY NAME]' + '. Your bank may ask you to approve the mandate.'],
+      ['link', 'Pay each time by link', 'We send a payment link before each cut-off. An unpaid week is skipped, not charged.']
+    ];
+
+    return {
+      dark,
+      themeClass: dark ? 'dark' : '',
+      announce: s.announce,
+      plans,
+      whoOpts: [['1-2', '1–2'], ['3-4', '3–4'], ['5+', '5 or more']].map((w) => ({ label: w[1], on: String(s.who === w[0]), pick: () => this.setState({ who: w[0] }) })),
+      whatOpts: [['veg', 'Vegetables'], ['both', 'Vegetables and fruit']].map((w) => ({ label: w[1], on: String(s.what === w[0]), pick: () => this.setState({ what: w[0] }) })),
+      recName: P[rec].name,
+      recWhy,
+      recAllowanceText: rupees(P[rec].allowance),
+      chooseRec: () => choose(rec),
+      sample: sampleRows.map((r) => ({ img: B + img[r[0]], name: r[1], qty: r[2], price: rupees(r[3]) })),
+      sampleCountText: sampleRows.length + ' items',
+      sampleTotalText: rupees(sampleTotal),
+
+      done: s.done,
+      notDone: !s.done,
+      doneNote: (s.day === 'thu' ? 'Fill your first basket before 10 PM tonight, or we’ll pack a starter basket of seasonal basics.' : 'Fill your first basket before 10 PM the night before, or we’ll pack a starter basket of seasonal basics.') + (s.remind ? ' We’ll remind you on WhatsApp.' : ''),
+      hasErrors: s.tried && errCount > 0,
+      errorCountText: errCount === 1 ? 'One thing needs fixing before we can start your plan.' : errCount + ' things need fixing before we can start your plan.',
+      planChoices: order.map((id) => ({
+        id, name: P[id].name, sub: id === 'family' ? 'Four deliveries a month, up to ' + rupees(P[id].allowance) + ' each' : 'Up to ' + rupees(P[id].allowance) + ' of ' + P[id].scope + ' a week',
+        price: rupees(P[id].price) + ' ' + P[id].per, on: s.plan === id, cls: s.plan === id ? 'on' : '', pick: () => choose(id)
+      })),
+      days: dayDefs.map((x) => ({ label: x[1], on: String(s.day === x[0]), pick: () => this.setState({ day: x[0], announce: x[2] + ' chosen' }) })),
+      slots: slotDefs.map((x) => ({ id: x[0], label: x[1], sub: x[2], on: s.slot === x[0], cls: s.slot === x[0] ? 'on' : '', pick: () => this.setState({ slot: x[0] }) })),
+      slotErr: show('slot'),
+      firstText,
+      firstShort,
+      cutText,
+      a1: s.a1, onA1: (e) => this.setState({ a1: e.target.value }), a1Err: show('a1'), a1Invalid: show('a1') ? 'true' : 'false',
+      a2: s.a2, onA2: (e) => this.setState({ a2: e.target.value }),
+      pin: s.pin,
+      onPin: (e) => this.setState({ pin: e.target.value.replace(/\D/g, '').slice(0, 6), pinState: 'idle', pinMsg: '' }),
+      checkPin,
+      pinOk,
+      pinBad: s.pinState === 'bad' || (s.tried && s.pinState === 'idle'),
+      pinMsg: s.pinState === 'idle' && s.tried ? 'Enter your PIN code so we can check we deliver there.' : s.pinMsg,
+      pinInvalid: s.pinState === 'bad' || (s.tried && !pinOk) ? 'true' : 'false',
+      pays: pays.map((p) => ({ id: p[0], label: p[1], sub: p[2], on: s.pay === p[0], cls: s.pay === p[0] ? 'on' : '', pick: () => this.setState({ pay: p[0] }) })),
+      isUpi: s.pay === 'upi',
+      upi: s.upi,
+      onUpi: (e) => this.setState({ upi: e.target.value.trim() }),
+      upiErr: show('upi'),
+      upiHint: !show('upi'),
+      upiInvalid: show('upi') ? 'true' : 'false',
+      agree: s.agree,
+      toggleAgree: () => this.setState({ agree: !s.agree }),
+      agreeErr: show('agree'),
+      agreeInvalid: show('agree') ? 'true' : 'false',
+      chargeText: rupees(sel.price) + ' ' + sel.per,
+      remind: s.remind,
+      toggleRemind: () => this.setState({ remind: !s.remind }),
+      busy: String(s.busy),
+      submitText: s.busy ? 'Starting your plan…' : 'Start ' + sel.name + ' · ' + rupees(sel.price) + sel.perShort,
+      submit: (e) => {
+        e.preventDefault();
+        if (s.busy) return;
+        if (errCount > 0) {
+          this.setState({ tried: true, announce: errCount + ' fields need attention' });
+          if (s.pin) checkPin();
+          return this.focusError();
+        }
+        this.setState({ busy: true, tried: true });
+        this.timer = setTimeout(() => this.setState({ busy: false, done: true, announce: 'Subscription started' }), 900);
+      },
+
+      planImg: B + sel.img,
+      selName: sel.name,
+      selPrice: rupees(sel.price) + ' ' + sel.per,
+      selAllowance: rupees(sel.allowance) + (s.plan === 'family' ? ' each delivery' : ' a week'),
+      selWhen: d[2] + 's' + (sl ? ', ' + sl[1] : '')
+    };
+  }
+}
+</script>
+</body>
+</html>

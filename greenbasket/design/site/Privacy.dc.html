@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Privacy policy · Greeen Basket</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="gb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600&amp;family=Rubik:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+.toc a{display:block;padding:7px 12px;border-radius:var(--r-sm);color:var(--text);text-decoration:none;font-size:14.5px;line-height:1.4}
+@media (hover:hover){.toc a:hover{background:var(--muted-bg);color:var(--text-strong)}}
+.toc ol{counter-reset:t}
+.toc li{counter-increment:t}
+.toc a::before{content:counter(t) ". ";color:var(--text-muted);font-variant-numeric:tabular-nums}
+.prose h2:first-child{margin-top:0}
+.sw{position:relative;flex:none;width:48px;height:28px;margin:0;appearance:none;-webkit-appearance:none;border-radius:999px;background:var(--line-strong);cursor:pointer;transition:background-color 160ms ease-out}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:999px;background:#FFFFFF;box-shadow:var(--shadow-1);transition:transform 200ms ease-out}
+.sw:checked{background:var(--accent)}
+.sw:checked::after{transform:translateX(20px)}
+.sw:disabled{opacity:.6;cursor:not-allowed}
+.sw:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+</style>
+</helmet>
+<div class="gb {{themeClass}}" style="min-height: 100%; background: var(--bg); color: var(--text); font-family: Rubik, 'Noto Sans Devanagari', system-ui, sans-serif;">
+  <dc-import name="Header" active="none" dark="{{dark}}" hint-size="100%,190px"></dc-import>
+
+  <main id="main">
+    <header class="wrap" style="padding-block: clamp(40px, 6vw, 72px) 28px;">
+      <p class="t-eyebrow">Policies</p>
+      <h1 class="t-h1" style="margin-top: 12px;">Privacy policy</h1>
+      <p class="t-muted" style="margin-top: 10px;">Last updated <span class="ph">[DATE]</span></p>
+      <p role="note" class="t-sm" style="margin-top: 18px; max-width: 72ch; padding: 12px 16px; border-radius: var(--r-md); background: var(--warning-soft); color: var(--warning);"><b>Draft for legal review.</b> Written for the Digital Personal Data Protection Act, 2023. Highlighted items need your input.</p>
+    </header>
+
+    <section aria-label="In short" class="wrap" style="padding-bottom: 40px;">
+      <ul style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px;">
+        <li class="well" style="padding: 20px; display: flex; flex-direction: column; gap: 6px;"><h2 class="t-h4">Only what we need</h2><p class="t-sm">Your name, number, address and orders, so we can deliver.</p></li>
+        <li class="well" style="padding: 20px; display: flex; flex-direction: column; gap: 6px;"><h2 class="t-h4">Offers only if you say yes</h2><p class="t-sm">Marketing is a separate choice from order updates.</p></li>
+        <li class="well" style="padding: 20px; display: flex; flex-direction: column; gap: 6px;"><h2 class="t-h4">We don’t sell your data</h2><p class="t-sm">We share it only with the services that help us deliver.</p></li>
+        <li class="well" style="padding: 20px; display: flex; flex-direction: column; gap: 6px;"><h2 class="t-h4">You’re in control</h2><p class="t-sm">Download, correct or delete your data from <a href="Account-settings.dc.html">My account</a>.</p></li>
+      </ul>
+    </section>
+
+    <div class="wrap" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 32px 64px; padding-bottom: 56px;">
+      <nav aria-label="On this page" class="toc" style="flex: 1 1 220px; min-width: 0; position: sticky; top: 24px;">
+        <p class="t-sm" style="font-weight: 600; color: var(--text-strong); padding: 0 12px 6px;">On this page</p>
+        <ol>
+          <li><a href="#p-who">Who we are</a></li>
+          <li><a href="#p-collect">What we collect</a></li>
+          <li><a href="#p-why">Why we use it</a></li>
+          <li><a href="#p-consent">Your consent</a></li>
+          <li><a href="#p-share">Who we share it with</a></li>
+          <li><a href="#p-keep">How long we keep it</a></li>
+          <li><a href="#p-rights">Your rights</a></li>
+          <li><a href="#p-kids">Children</a></li>
+          <li><a href="#p-security">Keeping it safe</a></li>
+          <li><a href="#cookies">Cookies</a></li>
+          <li><a href="#p-changes">Changes</a></li>
+          <li><a href="#p-contact">Grievance officer</a></li>
+        </ol>
+      </nav>
+
+      <article class="prose" style="flex: 999 1 620px; min-width: 0;">
+        <h2 id="p-who">1. Who we are</h2>
+        <p><span class="ph">[LEGAL ENTITY NAME]</span>, which runs Greeen Basket, decides how your personal data is used. Under the law we are the “data fiduciary”. Registered address: <span class="ph">[REGISTERED ADDRESS]</span>.</p>
+
+        <h2 id="p-collect">2. What we collect</h2>
+        <ul>
+          <li><b>Account details:</b> your name, mobile number and, if you add it, your email.</li>
+          <li><b>Delivery details:</b> addresses, PIN codes and delivery notes. We don’t ask for your phone’s location.</li>
+          <li><b>Orders:</b> what you buy, when, your slots, subscriptions and saved boxes.</li>
+          <li><b>Payments:</b> our payment partner handles card and bank details. We receive the payment status, method and the last 4 digits of a card.</li>
+          <li><b>Business details,</b> if you give them: business name and GSTIN.</li>
+          <li><b>What you send us:</b> messages, reviews, and photos of order problems.</li>
+          <li><b>Site use:</b> essential cookies, and analytics only if you agree.</li>
+        </ul>
+
+        <h2 id="p-why">3. Why we use it</h2>
+        <ul>
+          <li>To take, pack and deliver your orders, and tell you about them.</li>
+          <li>To take payment, issue invoices and keep records the law requires.</li>
+          <li>To handle refunds, replacements and questions.</li>
+          <li>To run subscriptions, including reminders before each cut-off.</li>
+          <li>To prevent fraud, such as fake cash-on-delivery orders.</li>
+          <li>With your consent: to understand how the site is used, and to send offers.</li>
+        </ul>
+
+        <h2 id="p-consent">4. Your consent</h2>
+        <p>We ask for consent in plain words, separately for each optional purpose, like offers on WhatsApp or analytics cookies. You can withdraw it at any time in <a href="Account-settings.dc.html">My account</a> or the cookie settings below, as easily as you gave it. Withdrawing doesn’t affect what we did before.</p>
+
+        <h2 id="p-share">5. Who we share it with</h2>
+        <ul>
+          <li><b>Our riders,</b> who see your name, number, address and note for your delivery.</li>
+          <li><b>Payment partner:</b> <span class="ph">[GATEWAY NAME]</span>.</li>
+          <li><b>Messaging:</b> <span class="ph">[MESSAGING PROVIDER]</span> for WhatsApp and SMS.</li>
+          <li><b>Hosting:</b> <span class="ph">[HOSTING PROVIDER]</span>.</li>
+          <li><b>Analytics,</b> only if you agree: <span class="ph">[ANALYTICS PROVIDER]</span>.</li>
+          <li><b>Authorities,</b> when the law requires it.</li>
+        </ul>
+        <p>They may use your data only to provide their service to us. We don’t sell your data.</p>
+
+        <h2 id="p-keep">6. How long we keep it</h2>
+        <ul>
+          <li>Account details: until you delete your account, plus <span class="ph">[GRACE PERIOD]</span> in case you change your mind.</li>
+          <li>Orders and invoices: <span class="ph">[RETENTION PERIOD]</span>, as tax law requires.</li>
+          <li>Photos of order problems: <span class="ph">[PHOTO RETENTION]</span>.</li>
+        </ul>
+
+        <h2 id="p-rights">7. Your rights</h2>
+        <p>You can ask us to:</p>
+        <ul>
+          <li>Tell you what personal data we hold and who we’ve shared it with.</li>
+          <li>Correct, complete or update it.</li>
+          <li>Erase it, unless the law requires us to keep it.</li>
+          <li>Let someone you nominate act for you if you die or can’t act yourself.</li>
+        </ul>
+        <p>Most of this is in <a href="Account-settings.dc.html">My account</a>, under Privacy and your data. Or write to our grievance officer. We reply within <span class="ph">[RIGHTS RESPONSE TIME]</span>. If you’re not satisfied, you can complain to the Data Protection Board of India.</p>
+
+        <h2 id="p-kids">8. Children</h2>
+        <p>Greeen Basket is for adults. We don’t knowingly collect data from anyone under 18 without a parent’s verifiable consent.</p>
+
+        <h2 id="p-security">9. Keeping it safe</h2>
+        <p>We encrypt data in transit, limit who on our team can see it, and review access regularly. If a breach affects you, we’ll tell you and the Data Protection Board as the law requires.</p>
+
+        <h2 id="cookies">10. Cookies</h2>
+        <p>Essential cookies keep you signed in and remember your basket. They can’t be turned off. Analytics cookies help us see which pages work, and only run if you agree. Advertising cookies: <span class="ph">[NONE, OR LIST THEM]</span>.</p>
+      </article>
+    </div>
+
+    <section aria-labelledby="ck-h" class="wrap" style="padding-bottom: 56px;">
+      <form noValidate onSubmit="{{save}}" class="card" style="max-width: 820px; padding: clamp(20px, 3vw, 32px); display: flex; flex-direction: column; gap: 6px;">
+        <h2 id="ck-h" class="t-h3">Your cookie settings</h2>
+        <p class="t-sm t-muted" style="margin-bottom: 10px;">Changes apply on this device and browser.</p>
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; padding-block: 16px; border-top: 1px solid var(--line);">
+          <label for="ck-ess" style="flex: 1;"><b class="t-strong">Essential</b><br><span class="t-sm t-muted">Sign-in, basket, checkout and security. Always on.</span></label>
+          <input id="ck-ess" class="sw" type="checkbox" role="switch" checked disabled aria-describedby="ck-ess-d">
+          <span id="ck-ess-d" class="sr-only">Always on</span>
+        </div>
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; padding-block: 16px; border-top: 1px solid var(--line);">
+          <label for="ck-an" style="flex: 1; cursor: pointer;"><b class="t-strong">Analytics</b><br><span class="t-sm t-muted">Counts visits and clicks so we can see which pages help. No ads.</span></label>
+          <input id="ck-an" class="sw" type="checkbox" role="switch" name="analytics" checked="{{analytics}}" onChange="{{toggleAnalytics}}">
+        </div>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding-top: 16px; border-top: 1px solid var(--line);">
+          <button type="submit" class="btn btn-ink">Save my choices</button>
+          <button type="button" class="btn btn-outline" onClick="{{acceptAll}}">Allow all</button>
+          <button type="button" class="btn btn-ghost" onClick="{{rejectAll}}">Essential only</button>
+          <p aria-live="polite" class="t-sm" style="margin-left: 4px;"><sc-if value="{{saved}}" hint-placeholder-val="{{false}}"><span class="ok">{{savedText}}</span></sc-if></p>
+        </div>
+      </form>
+    </section>
+
+    <div class="wrap" style="padding-bottom: clamp(56px, 7vw, 96px);">
+      <article class="prose">
+        <h2 id="p-changes" style="margin-top: 0;">11. Changes</h2>
+        <p>If we change this policy in a way that matters, we’ll tell you on the site, and on WhatsApp or SMS if you have an account, before it takes effect.</p>
+        <h2 id="p-contact">12. Grievance officer</h2>
+        <p>For any privacy question or complaint, write to <span class="ph">[GRIEVANCE OFFICER NAME]</span> at <span class="ph">[GRIEVANCE OFFICER EMAIL]</span>, or <span class="ph">[REGISTERED ADDRESS]</span>. We acknowledge within 48 hours.</p>
+      </article>
+    </div>
+  </main>
+
+  <dc-import name="Footer" dark="{{dark}}" hint-size="100%,760px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":4200}}'>
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { analytics: false, saved: false, savedText: '' };
+  }
+
+  renderVals() {
+    const s = this.state;
+    const dark = this.props.dark ?? false;
+    return {
+      dark,
+      themeClass: dark ? 'dark' : '',
+      analytics: s.analytics,
+      toggleAnalytics: () => this.setState({ analytics: !s.analytics, saved: false }),
+      save: (e) => { e.preventDefault(); this.setState({ saved: true, savedText: s.analytics ? 'Saved. Analytics is on.' : 'Saved. Only essential cookies are on.' }); },
+      acceptAll: () => this.setState({ analytics: true, saved: true, savedText: 'Saved. Analytics is on.' }),
+      rejectAll: () => this.setState({ analytics: false, saved: true, savedText: 'Saved. Only essential cookies are on.' }),
+      saved: s.saved,
+      savedText: s.savedText
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Contact us · Greeen Basket</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="gb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600&amp;family=Rubik:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+.quick a{display:flex;align-items:center;gap:14px;min-height:76px;padding:16px 18px;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);color:var(--text-strong);text-decoration:none;font-weight:600;transition:border-color 160ms ease-out,transform 100ms ease-out}
+.quick a:active{transform:scale(.98)}
+.quick svg{flex:none;color:var(--accent-text)}
+.quick .arrow{margin-left:auto;color:var(--text-muted)}
+@media (hover:hover){.quick a:hover{border-color:var(--field-line);color:var(--text-strong)}}
+.chan{display:flex;gap:14px;align-items:flex-start;padding-block:16px;border-top:1px solid var(--line)}
+.chan svg{flex:none;margin-top:2px;color:var(--accent-text)}
+</style>
+</helmet>
+<div class="gb {{themeClass}}" style="min-height: 100%; background: var(--bg); color: var(--text); font-family: Rubik, 'Noto Sans Devanagari', system-ui, sans-serif;">
+  <dc-import name="Header" active="none" dark="{{dark}}" hint-size="100%,190px"></dc-import>
+
+  <main id="main">
+    <p aria-live="polite" class="sr-only">{{announce}}</p>
+
+    <section aria-labelledby="ct-h" class="wrap" style="padding-block: clamp(40px, 6vw, 80px) 24px;">
+      <p class="t-eyebrow">Contact us</p>
+      <h1 id="ct-h" class="t-d2" style="margin-top: 12px;">How can we help?</h1>
+      <p class="t-lead t-muted" style="margin-top: 14px; max-width: 36em;">Most order questions are fastest from your account. For anything else, message us and a person replies.</p>
+    </section>
+
+    <section aria-labelledby="quick-h" class="wrap" style="padding-bottom: 48px;">
+      <h2 id="quick-h" class="sr-only">Quick help</h2>
+      <ul class="quick" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;">
+        <li><a href="Account-orders.dc.html"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"></path><circle cx="7" cy="18" r="2"></circle><circle cx="17" cy="18" r="2"></circle></svg>Track an order<span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="Account-orders.dc.html"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"></path><path d="M12 10v4M12 17h.01"></path></svg>Report a short or damaged item<span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="Account-subscription.dc.html"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4"></path></svg>Skip, pause or cancel a subscription<span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="Wholesale.dc.html#quote"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V8l9-5 9 5v13M9 21v-6h6v6"></path></svg>Get a wholesale quote<span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="Cancellation.dc.html"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"></path></svg>Refunds and cancellations<span class="arrow" aria-hidden="true">→</span></a></li>
+        <li><a href="FAQ.dc.html"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01"></path></svg>Read the FAQ<span class="arrow" aria-hidden="true">→</span></a></li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="form-h" style="padding-block: clamp(48px, 6vw, 72px); border-top: 1px solid var(--line);">
+      <div class="wrap" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 40px 56px;">
+        <div style="flex: 999 1 600px; min-width: 0;">
+          <h2 id="form-h" class="t-h1">Send us a message</h2>
+          <p class="t-muted" style="margin-top: 6px;">We reply within <span class="ph">[RESPONSE TIME]</span>, during <span class="ph">[SUPPORT HOURS]</span>.</p>
+
+          <sc-if value="{{sent}}" hint-placeholder-val="{{false}}">
+            <div role="status" class="card" style="margin-top: 24px; padding: 28px; display: flex; flex-direction: column; gap: 10px; border-color: var(--accent-text);">
+              <p class="badge badge-leaf" style="align-self: flex-start;">Message sent</p>
+              <h3 class="t-h2">Thanks, {{firstName}}.</h3>
+              <p>Your reference is <b class="t-strong num">GB-H-3391</b>. We’ll reply by {{replyVia}} within <span class="ph">[RESPONSE TIME]</span>.</p>
+              <button type="button" class="btn btn-ghost" style="align-self: flex-start; margin-top: 6px;" onClick="{{again}}">Send another message</button>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{notSent}}" hint-placeholder-val="{{true}}">
+            <form noValidate onSubmit="{{submit}}" style="margin-top: 24px; display: flex; flex-direction: column; gap: 20px;">
+              <sc-if value="{{hasErrors}}" hint-placeholder-val="{{false}}">
+                <div role="alert" style="padding: 12px 16px; border-radius: var(--r-md); background: var(--danger-soft); color: var(--danger);"><p class="t-sm" style="font-weight: 600;">{{errorText}}</p></div>
+              </sc-if>
+              <div class="field" style="max-width: 420px;">
+                <label for="c-topic" class="label">What’s it about?</label>
+                <select id="c-topic" class="input" name="topic" value="{{topic}}" onChange="{{onTopic}}" aria-invalid="{{topicInvalid}}" aria-describedby="c-topic-err">
+                  <option value="">Choose a topic…</option>
+                  <sc-for list="{{topics}}" as="t" hint-placeholder-count="8"><option value="{{t.id}}">{{t.label}}</option></sc-for>
+                </select>
+                <p id="c-topic-err" aria-live="polite"><sc-if value="{{topicErr}}" hint-placeholder-val="{{false}}"><span class="error">Choose a topic so it reaches the right person.</span></sc-if></p>
+              </div>
+
+              <sc-if value="{{isOrderTopic}}" hint-placeholder-val="{{false}}">
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                  <p class="t-sm" style="padding: 10px 14px; border-radius: var(--r-sm); background: var(--accent-soft); color: var(--on-accent-soft);"><b>Faster from your account:</b> report a problem on the order itself and add photos. <a href="Account-orders.dc.html" style="color: inherit; font-weight: 600;">Go to my orders</a></p>
+                  <div class="field" style="max-width: 280px;">
+                    <label for="c-order" class="label">Order number <span class="opt">(optional)</span></label>
+                    <input id="c-order" class="input num" type="text" name="order" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Like GB-24790…" value="{{orderNo}}" onChange="{{onOrder}}" aria-invalid="{{orderInvalid}}" aria-describedby="c-order-err">
+                    <p id="c-order-err" aria-live="polite"><sc-if value="{{orderErr}}" hint-placeholder-val="{{false}}"><span class="error">Order numbers look like GB-24790.</span></sc-if></p>
+                  </div>
+                </div>
+              </sc-if>
+
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px 20px;">
+                <div class="field">
+                  <label for="c-name" class="label">Your name</label>
+                  <input id="c-name" class="input" type="text" name="name" autocomplete="name" placeholder="Like Simran Kaur…" value="{{name}}" onChange="{{onName}}" aria-invalid="{{nameInvalid}}" aria-describedby="c-name-err">
+                  <p id="c-name-err" aria-live="polite"><sc-if value="{{nameErr}}" hint-placeholder-val="{{false}}"><span class="error">Enter your name.</span></sc-if></p>
+                </div>
+                <div class="field">
+                  <label for="c-phone" class="label">Mobile number</label>
+                  <div style="display: flex;">
+                    <span aria-hidden="true" class="num" style="display: inline-flex; align-items: center; padding: 0 12px; border: 1.5px solid var(--field-line); border-right: 0; border-radius: var(--r-sm) 0 0 var(--r-sm); background: var(--muted-bg); color: var(--text-strong); font-weight: 500;">+91</span>
+                    <input id="c-phone" class="input num" type="tel" name="tel-national" autocomplete="tel-national" inputmode="numeric" maxlength="10" placeholder="10 digits…" value="{{phone}}" onChange="{{onPhone}}" aria-invalid="{{phoneInvalid}}" aria-describedby="c-phone-err" style="border-radius: 0 var(--r-sm) var(--r-sm) 0;">
+                  </div>
+                  <p id="c-phone-err" aria-live="polite"><sc-if value="{{phoneErr}}" hint-placeholder-val="{{false}}"><span class="error">Enter a 10-digit mobile number starting with 6, 7, 8 or 9.</span></sc-if></p>
+                </div>
+                <div class="field">
+                  <span id="c-reply-l" class="label">Reply to me by</span>
+                  <div class="seg" role="group" aria-labelledby="c-reply-l" style="align-self: flex-start;">
+                    <sc-for list="{{replyOpts}}" as="r" hint-placeholder-count="3"><button type="button" aria-pressed="{{r.on}}" onClick="{{r.pick}}">{{r.label}}</button></sc-for>
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="c-email" class="label">Email <span class="opt">{{emailOpt}}</span></label>
+                  <input id="c-email" class="input" type="email" name="email" autocomplete="email" inputmode="email" spellcheck="false" placeholder="you@example.com…" value="{{email}}" onChange="{{onEmail}}" aria-invalid="{{emailInvalid}}" aria-describedby="c-email-err">
+                  <p id="c-email-err" aria-live="polite"><sc-if value="{{emailErr}}" hint-placeholder-val="{{false}}"><span class="error">{{emailErrText}}</span></sc-if></p>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="c-msg" class="label">Message</label>
+                <textarea id="c-msg" class="input" name="message" autocomplete="off" maxlength="1500" placeholder="Tell us what happened, or what you need…" onInput="{{onMsg}}" aria-invalid="{{msgInvalid}}" aria-describedby="c-msg-err c-msg-count" style="min-height: 156px;"></textarea>
+                <div style="display: flex; justify-content: space-between; gap: 12px;">
+                  <p id="c-msg-err" aria-live="polite"><sc-if value="{{msgErr}}" hint-placeholder-val="{{false}}"><span class="error">Write at least 20 characters so we can help the first time.</span></sc-if></p>
+                  <p id="c-msg-count" class="hint num">{{msgCount}} / 1500</p>
+                </div>
+              </div>
+
+              <div class="field">
+                <span class="label" id="c-file-l">Photos or a screenshot <span class="opt">(optional)</span></span>
+                <label for="c-file" style="display: flex; align-items: center; gap: 14px; min-height: 72px; padding: 14px 18px; border: 1.5px dashed var(--field-line); border-radius: var(--r-md); background: var(--well); cursor: pointer;">
+                  <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex: none; color: var(--accent-text);"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"></path></svg>
+                  <span class="t-sm"><b class="t-strong">{{fileText}}</b><br><span class="t-muted">JPG or PNG, up to 3 files, 5&nbsp;MB each</span></span>
+                </label>
+                <input id="c-file" type="file" name="attachments" accept="image/jpeg,image/png" multiple aria-labelledby="c-file-l" class="sr-only" onChange="{{onFiles}}">
+              </div>
+
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px;">
+                <button type="submit" class="btn btn-primary btn-lg" aria-busy="{{busy}}">{{submitText}}</button>
+                <p class="t-xs t-muted" style="max-width: 40ch;">We use these details only to reply to you. See our <a href="Privacy.dc.html">privacy policy</a>.</p>
+              </div>
+            </form>
+          </sc-if>
+        </div>
+
+        <aside aria-labelledby="chan-h" style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 16px;">
+          <div class="card" style="padding: 8px 22px 6px;">
+            <h2 id="chan-h" class="t-h4" style="padding-block: 16px 4px;">Other ways to reach us</h2>
+            <div class="chan"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.6-4.8A8.5 8.5 0 1 1 8 19.6z"></path></svg><p><b class="t-strong">WhatsApp</b><br><span class="ph">[SUPPORT PHONE]</span><br><span class="t-sm t-muted">Quickest for photos of an order</span></p></div>
+            <div class="chan"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2"></path></svg><p><b class="t-strong">Call</b><br><span class="ph">[SUPPORT PHONE]</span><br><span class="t-sm t-muted"><span class="ph">[SUPPORT HOURS]</span></span></p></div>
+            <div class="chan"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg><p><b class="t-strong">Email</b><br><span class="ph">[SUPPORT EMAIL]</span></p></div>
+            <div class="chan"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg><p><b class="t-strong">Our store</b><br><span class="ph">[STORE ADDRESS]</span><br><span class="t-sm t-muted">Not open for walk-ins. Collection by arrangement.</span></p></div>
+          </div>
+
+          <form id="area" noValidate onSubmit="{{checkArea}}" class="well" style="padding: 20px 22px; display: flex; flex-direction: column; gap: 10px;">
+            <h2 class="t-h4">Not in your area yet?</h2>
+            <p class="t-sm">Check your PIN code. If we don’t deliver there, we’ll tell you when we do.</p>
+            <div class="field">
+              <label for="c-pin" class="label">PIN code</label>
+              <div style="display: flex; gap: 8px;">
+                <input id="c-pin" class="input num" type="text" name="postal-code" autocomplete="postal-code" inputmode="numeric" maxlength="6" spellcheck="false" placeholder="Like 140603…" value="{{pin}}" onChange="{{onPin}}" aria-describedby="c-pin-msg" aria-invalid="{{pinInvalid}}">
+                <button type="submit" class="btn btn-ink">Check</button>
+              </div>
+              <div id="c-pin-msg" aria-live="polite">
+                <sc-if value="{{pinOk}}" hint-placeholder-val="{{false}}"><p class="ok">{{pinMsg}}</p></sc-if>
+                <sc-if value="{{pinErr}}" hint-placeholder-val="{{false}}"><p class="error">{{pinMsg}}</p></sc-if>
+                <sc-if value="{{pinNo}}" hint-placeholder-val="{{false}}"><p class="t-sm" style="color: var(--warning); font-weight: 500;">{{pinMsg}}</p></sc-if>
+              </div>
+            </div>
+            <sc-if value="{{pinNo}}" hint-placeholder-val="{{false}}">
+              <div class="field">
+                <label for="c-wait" class="label">WhatsApp number to tell you</label>
+                <div style="display: flex; gap: 8px;">
+                  <input id="c-wait" class="input num" type="tel" name="tel-national" autocomplete="tel-national" inputmode="numeric" maxlength="10" placeholder="10 digits…" value="{{waitPhone}}" onChange="{{onWaitPhone}}" aria-invalid="{{waitInvalid}}" aria-describedby="c-wait-msg">
+                  <button type="button" class="btn btn-soft" onClick="{{joinWait}}">Tell me</button>
+                </div>
+                <p id="c-wait-msg" aria-live="polite"><sc-if value="{{waitErr}}" hint-placeholder-val="{{false}}"><span class="error">Enter a 10-digit mobile number.</span></sc-if><sc-if value="{{waitDone}}" hint-placeholder-val="{{false}}"><span class="ok">Done. We’ll message you once, when we reach {{pin}}.</span></sc-if></p>
+              </div>
+            </sc-if>
+          </form>
+        </aside>
+      </div>
+    </section>
+
+    <section aria-labelledby="legal-h" class="wrap" style="padding-block: 8px clamp(56px, 7vw, 96px);">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+        <div class="card" style="padding: 24px; display: flex; flex-direction: column; gap: 8px;">
+          <h2 id="legal-h" class="t-h4">Grievance officer</h2>
+          <p class="t-sm">If we haven’t solved a complaint, write to our grievance officer. We acknowledge within 48 hours and aim to resolve it within one month.</p>
+          <dl class="t-sm" style="display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; margin-top: 4px;">
+            <dt class="t-muted">Name</dt><dd><span class="ph">[GRIEVANCE OFFICER NAME]</span></dd>
+            <dt class="t-muted">Email</dt><dd><span class="ph">[GRIEVANCE OFFICER EMAIL]</span></dd>
+            <dt class="t-muted">Phone</dt><dd><span class="ph">[GRIEVANCE OFFICER PHONE]</span></dd>
+          </dl>
+        </div>
+        <div class="card" style="padding: 24px; display: flex; flex-direction: column; gap: 8px;">
+          <h2 class="t-h4">Business details</h2>
+          <dl class="t-sm" style="display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; margin-top: 4px;">
+            <dt class="t-muted">Legal name</dt><dd><span class="ph">[LEGAL ENTITY NAME]</span></dd>
+            <dt class="t-muted">Registered address</dt><dd><span class="ph">[REGISTERED ADDRESS]</span></dd>
+            <dt class="t-muted">GSTIN</dt><dd><span class="ph">[GSTIN]</span></dd>
+            <dt class="t-muted">FSSAI licence</dt><dd><span class="ph">[FSSAI NO.]</span></dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <dc-import name="Footer" dark="{{dark}}" hint-size="100%,760px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":3200}}'>
+class Component extends DCLogic {
+  focusError(sel) {
+    setTimeout(() => {
+      const el = document.querySelector(sel || '.gb [aria-invalid="true"]');
+      if (el && el.focus) el.focus();
+    }, 0);
+  }
+
+  constructor(...args) {
+    super(...args);
+    this.state = {
+      topic: '', orderNo: '', name: '', phone: '', reply: 'wa', email: '', msg: '', files: 0,
+      tried: false, busy: false, sent: false,
+      pin: '', pinState: 'idle', pinMsg: '', waitPhone: '', waitErr: false, waitDone: false, announce: ''
+    };
+    this.timer = null;
+  }
+
+  componentWillUnmount() { if (this.timer) clearTimeout(this.timer); }
+
+  renderVals() {
+    const s = this.state;
+    const dark = this.props.dark ?? false;
+    const set = (patch) => this.setState(patch);
+    const topicDefs = [
+      ['order', 'A problem with an order'], ['delivery', 'Delivery or slots'], ['payment', 'Payment or refund'],
+      ['subscription', 'Subscription'], ['farmbox', 'Farm Box'], ['wholesale', 'Wholesale'],
+      ['supplier', 'Selling to Greeen Basket'], ['jobs', 'Jobs'], ['feedback', 'Feedback or an idea'], ['other', 'Something else']
+    ];
+    const orderTopics = ['order', 'delivery', 'payment'];
+    const phoneOk = /^[6-9]\d{9}$/.test(s.phone);
+    const emailNeeded = s.reply === 'email';
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(s.email);
+    const orderOk = !s.orderNo || /^GB-\d{5}$/.test(s.orderNo);
+    const errs = {
+      topic: !s.topic,
+      order: orderTopics.includes(s.topic) && !orderOk,
+      name: !s.name.trim(),
+      phone: !phoneOk,
+      email: emailNeeded ? !emailValid : (!!s.email && !emailValid),
+      msg: s.msg.trim().length < 20
+    };
+    const errCount = Object.keys(errs).filter((k) => errs[k]).length;
+    const show = (k) => s.tried && errs[k];
+    const inv = (k) => (show(k) ? 'true' : 'false');
+    const replyDefs = [['wa', 'WhatsApp', 'WhatsApp'], ['call', 'Call', 'a call'], ['email', 'Email', 'email']];
+    const pinCity = (p) => {
+      if (['160055', '160059', '160062', '160071', '140308'].includes(p)) return 'Mohali';
+      if (p.startsWith('1600') || p === '160101' || p === '160102') return 'Chandigarh';
+      if (['134109', '134112', '134113', '134114', '134116', '134117'].includes(p)) return 'Panchkula';
+      return '';
+    };
+
+    return {
+      dark,
+      themeClass: dark ? 'dark' : '',
+      announce: s.announce,
+      sent: s.sent,
+      notSent: !s.sent,
+      firstName: s.name.trim().split(' ')[0] || 'there',
+      replyVia: (replyDefs.find((r) => r[0] === s.reply) || replyDefs[0])[2],
+      again: () => set({ sent: false, tried: false, msg: '', files: 0 }),
+      hasErrors: s.tried && errCount > 0,
+      errorText: errCount === 1 ? 'One field needs fixing.' : errCount + ' fields need fixing.',
+      topics: topicDefs.map((t) => ({ id: t[0], label: t[1] })),
+      topic: s.topic,
+      onTopic: (e) => set({ topic: e.target.value }),
+      topicErr: show('topic'), topicInvalid: inv('topic'),
+      isOrderTopic: orderTopics.includes(s.topic),
+      orderNo: s.orderNo,
+      onOrder: (e) => set({ orderNo: e.target.value.toUpperCase().replace(/\s/g, '') }),
+      orderErr: show('order'), orderInvalid: inv('order'),
+      name: s.name, onName: (e) => set({ name: e.target.value }), nameErr: show('name'), nameInvalid: inv('name'),
+      phone: s.phone, onPhone: (e) => set({ phone: e.target.value.replace(/\D/g, '').slice(0, 10) }), phoneErr: show('phone'), phoneInvalid: inv('phone'),
+      replyOpts: replyDefs.map((r) => ({ label: r[1], on: String(s.reply === r[0]), pick: () => set({ reply: r[0] }) })),
+      email: s.email, onEmail: (e) => set({ email: e.target.value.trim() }),
+      emailOpt: emailNeeded ? '' : '(optional)',
+      emailErr: show('email'), emailInvalid: inv('email'),
+      emailErrText: emailNeeded && !s.email ? 'Add an email, since you asked for a reply by email.' : 'That email doesn’t look right.',
+      onMsg: (e) => set({ msg: e.target.value }),
+      msgCount: String(s.msg.length), msgErr: show('msg'), msgInvalid: inv('msg'),
+      fileText: s.files ? s.files + (s.files === 1 ? ' file chosen. Tap to change' : ' files chosen. Tap to change') : 'Add photos',
+      onFiles: (e) => set({ files: Math.min(3, (e.target.files && e.target.files.length) || 0) }),
+      busy: String(s.busy),
+      submitText: s.busy ? 'Sending…' : 'Send message',
+      submit: (e) => {
+        e.preventDefault();
+        if (s.busy) return;
+        if (errCount > 0) { set({ tried: true, announce: errCount + ' fields need fixing' }); return this.focusError(); }
+        set({ busy: true, tried: true });
+        this.timer = setTimeout(() => this.setState({ busy: false, sent: true, announce: 'Message sent' }), 900);
+      },
+
+      pin: s.pin,
+      onPin: (e) => set({ pin: e.target.value.replace(/\D/g, '').slice(0, 6), pinState: 'idle', waitDone: false }),
+      checkArea: (e) => {
+        e.preventDefault();
+        const p = s.pin;
+        if (p.length !== 6) return set({ pinState: 'err', pinMsg: 'Enter all 6 digits of your PIN code.' });
+        const city = pinCity(p);
+        if (city) return set({ pinState: 'ok', pinMsg: 'Good news: we deliver to ' + p + ', ' + city + '.' });
+        set({ pinState: 'no', pinMsg: 'We don’t deliver to ' + p + ' yet.' });
+      },
+      pinOk: s.pinState === 'ok', pinErr: s.pinState === 'err', pinNo: s.pinState === 'no',
+      pinInvalid: s.pinState === 'err' ? 'true' : 'false',
+      pinMsg: s.pinMsg,
+      waitPhone: s.waitPhone,
+      onWaitPhone: (e) => set({ waitPhone: e.target.value.replace(/\D/g, '').slice(0, 10), waitErr: false }),
+      joinWait: () => (/^[6-9]\d{9}$/.test(s.waitPhone) ? set({ waitDone: true, waitErr: false, announce: 'Added to the waiting list' }) : set({ waitErr: true })),
+      waitErr: s.waitErr, waitDone: s.waitDone,
+      waitInvalid: s.waitErr ? 'true' : 'false'
+    };
+  }
+}
+</script>
+</body>
+</html>

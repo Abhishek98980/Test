@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Product card states</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="gb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600&amp;family=Rubik:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div class="gb" style="min-height: 100%; background: var(--bg); color: var(--text); font-family: Rubik, 'Noto Sans Devanagari', system-ui, sans-serif;">
+  <div class="wrap" style="padding-block: 56px;">
+    <h1 class="t-h1">Product card</h1>
+    <p class="t-lead t-muted" style="margin-top: 10px; max-width: 46em;">One card for every shelf: fixed pack price, price per kg or piece, and a single action that changes with the state. Add turns into a quantity stepper; out of stock turns into Notify me.</p>
+
+    <h2 class="t-h3" style="margin-top: 44px;">Light</h2>
+    <ul style="margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 24px 16px;">
+      <sc-for list="{{states}}" as="st" hint-placeholder-count="8">
+        <li style="display: flex; flex-direction: column; gap: 10px; min-width: 0;">
+          <p class="t-xs t-muted" style="font-weight: 600;">{{st.label}}</p>
+          <dc-import name="ProductCard" item="{{st.item}}" hint-size="100%,440px"></dc-import>
+        </li>
+      </sc-for>
+    </ul>
+  </div>
+
+  <div class="gb dark" style="background: var(--bg); color: var(--text);">
+    <div class="wrap" style="padding-block: 56px;">
+      <h2 class="t-h3">Dark</h2>
+      <ul style="margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 24px 16px;">
+        <sc-for list="{{states}}" as="st" hint-placeholder-count="8">
+          <li style="display: flex; flex-direction: column; gap: 10px; min-width: 0;">
+            <p class="t-xs t-muted" style="font-weight: 600;">{{st.label}}</p>
+            <dc-import name="ProductCard" item="{{st.item}}" dark="{{yes}}" hint-size="100%,440px"></dc-import>
+          </li>
+        </sc-for>
+      </ul>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1700}}'>
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { cart: { tomato: 2 }, notified: { gourd: true } };
+  }
+
+  renderVals() {
+    const s = this.state;
+    const B = '/_blob/';
+    const base = [
+      ['Default', { id: 'onion', name: 'Onion', hi: 'प्याज़', unit: '1 kg', price: 45, mrp: 0, perUnit: '₹45/kg', badge: '', stock: 'in', img: B + '1684583e7b1031c43645cbd222ff8d0d' }],
+      ['In basket', { id: 'tomato', name: 'Tomato', hi: 'टमाटर', unit: '1 kg', price: 40, mrp: 0, perUnit: '₹40/kg', badge: '', stock: 'in', img: B + '90234e112587bcb63afe69728f9038ca' }],
+      ['Deal', { id: 'peas', name: 'Green peas', hi: 'मटर', unit: '500 g', price: 60, mrp: 70, perUnit: '₹120/kg', badge: '', stock: 'in', img: B + '99d528df8f7004e9085c7f2e546e04b7' }],
+      ['In season', { id: 'guava', name: 'Guava', hi: 'अमरूद', unit: '500 g', price: 40, mrp: 0, perUnit: '₹80/kg', badge: 'season', stock: 'in', img: B + '82a29c90957eb1aff44cb26d6d2ac079' }],
+      ['Low stock', { id: 'kinnow', name: 'Kinnow', hi: 'किन्नू', unit: '1 kg', price: 70, mrp: 0, perUnit: '₹70/kg', badge: '', stock: 'low', left: 4, img: B + 'fd2079b5997095279838843a25a8bb23' }],
+      ['Wholesale tier shown', { id: 'potato', name: 'Potato', hi: 'आलू', unit: '1 kg', price: 30, mrp: 0, perUnit: '₹30/kg', badge: '', stock: 'in', ws: 'Wholesale: 10 kg and up at ₹26/kg', img: B + '0665993fcaf8a6b84a0bae1442b3275a' }],
+      ['Out of stock', { id: 'grapes', name: 'Grapes', hi: 'अंगूर', unit: '500 g', price: 80, mrp: 0, perUnit: '₹160/kg', badge: '', stock: 'out', img: B + '487a4517f37e0d2f9c047211890d4827' }],
+      ['Back-in-stock alert set', { id: 'gourd', name: 'Bottle gourd', hi: 'लौकी', unit: '1 pc', price: 35, mrp: 0, perUnit: '₹35/pc', badge: '', stock: 'out', img: B + 'c551e019ed7ec3e63d6767a71328c3aa' }],
+      ['Long name', { id: 'capyellow', name: 'Yellow capsicum, hydroponic, premium grade', hi: 'पीली शिमला मिर्च', unit: '250 g', price: 65, mrp: 0, perUnit: '₹260/kg', badge: 'season', stock: 'in', img: B + '765d596025370a1cf60de03802a344e5' }]
+    ];
+    const setQty = (id, n) => this.setState((st) => {
+      const cart = { ...st.cart };
+      if (n <= 0) delete cart[id]; else cart[id] = n;
+      return { cart };
+    });
+    const states = base.map(([label, p]) => {
+      const qty = s.cart[p.id] || 0;
+      return {
+        label,
+        item: {
+          ...p, qty, notified: !!s.notified[p.id],
+          add: () => setQty(p.id, 1), inc: () => setQty(p.id, qty + 1), dec: () => setQty(p.id, qty - 1),
+          notify: () => this.setState((st) => ({ notified: { ...st.notified, [p.id]: true } }))
+        }
+      };
+    });
+    return { states, yes: true };
+  }
+}
+</script>
+</body>
+</html>

@@ -11,6 +11,7 @@
 | `source/diagrams/*.mmd` | Editable Mermaid sources for all 19 figures |
 | `source/diagrams/png/` | Rendered figures and their sizes (`sizes.json`) |
 | `source/build/` | Scripts that render the diagrams and build the `.docx` |
+| `design/` | Page designs, theme and design system tokens; start with `design/README.md` |
 
 ## Rebuilding after an edit
 

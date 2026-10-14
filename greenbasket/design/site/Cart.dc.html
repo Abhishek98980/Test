@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Your basket · Greeen Basket</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="gb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600&amp;family=Rubik:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div class="gb {{themeClass}}" style="min-height: 100%; background: var(--bg); color: var(--text); font-family: Rubik, 'Noto Sans Devanagari', system-ui, sans-serif;">
+  <dc-import name="Header" active="none" dark="{{dark}}" cart-count="{{count}}" cart-total="{{totalText}}" hint-size="100%,190px"></dc-import>
+
+  <main id="main" class="wrap" style="padding-block: 40px 72px;">
+    <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px;">
+      <h1 class="t-h1">Your basket <span class="t-muted num" style="font-size: 0.55em; font-weight: 400; letter-spacing: 0;">{{countText}}</span></h1>
+      <a href="Main.dc.html#shop" class="t-sm" style="font-weight: 600;">Continue shopping</a>
+    </div>
+
+    <p aria-live="polite" class="sr-only">{{announce}}</p>
+
+    <sc-if value="{{isEmpty}}" hint-placeholder-val="{{false}}">
+      <div class="well" style="margin-top: 32px; padding: 56px 24px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        <img src="/_blob/2c8a148c213c5f35e32717ac2f4aff86" alt="" width="140" height="140" style="opacity: 0.6;">
+        <h2 class="t-h3">Your basket is empty</h2>
+        <p class="t-muted">Fresh packs, Farm Boxes and wholesale crates all land here.</p>
+        <a href="Main.dc.html#shop" class="btn btn-primary" style="margin-top: 8px;">Start shopping</a>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{hasItems}}" hint-placeholder-val="{{true}}">
+      <div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 32px 48px; margin-top: 28px;">
+        <div style="flex: 999 1 600px; min-width: 0; display: flex; flex-direction: column; gap: 28px;">
+
+          <div class="well" style="padding: 18px 20px;">
+            <p class="t-sm" style="font-weight: 500;"><span class="t-strong">{{freeText}}</span></p>
+            <div role="progressbar" aria-label="Progress to free delivery" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{freePct}}" style="margin-top: 10px; height: 8px; border-radius: var(--r-pill); background: var(--line-strong); overflow: hidden;">
+              <div style="height: 100%; width: {{freeWidth}}; border-radius: var(--r-pill); background: var(--accent); transition: width 240ms ease-out;"></div>
+            </div>
+          </div>
+
+          <sc-if value="{{undoVisible}}" hint-placeholder-val="{{false}}">
+            <div role="status" class="card" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px;">
+              <p class="t-sm">Removed {{undoName}} from your basket.</p>
+              <button type="button" class="btn btn-soft btn-sm" onClick="{{undo}}">Undo</button>
+            </div>
+          </sc-if>
+
+          <sc-for list="{{groups}}" as="g" hint-placeholder-count="3">
+            <section aria-labelledby="{{g.hid}}" class="card" style="padding: 8px 20px 4px;">
+              <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; padding-block: 14px 8px;">
+                <h2 id="{{g.hid}}" class="t-h4">{{g.title}}</h2>
+                <sc-if value="{{g.hasLink}}" hint-placeholder-val="{{false}}"><a href="{{g.href}}" class="t-sm" style="font-weight: 600;">{{g.linkText}}</a></sc-if>
+              </div>
+              <sc-if value="{{g.hasNote}}" hint-placeholder-val="{{false}}"><p class="t-sm" style="padding: 10px 14px; margin-bottom: 6px; border-radius: var(--r-sm); background: var(--accent-soft); color: var(--on-accent-soft);">{{g.note}}</p></sc-if>
+              <ul>
+                <sc-for list="{{g.lines}}" as="l" hint-placeholder-count="3">
+                  <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; padding-block: 16px; border-top: 1px solid var(--line);">
+                    <span class="well" style="flex: none; width: 72px; height: 72px; display: inline-flex; align-items: center; justify-content: center; border-radius: var(--r-md);"><img src="{{l.img}}" alt="" width="52" height="52" style="opacity: {{l.imgOpacity}};"></span>
+                    <div style="flex: 1 1 200px; min-width: 0;">
+                      <p style="font-weight: 600; color: var(--text-strong); overflow-wrap: anywhere;"><a href="Product.dc.html" style="color: inherit; text-decoration: none;">{{l.name}}</a> <span class="hi t-muted" style="font-weight: 400; font-size: 14px;">{{l.hi}}</span></p>
+                      <p class="t-sm t-muted num">{{l.unit}} · {{l.perUnit}}</p>
+                      <sc-if value="{{l.isOut}}" hint-placeholder-val="{{false}}"><p class="t-sm" style="color: var(--danger); font-weight: 500; margin-top: 2px;">Out of stock for your slot. It won’t be delivered or charged.</p></sc-if>
+                      <sc-if value="{{l.hasTier}}" hint-placeholder-val="{{false}}"><p class="t-sm" style="color: var(--accent-text); font-weight: 500; margin-top: 2px;">{{l.tierText}}</p></sc-if>
+                      <div style="display: flex; gap: 4px; margin-top: 6px;">
+                        <button type="button" class="btn btn-ghost btn-sm" style="padding: 0 10px; min-height: 36px;" onClick="{{l.later}}">Save for later</button>
+                        <button type="button" class="btn btn-ghost btn-sm" style="padding: 0 10px; min-height: 36px;" onClick="{{l.remove}}" aria-label="{{l.removeLabel}}">Remove</button>
+                      </div>
+                    </div>
+                    <div class="stepper" role="group" aria-label="{{l.groupLabel}}" style="width: 132px; background: var(--muted-bg); color: var(--text-strong);">
+                      <button type="button" aria-label="{{l.decLabel}}" onClick="{{l.dec}}">−</button>
+                      <span class="qty">{{l.qty}}</span>
+                      <button type="button" aria-label="{{l.incLabel}}" onClick="{{l.inc}}">+</button>
+                    </div>
+                    <p class="price" style="width: 88px; text-align: right; font-size: 17px;">{{l.totalText}}</p>
+                  </li>
+                </sc-for>
+              </ul>
+            </section>
+          </sc-for>
+
+          <sc-if value="{{hasLater}}" hint-placeholder-val="{{false}}">
+            <section aria-labelledby="cart-later">
+              <h2 id="cart-later" class="t-h4">Saved for later</h2>
+              <ul style="margin-top: 12px; display: flex; flex-wrap: wrap; gap: 10px;">
+                <sc-for list="{{later}}" as="l" hint-placeholder-count="2">
+                  <li class="card" style="display: flex; align-items: center; gap: 12px; padding: 10px 12px 10px 10px;">
+                    <img src="{{l.img}}" alt="" width="40" height="40">
+                    <span class="t-sm"><b class="t-strong">{{l.name}}</b><br><span class="t-muted num">{{l.unit}} · {{l.priceText}}</span></span>
+                    <button type="button" class="btn btn-soft btn-sm" onClick="{{l.back}}">Move to basket</button>
+                  </li>
+                </sc-for>
+              </ul>
+            </section>
+          </sc-if>
+        </div>
+
+        <aside aria-labelledby="cart-summary" style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 16px;">
+          <div class="card" style="padding: 24px; display: flex; flex-direction: column; gap: 18px;">
+            <h2 id="cart-summary" class="t-h3">Order summary</h2>
+            <dl class="num" style="display: grid; gap: 10px; font-size: 15px;">
+              <div style="display: flex; justify-content: space-between; gap: 12px;"><dt>Items ({{count}})</dt><dd>{{subtotalText}}</dd></div>
+              <sc-if value="{{hasCoupon}}" hint-placeholder-val="{{false}}"><div style="display: flex; justify-content: space-between; gap: 12px; color: var(--accent-text);"><dt>Coupon FRESH10</dt><dd>−{{couponText}}</dd></div></sc-if>
+              <div style="display: flex; justify-content: space-between; gap: 12px;"><dt>Delivery</dt><dd>{{deliveryText}}</dd></div>
+              <div style="display: flex; justify-content: space-between; gap: 12px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 19px; font-weight: 700; color: var(--text-strong);"><dt>Total</dt><dd>{{totalText}}</dd></div>
+            </dl>
+            <p class="t-xs t-muted">Prices include taxes. Wholesale lines don’t take coupons.</p>
+
+            <form onSubmit="{{applyCoupon}}" noValidate class="field">
+              <label for="cart-coupon" class="label">Coupon code <span class="opt">(optional)</span></label>
+              <div style="display: flex; gap: 8px;">
+                <input id="cart-coupon" class="input" type="text" name="coupon" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Like FRESH10…" value="{{code}}" onChange="{{onCode}}" aria-invalid="{{codeInvalid}}" aria-describedby="cart-coupon-msg">
+                <button type="submit" class="btn btn-soft">Apply</button>
+              </div>
+              <p id="cart-coupon-msg" aria-live="polite">
+                <sc-if value="{{codeBad}}" hint-placeholder-val="{{false}}"><span class="error">“{{codeTried}}” isn’t a live code. Check the spelling, or try FRESH10.</span></sc-if>
+                <sc-if value="{{hasCoupon}}" hint-placeholder-val="{{false}}"><span class="ok">FRESH10 applied: 10% off store and Farm Box items.</span></sc-if>
+              </p>
+            </form>
+
+            <sc-if value="{{belowMin}}" hint-placeholder-val="{{false}}"><p class="t-sm" role="status" style="padding: 10px 14px; border-radius: var(--r-sm); background: var(--warning-soft); color: var(--warning);">Add {{minGapText}} more to reach the ₹199 minimum order.</p></sc-if>
+            <a href="Checkout.dc.html" class="btn btn-primary btn-lg btn-block" aria-disabled="{{checkoutDisabled}}">Choose a delivery slot</a>
+            <p class="t-xs t-muted" style="text-align: center;">Next open slot: today, 4–6&nbsp;PM. You pick your slot at checkout.</p>
+          </div>
+          <div class="well" style="padding: 16px 18px; display: grid; gap: 8px;">
+            <p class="t-sm"><b class="t-strong">Pay your way.</b> UPI, card or net banking, cash on delivery where eligible, or bank transfer.</p>
+            <p class="t-sm"><b class="t-strong">Short or damaged?</b> We refund it. Nothing is swapped without asking you.</p>
+          </div>
+        </aside>
+      </div>
+    </sc-if>
+
+    <section aria-labelledby="cart-forgot" style="margin-top: 64px;">
+      <h2 id="cart-forgot" class="t-h2">Often forgotten</h2>
+      <ul style="margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(196px, 1fr)); gap: 16px;">
+        <sc-for list="{{forgotten}}" as="p" hint-placeholder-count="5">
+          <li style="min-width: 0;"><dc-import name="ProductCard" item="{{p}}" dark="{{dark}}" hint-size="100%,440px"></dc-import></li>
+        </sc-for>
+      </ul>
+    </section>
+  </main>
+
+  <dc-import name="Footer" dark="{{dark}}" hint-size="100%,760px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":3000}}'>
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = {
+      qty: { tomato: 2, coriander: 1, kinnow: 1, apple: 1, fb_spinach: 1, fb_methi: 2, fb_carrot: 1, fb_peas: 1, ws_onion: 1, gourd: 1 },
+      later: [], removed: null, code: '', coupon: false, codeTried: '', codeBad: false, announce: ''
+    };
+  }
+
+  data() {
+    const B = '/_blob/';
+    return {
+      tomato: { g: 'store', name: 'Tomato', hi: 'टमाटर', unit: '1 kg', perUnit: '₹40/kg', price: 40, img: B + '90234e112587bcb63afe69728f9038ca' },
+      coriander: { g: 'store', name: 'Coriander', hi: 'धनिया', unit: '1 bunch', perUnit: '₹10/bunch', price: 10, img: B + '591d27931e70b0646c12012b692f0728' },
+      kinnow: { g: 'store', name: 'Kinnow', hi: 'किन्नू', unit: '1 kg', perUnit: '₹70/kg', price: 70, img: B + 'fd2079b5997095279838843a25a8bb23' },
+      apple: { g: 'store', name: 'Apple, Shimla', hi: 'सेब', unit: '1 kg', perUnit: '₹140/kg', price: 140, img: B + '8581b06e9c225f563a590d141aab53d4' },
+      gourd: { g: 'store', name: 'Bottle gourd', hi: 'लौकी', unit: '1 pc', perUnit: '₹35/pc', price: 35, out: true, img: B + 'c551e019ed7ec3e63d6767a71328c3aa' },
+      fb_spinach: { g: 'box', name: 'Spinach', hi: 'पालक', unit: '1 bunch', perUnit: '₹20/bunch', price: 20, img: B + 'd7b00861d43b60387799340029aefdd9' },
+      fb_methi: { g: 'box', name: 'Fenugreek', hi: 'मेथी', unit: '1 bunch', perUnit: '₹15/bunch', price: 15, img: B + '0e0c61ea89660ecc92ca466f7b232d85' },
+      fb_carrot: { g: 'box', name: 'Carrot', hi: 'गाजर', unit: '500 g', perUnit: '₹60/kg', price: 30, img: B + '99f9649155ba9e54671aa750df2ac8bf' },
+      fb_peas: { g: 'box', name: 'Green peas', hi: 'मटर', unit: '500 g', perUnit: '₹120/kg', price: 60, img: B + '99d528df8f7004e9085c7f2e546e04b7' },
+      ws_onion: { g: 'ws', name: 'Onion, wholesale', hi: 'प्याज़', unit: '10 kg pack', perUnit: '₹40/kg at this tier', price: 400, img: B + '1a9a9f3e89da774510c12b4ced02cb98' }
+    };
+  }
+
+  renderVals() {
+    const s = this.state;
+    const dark = this.props.dark ?? false;
+    const D = this.data();
+    const rupees = (n) => '₹' + Number(n).toLocaleString('en-IN');
+    const setQty = (id, n) => this.setState((st) => ({ qty: { ...st.qty, [id]: Math.max(1, n) } }));
+    const remove = (id) => this.setState((st) => {
+      const qty = { ...st.qty };
+      const was = qty[id];
+      delete qty[id];
+      return { qty, removed: { id, was }, announce: 'Removed ' + D[id].name };
+    });
+    const later = (id) => this.setState((st) => {
+      const qty = { ...st.qty };
+      delete qty[id];
+      return { qty, later: st.later.concat([id]), announce: D[id].name + ' saved for later' };
+    });
+
+    const ids = Object.keys(s.qty);
+    const line = (id) => {
+      const d = D[id];
+      const q = s.qty[id];
+      const charged = d.out ? 0 : d.price * q;
+      let tierText = '';
+      if (d.g === 'ws') {
+        const kg = q * 10;
+        tierText = kg >= 25 ? 'You’re at ₹37/kg on all ' + kg + ' kg.' : 'Add ' + (25 - kg) + ' kg more of onion to pay ₹37/kg on every kilo.';
+      }
+      return {
+        name: d.name, hi: d.hi, unit: d.unit, perUnit: d.perUnit, img: d.img, qty: String(q), isOut: !!d.out,
+        imgOpacity: d.out ? '0.45' : '1', totalText: d.out ? '—' : rupees(charged),
+        hasTier: !!tierText, tierText,
+        inc: () => setQty(id, q + 1), dec: () => setQty(id, q - 1), remove: () => remove(id), later: () => later(id),
+        removeLabel: 'Remove ' + d.name, incLabel: 'Add one more ' + d.name, decLabel: 'Remove one ' + d.name,
+        groupLabel: d.name + ' quantity, ' + q
+      };
+    };
+    const groupDefs = [
+      { key: 'store', title: 'From the store', hasLink: false },
+      { key: 'box', title: 'Farm Box: Weekly basics', hasLink: true, href: 'FarmBox.dc.html', linkText: 'Edit box', note: 'A saved box keeps your picks. Prices are today’s.' },
+      { key: 'ws', title: 'Wholesale', hasLink: true, href: 'Wholesale.dc.html', linkText: 'See rate tiers' }
+    ];
+    const groups = groupDefs
+      .map((g) => ({ ...g, hid: 'cart-g-' + g.key, hasNote: !!g.note, lines: ids.filter((id) => D[id].g === g.key).map(line) }))
+      .filter((g) => g.lines.length > 0);
+
+    let count = 0;
+    let sub = 0;
+    let couponBase = 0;
+    ids.forEach((id) => {
+      const d = D[id];
+      if (d.out) return;
+      count += s.qty[id];
+      sub += d.price * s.qty[id];
+      if (d.g !== 'ws') couponBase += d.price * s.qty[id];
+    });
+    const coupon = s.coupon ? Math.round(couponBase * 0.1) : 0;
+    const threshold = 499;
+    const freeDelivery = sub >= threshold;
+    const delivery = sub === 0 ? 0 : (freeDelivery ? 0 : 30);
+    const total = sub - coupon + delivery;
+    const pct = Math.min(100, Math.round((sub / threshold) * 100));
+
+    const forgottenDefs = [
+      ['lemon', 'Lemon', 'नींबू', '250 g', 30, '₹120/kg', 'f1a2386feb02283967fd240b543fe554'],
+      ['ginger', 'Ginger', 'अदरक', '100 g', 18, '₹180/kg', '1932feaa1fef036c4f9bb795103d9d8e'],
+      ['chilli', 'Green chilli', 'हरी मिर्च', '100 g', 10, '₹100/kg', 'cee1cb3f5f1baed9733148199dd08bcf'],
+      ['curry', 'Curry leaves', 'करी पत्ता', '1 bunch', 10, '₹10/bunch', '9440e2e56fcb68d3772bcd8bcea161a5'],
+      ['garlic', 'Garlic', 'लहसुन', '100 g', 25, '₹250/kg', '06add378e1fe0e411db7b2871f613b8f']
+    ];
+    const forgotten = forgottenDefs.map((f) => ({
+      name: f[1], hi: f[2], unit: f[3], price: f[4], mrp: 0, perUnit: f[5], img: '/_blob/' + f[6], badge: '', stock: 'in', qty: 0,
+      add: () => this.setState({ announce: f[1] + ' added' }), inc: () => {}, dec: () => {}
+    }));
+
+    return {
+      dark,
+      themeClass: dark ? 'dark' : '',
+      groups,
+      count,
+      countText: count + (count === 1 ? ' item' : ' items'),
+      isEmpty: ids.length === 0,
+      hasItems: ids.length > 0,
+      subtotalText: rupees(sub),
+      hasCoupon: s.coupon,
+      couponText: rupees(coupon),
+      deliveryText: delivery === 0 ? 'Free' : rupees(delivery),
+      totalText: rupees(total),
+      freeText: freeDelivery ? 'You’ve unlocked free delivery.' : 'Add ' + rupees(threshold - sub) + ' more for free delivery.',
+      freePct: String(pct),
+      freeWidth: pct + '%',
+      belowMin: sub > 0 && sub < 199,
+      minGapText: rupees(199 - sub),
+      checkoutDisabled: sub < 199 ? 'true' : 'false',
+      code: s.code,
+      onCode: (e) => this.setState({ code: e.target.value.toUpperCase(), codeBad: false }),
+      applyCoupon: (e) => {
+        e.preventDefault();
+        const c = s.code.trim();
+        if (c === 'FRESH10') return this.setState({ coupon: true, codeBad: false, announce: 'Coupon applied' });
+        this.setState({ codeBad: true, codeTried: c || 'That', coupon: false });
+      },
+      codeBad: s.codeBad,
+      codeTried: s.codeTried,
+      codeInvalid: s.codeBad ? 'true' : 'false',
+      undoVisible: !!s.removed,
+      undoName: s.removed ? D[s.removed.id].name : '',
+      undo: () => this.setState((st) => ({ qty: { ...st.qty, [st.removed.id]: st.removed.was }, removed: null, announce: 'Restored' })),
+      hasLater: s.later.length > 0,
+      later: s.later.map((id) => ({
+        name: D[id].name, unit: D[id].unit, img: D[id].img, priceText: rupees(D[id].price),
+        back: () => this.setState((st) => ({ later: st.later.filter((x) => x !== id), qty: { ...st.qty, [id]: 1 } }))
+      })),
+      forgotten,
+      announce: s.announce
+    };
+  }
+}
+</script>
+</body>
+</html>

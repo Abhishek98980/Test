@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cancellations, refunds and replacements · Greeen Basket</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="gb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600&amp;family=Rubik:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+.toc a{display:block;padding:8px 12px;border-radius:var(--r-sm);color:var(--text);text-decoration:none;font-size:14.5px;line-height:1.4}
+@media (hover:hover){.toc a:hover{background:var(--muted-bg);color:var(--text-strong)}}
+.prose h2{scroll-margin-top:24px}
+.prose h2:first-child{margin-top:0}
+</style>
+</helmet>
+<div class="gb {{themeClass}}" style="min-height: 100%; background: var(--bg); color: var(--text); font-family: Rubik, 'Noto Sans Devanagari', system-ui, sans-serif;">
+  <dc-import name="Header" active="none" dark="{{dark}}" hint-size="100%,190px"></dc-import>
+
+  <main id="main">
+    <p aria-live="polite" class="sr-only">{{announce}}</p>
+    <header class="wrap" style="padding-block: clamp(40px, 6vw, 72px) 28px;">
+      <p class="t-eyebrow">Policies</p>
+      <h1 class="t-h1" style="margin-top: 12px; max-width: 18em;">Cancellations, refunds and replacements</h1>
+      <p class="t-muted" style="margin-top: 10px;">Last updated <span class="ph">[DATE]</span></p>
+      <p role="note" class="t-sm" style="margin-top: 18px; max-width: 72ch; padding: 12px 16px; border-radius: var(--r-md); background: var(--warning-soft); color: var(--warning);"><b>Draft for legal review.</b> Highlighted items need your decision before launch.</p>
+    </header>
+
+    <section aria-label="In short" class="wrap" style="padding-bottom: 40px;">
+      <ul style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px;">
+        <li class="well" style="padding: 20px; display: flex; flex-direction: column; gap: 6px;"><h2 class="t-h4">Cancel before packing</h2><p class="t-sm">Full refund, from My account, until we start packing about 2 hours before your slot.</p></li>
+        <li class="well" style="padding: 20px; display: flex; flex-direction: column; gap: 6px;"><h2 class="t-h4">Report within <span class="ph">[REPORT WINDOW]</span></h2><p class="t-sm">Short, damaged or not fresh items are refunded or replaced.</p></li>
+        <li class="well" style="padding: 20px; display: flex; flex-direction: column; gap: 6px;"><h2 class="t-h4">Refunds in 5–7 working days</h2><p class="t-sm">Back to how you paid. Store credit is added the same day.</p></li>
+        <li class="well" style="padding: 20px; display: flex; flex-direction: column; gap: 6px;"><h2 class="t-h4">Nothing swapped without asking</h2><p class="t-sm">If something runs short, we refund it or call you first. You choose at checkout.</p></li>
+      </ul>
+    </section>
+
+    <div class="wrap" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 32px 64px; padding-bottom: 56px;">
+      <nav aria-label="On this page" class="toc" style="flex: 1 1 220px; min-width: 0; position: sticky; top: 24px;">
+        <p class="t-sm" style="font-weight: 600; color: var(--text-strong); padding: 0 12px 6px;">On this page</p>
+        <ul>
+          <li><a href="#cancel">Cancelling an order</a></li>
+          <li><a href="#problems">Short, damaged or not fresh</a></li>
+          <li><a href="#replace">Replacements</a></li>
+          <li><a href="#refunds">How refunds are paid</a></li>
+          <li><a href="#missed">Missed deliveries</a></li>
+          <li><a href="#subs">Subscriptions</a></li>
+          <li><a href="#wholesale">Wholesale orders</a></li>
+          <li><a href="#returns">Returns</a></li>
+          <li><a href="#request">Request a refund</a></li>
+        </ul>
+      </nav>
+
+      <article class="prose" style="flex: 999 1 620px; min-width: 0;">
+        <h2 id="cancel">Cancelling an order</h2>
+        <p>You can cancel any order from <a href="Account-orders.dc.html">My account</a> until we start packing it, about 2 hours before your slot. You get a full refund, including any delivery fee.</p>
+        <p>Once packing has started: <span class="ph">[CANCELLATION AFTER PACKING]</span>.</p>
+        <p>Cash on delivery orders can be cancelled the same way. Nothing has been charged, so there’s nothing to refund.</p>
+        <h3>When we cancel</h3>
+        <p>We may cancel an order, in full or in part, if a payment fails, if your address turns out to be outside our area, or if items aren’t available. We’ll tell you on WhatsApp or SMS and refund anything you paid.</p>
+
+        <h2 id="problems">Short, damaged or not fresh items</h2>
+        <p>Please check your order when it arrives. If something is missing, weighs less than the pack says, is damaged, or isn’t fresh, report it within <span class="ph">[REPORT WINDOW]</span> of delivery:</p>
+        <ul>
+          <li>Open the order in My account and choose <b>Report a problem</b>.</li>
+          <li>Tick the items and say what went wrong.</li>
+          <li>Add photos for damaged or stale items. They help us sort it faster.</li>
+          <li>Choose a refund, store credit or a free replacement.</li>
+        </ul>
+        <p>A person on our support team reviews every report and replies within <span class="ph">[RESPONSE TIME]</span>.</p>
+
+        <h2 id="replace">Replacements</h2>
+        <p>A replacement comes free with your next delivery. If you’d like it sooner: <span class="ph">[SAME-DAY REPLACEMENT RULE]</span>.</p>
+        <p>We never swap an item for a different one without asking you first.</p>
+
+        <h2 id="refunds">How refunds are paid</h2>
+        <ul>
+          <li><b>UPI, card or net banking:</b> back to the same account, usually in 5 to 7 working days.</li>
+          <li><b>Store credit:</b> added to your account the same day, if you choose it.</li>
+          <li><b>Cash on delivery:</b> <span class="ph">[COD REFUND METHOD]</span>.</li>
+          <li><b>Bank transfer:</b> back to the sending account within <span class="ph">[BANK REFUND TIME]</span>.</li>
+        </ul>
+        <p>How long your bank takes to show the money is up to your bank.</p>
+
+        <h2 id="missed">Missed deliveries</h2>
+        <p>If our rider can’t reach you, the order comes back to the store. You can pick a new slot for free from My account. For prepaid orders: <span class="ph">[MISSED DELIVERY POLICY]</span>.</p>
+
+        <h2 id="subs">Subscriptions</h2>
+        <p>Skip any week, or pause for one, two or four weeks, before that week’s cut-off at 10 PM the night before delivery. You aren’t charged for skipped or paused weeks.</p>
+        <p>Cancel from My account at any time. A delivery already past its cut-off still arrives and is charged. Notice and refund terms: <span class="ph">[SUBSCRIPTION CANCELLATION TERMS]</span>.</p>
+
+        <h2 id="wholesale">Wholesale orders</h2>
+        <p>Please weigh and check wholesale orders when they arrive, and report problems within <span class="ph">[REPORT WINDOW]</span>. The same refund and replacement options apply. Orders on monthly credit are adjusted on your next statement.</p>
+
+        <h2 id="returns">Returns</h2>
+        <p>Fresh produce can’t be resold, so we don’t take items back for a change of mind: <span class="ph">[CHANGE OF MIND POLICY]</span>. If anything is wrong with your order, report it and we’ll put it right.</p>
+      </article>
+    </div>
+
+    <section id="request" aria-labelledby="req-h" style="padding-block: clamp(48px, 6vw, 72px); border-top: 1px solid var(--line);">
+      <div class="wrap" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 32px 56px;">
+        <div style="flex: 1 1 300px; min-width: 0;">
+          <h2 id="req-h" class="t-h1">Request a refund or replacement</h2>
+          <p class="t-muted" style="margin-top: 10px; max-width: 30em;">Checked out as a guest? Use this form. With an account it’s quicker from <a href="Account-orders.dc.html">your orders</a>.</p>
+        </div>
+        <div style="flex: 999 1 600px; min-width: 0;">
+          <sc-if value="{{sent}}" hint-placeholder-val="{{false}}">
+            <div role="status" class="card" style="padding: 28px; display: flex; flex-direction: column; gap: 10px; border-color: var(--accent-text);">
+              <p class="badge badge-leaf" style="align-self: flex-start;">Request received</p>
+              <h3 class="t-h2">We’re on it.</h3>
+              <p>Your reference is <b class="t-strong num">GB-R-1044</b> for order <b class="t-strong num">{{orderNo}}</b>. We’ll reply on WhatsApp within <span class="ph">[RESPONSE TIME]</span>, with {{fixText}}.</p>
+            </div>
+          </sc-if>
+          <sc-if value="{{notSent}}" hint-placeholder-val="{{true}}">
+            <form noValidate onSubmit="{{submit}}" class="card" style="padding: clamp(20px, 3vw, 32px); display: flex; flex-direction: column; gap: 20px;">
+              <sc-if value="{{hasErrors}}" hint-placeholder-val="{{false}}">
+                <div role="alert" style="padding: 12px 16px; border-radius: var(--r-md); background: var(--danger-soft); color: var(--danger);"><p class="t-sm" style="font-weight: 600;">{{errorText}}</p></div>
+              </sc-if>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px 20px;">
+                <div class="field">
+                  <label for="r-order" class="label">Order number</label>
+                  <input id="r-order" class="input num" type="text" name="order" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Like GB-24790…" value="{{orderNo}}" onChange="{{onOrder}}" aria-invalid="{{orderInvalid}}" aria-describedby="r-order-hint r-order-err">
+                  <p id="r-order-hint" class="hint">It’s in your order message on WhatsApp or SMS.</p>
+                  <p id="r-order-err" aria-live="polite"><sc-if value="{{orderErr}}" hint-placeholder-val="{{false}}"><span class="error">Order numbers look like GB-24790.</span></sc-if></p>
+                </div>
+                <div class="field">
+                  <label for="r-phone" class="label">Mobile number used for the order</label>
+                  <div style="display: flex;">
+                    <span aria-hidden="true" class="num" style="display: inline-flex; align-items: center; padding: 0 12px; border: 1.5px solid var(--field-line); border-right: 0; border-radius: var(--r-sm) 0 0 var(--r-sm); background: var(--muted-bg); color: var(--text-strong); font-weight: 500;">+91</span>
+                    <input id="r-phone" class="input num" type="tel" name="tel-national" autocomplete="tel-national" inputmode="numeric" maxlength="10" placeholder="10 digits…" value="{{phone}}" onChange="{{onPhone}}" aria-invalid="{{phoneInvalid}}" aria-describedby="r-phone-err" style="border-radius: 0 var(--r-sm) var(--r-sm) 0;">
+                  </div>
+                  <p id="r-phone-err" aria-live="polite"><sc-if value="{{phoneErr}}" hint-placeholder-val="{{false}}"><span class="error">Enter the 10-digit mobile number on the order.</span></sc-if></p>
+                </div>
+                <div class="field">
+                  <label for="r-issue" class="label">What went wrong?</label>
+                  <select id="r-issue" class="input" name="issue" value="{{issue}}" onChange="{{onIssue}}" aria-invalid="{{issueInvalid}}" aria-describedby="r-issue-err">
+                    <option value="">Choose one…</option>
+                    <option value="missing">An item is missing</option>
+                    <option value="short">Less than I paid for</option>
+                    <option value="damaged">Damaged or bruised</option>
+                    <option value="stale">Not fresh</option>
+                    <option value="wrong">Wrong item</option>
+                    <option value="cancel">I want to cancel the order</option>
+                  </select>
+                  <p id="r-issue-err" aria-live="polite"><sc-if value="{{issueErr}}" hint-placeholder-val="{{false}}"><span class="error">Choose what went wrong.</span></sc-if></p>
+                </div>
+                <div class="field">
+                  <label for="r-items" class="label">Which items?</label>
+                  <input id="r-items" class="input" type="text" name="items" autocomplete="off" placeholder="Like 1 kg tomato, spinach…" value="{{items}}" onChange="{{onItems}}" aria-invalid="{{itemsInvalid}}" aria-describedby="r-items-err">
+                  <p id="r-items-err" aria-live="polite"><sc-if value="{{itemsErr}}" hint-placeholder-val="{{false}}"><span class="error">List the items, so we know what to refund.</span></sc-if></p>
+                </div>
+              </div>
+              <div class="field">
+                <span class="label" id="r-file-l">Photos <span class="opt">{{photoOpt}}</span></span>
+                <label for="r-file" style="display: flex; align-items: center; gap: 14px; min-height: 80px; padding: 14px 18px; border: 1.5px dashed {{photoLine}}; border-radius: var(--r-md); background: var(--well); cursor: pointer;">
+                  <svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex: none; color: var(--accent-text);"><rect x="3" y="5" width="18" height="14" rx="2"></rect><circle cx="12" cy="12" r="3.5"></circle><path d="M8 5l1.5-2h5L16 5"></path></svg>
+                  <span class="t-sm"><b class="t-strong">{{photoText}}</b><br><span class="t-muted">JPG or PNG, up to 3 photos, 5&nbsp;MB each</span></span>
+                </label>
+                <input id="r-file" type="file" name="photos" accept="image/jpeg,image/png" multiple aria-labelledby="r-file-l" aria-describedby="r-file-err" class="sr-only" onChange="{{onFiles}}">
+                <p id="r-file-err" aria-live="polite"><sc-if value="{{photoErr}}" hint-placeholder-val="{{false}}"><span class="error">Add at least one photo for damaged or stale items.</span></sc-if></p>
+              </div>
+              <sc-if value="{{notCancel}}" hint-placeholder-val="{{true}}">
+                <fieldset style="border: 0; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+                  <legend class="label" style="margin-bottom: 10px;">How should we make it right?</legend>
+                  <sc-for list="{{fixes}}" as="fx" hint-placeholder-count="3">
+                    <label class="choice {{fx.cls}}"><input type="radio" name="resolution" value="{{fx.id}}" checked="{{fx.on}}" onChange="{{fx.pick}}"><span><b class="t-strong">{{fx.label}}</b><br><span class="t-sm t-muted">{{fx.sub}}</span></span></label>
+                  </sc-for>
+                </fieldset>
+              </sc-if>
+              <button type="submit" class="btn btn-primary btn-lg" style="align-self: flex-start;" aria-busy="{{busy}}">{{submitText}}</button>
+            </form>
+          </sc-if>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <dc-import name="Footer" dark="{{dark}}" hint-size="100%,760px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":4600}}'>
+class Component extends DCLogic {
+  focusError(sel) {
+    setTimeout(() => {
+      const el = document.querySelector(sel || '.gb [aria-invalid="true"]');
+      if (el && el.focus) el.focus();
+    }, 0);
+  }
+
+  constructor(...args) {
+    super(...args);
+    this.state = { orderNo: '', phone: '', issue: '', items: '', files: 0, fix: 'refund', tried: false, busy: false, sent: false, announce: '' };
+    this.timer = null;
+  }
+
+  componentWillUnmount() { if (this.timer) clearTimeout(this.timer); }
+
+  renderVals() {
+    const s = this.state;
+    const dark = this.props.dark ?? false;
+    const set = (patch) => this.setState(patch);
+    const needsPhoto = s.issue === 'damaged' || s.issue === 'stale';
+    const isCancel = s.issue === 'cancel';
+    const errs = {
+      order: !/^GB-\d{5}$/.test(s.orderNo),
+      phone: !/^[6-9]\d{9}$/.test(s.phone),
+      issue: !s.issue,
+      items: !isCancel && !s.items.trim(),
+      photo: needsPhoto && !s.files
+    };
+    const errCount = Object.keys(errs).filter((k) => errs[k]).length;
+    const show = (k) => s.tried && errs[k];
+    const inv = (k) => (show(k) ? 'true' : 'false');
+    const fixDefs = [['refund', 'Refund', 'To how you paid, in 5–7 working days'], ['credit', 'Store credit', 'Added the same day'], ['replace', 'Replace it', 'Free, with your next delivery']];
+    return {
+      dark,
+      themeClass: dark ? 'dark' : '',
+      announce: s.announce,
+      sent: s.sent,
+      notSent: !s.sent,
+      fixText: isCancel ? 'confirmation of the cancellation' : (s.fix === 'refund' ? 'your refund' : (s.fix === 'credit' ? 'your store credit' : 'your replacement slot')),
+      hasErrors: s.tried && errCount > 0,
+      errorText: errCount === 1 ? 'One field needs fixing.' : errCount + ' fields need fixing.',
+      orderNo: s.orderNo,
+      onOrder: (e) => set({ orderNo: e.target.value.toUpperCase().replace(/\s/g, '') }),
+      orderErr: show('order'), orderInvalid: inv('order'),
+      phone: s.phone,
+      onPhone: (e) => set({ phone: e.target.value.replace(/\D/g, '').slice(0, 10) }),
+      phoneErr: show('phone'), phoneInvalid: inv('phone'),
+      issue: s.issue,
+      onIssue: (e) => set({ issue: e.target.value }),
+      issueErr: show('issue'), issueInvalid: inv('issue'),
+      items: s.items,
+      onItems: (e) => set({ items: e.target.value }),
+      itemsErr: show('items'), itemsInvalid: inv('items'),
+      photoOpt: needsPhoto ? '(needed for damaged or stale items)' : '(optional)',
+      photoText: s.files ? s.files + (s.files === 1 ? ' photo chosen. Tap to change' : ' photos chosen. Tap to change') : 'Take or choose photos',
+      photoLine: show('photo') ? 'var(--danger)' : 'var(--field-line)',
+      onFiles: (e) => set({ files: Math.min(3, (e.target.files && e.target.files.length) || 0) }),
+      photoErr: show('photo'),
+      notCancel: !isCancel,
+      fixes: fixDefs.map((f) => ({ id: f[0], label: f[1], sub: f[2], on: s.fix === f[0], cls: s.fix === f[0] ? 'on' : '', pick: () => set({ fix: f[0] }) })),
+      busy: String(s.busy),
+      submitText: s.busy ? 'Sending…' : (isCancel ? 'Send cancellation request' : 'Send request'),
+      submit: (e) => {
+        e.preventDefault();
+        if (s.busy) return;
+        if (errCount > 0) { set({ tried: true, announce: errCount + ' fields need fixing' }); return this.focusError(); }
+        set({ busy: true, tried: true });
+        this.timer = setTimeout(() => this.setState({ busy: false, sent: true, announce: 'Request sent' }), 900);
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

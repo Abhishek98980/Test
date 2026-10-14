@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tomato, 1 kg · Greeen Basket</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="gb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600&amp;family=Rubik:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div class="gb {{themeClass}}" style="min-height: 100%; background: var(--bg); color: var(--text); font-family: Rubik, 'Noto Sans Devanagari', system-ui, sans-serif;">
+  <dc-import name="Header" active="veg" dark="{{dark}}" cart-count="{{cartCount}}" cart-total="{{cartTotal}}" hint-size="100%,190px"></dc-import>
+
+  <main id="main" class="wrap" style="padding-block: 20px 0;">
+    <nav aria-label="Breadcrumb">
+      <ol class="t-sm" style="display: flex; flex-wrap: wrap; gap: 6px; color: var(--text-muted);">
+        <li><a href="Main.dc.html" style="color: var(--text-muted);">Home</a></li>
+        <li aria-hidden="true">/</li>
+        <li><a href="Main.dc.html#shop" style="color: var(--text-muted);">Vegetables</a></li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" class="t-strong">Tomato</li>
+      </ol>
+    </nav>
+
+    <section aria-labelledby="pd-title" style="display: flex; flex-wrap: wrap; gap: 32px 56px; padding-block: 24px 56px;">
+      <div style="flex: 1 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 12px;">
+        <div class="well" style="position: relative; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; border-radius: var(--r-xl);">
+          <img src="/_blob/90234e112587bcb63afe69728f9038ca" alt="Illustration of a ripe red tomato" width="360" height="360" fetchpriority="high" style="width: 58%; height: auto;">
+          <span class="badge badge-leaf num" style="position: absolute; top: 20px; left: 20px; font-size: 13px; padding: 5px 12px;">17% off this week</span>
+        </div>
+        <p class="t-xs t-muted">Illustration. Product photos replace it before launch.</p>
+      </div>
+
+      <div style="flex: 1 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 22px;">
+        <div>
+          <p class="t-sm" style="font-weight: 600; color: var(--warning);">Only 6 packs left for today’s slots</p>
+          <h1 id="pd-title" class="t-h1" style="margin-top: 8px;">Tomato <span class="hi t-muted" style="font-size: 0.6em; font-weight: 400; letter-spacing: 0;">टमाटर</span></h1>
+          <p class="t-lead" style="margin-top: 10px;">Firm, red everyday tomatoes for sabzi, chutney and salads.</p>
+        </div>
+
+        <fieldset style="border: 0; padding: 0; margin: 0;">
+          <legend class="label" style="margin-bottom: 10px;">Pack size</legend>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px;">
+            <sc-for list="{{packs}}" as="pk" hint-placeholder-count="3">
+              <label class="choice {{pk.cls}}" style="flex-direction: column; gap: 4px; padding: 14px;">
+                <span style="display: flex; align-items: center; gap: 10px;"><input type="radio" name="pack" value="{{pk.value}}" checked="{{pk.on}}" onChange="{{pk.pick}}"><b class="t-strong">{{pk.label}}</b></span>
+                <span class="num" style="padding-left: 30px;"><span class="price">{{pk.priceText}}</span> <span class="t-xs t-muted">{{pk.perUnit}}</span></span>
+              </label>
+            </sc-for>
+          </div>
+        </fieldset>
+
+        <div style="display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px 14px;">
+          <span class="price" style="font-size: 40px; letter-spacing: -0.02em;">{{priceText}}</span>
+          <sc-if value="{{hasMrp}}" hint-placeholder-val="{{true}}"><span class="mrp" style="font-size: 18px;"><span class="sr-only">Was </span>{{mrpText}}</span><span class="badge badge-leaf">{{saveText}}</span></sc-if>
+          <span class="t-sm t-muted" style="flex-basis: 100%;">Fixed price for this pack, packed to at least the stated weight. Includes taxes.</span>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+          <div class="stepper" role="group" aria-label="Quantity" style="width: 148px; background: var(--muted-bg); color: var(--text-strong);">
+            <button type="button" aria-label="Decrease quantity" onClick="{{dec}}">−</button>
+            <span class="qty" aria-live="polite">{{qty}}</span>
+            <button type="button" aria-label="Increase quantity" onClick="{{inc}}">+</button>
+          </div>
+          <button type="button" class="btn btn-primary btn-lg" style="flex: 1 1 220px;" onClick="{{add}}">Add {{qty}} to basket · {{lineText}}</button>
+        </div>
+        <sc-if value="{{added}}" hint-placeholder-val="{{false}}">
+          <p class="ok" role="status" style="font-size: 15px;">Added. {{inBasketText}} <a href="Cart.dc.html" style="margin-left: 6px;">View basket</a></p>
+        </sc-if>
+
+        <div class="card" style="padding: 18px 20px; display: grid; gap: 14px;">
+          <div style="display: flex; gap: 12px; align-items: flex-start;">
+            <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex: none; color: var(--accent-text); margin-top: 1px;"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg>
+            <p class="t-sm" style="flex: 1;"><b class="t-strong">Delivering to 160022, Chandigarh.</b> <a href="#main">Change</a><br><span class="t-muted">Next open slot: today, 4–6&nbsp;PM. Order before <span class="ph">[CUT-OFF TIME]</span> for today’s evening slots.</span></p>
+          </div>
+          <div style="display: flex; gap: 12px; align-items: flex-start;">
+            <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex: none; color: var(--accent-text); margin-top: 1px;"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"></path><circle cx="7" cy="18" r="2"></circle><circle cx="17" cy="18" r="2"></circle></svg>
+            <p class="t-sm" style="flex: 1;"><b class="t-strong">Delivered by our own riders.</b><br><span class="t-muted">Short or damaged? We refund it. We never swap an item without asking.</span></p>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+          <a href="FarmBox.dc.html" class="btn btn-outline btn-sm">Add to a Farm Box</a>
+          <a href="Subscriptions.dc.html" class="btn btn-outline btn-sm">Include in a subscription</a>
+        </div>
+
+        <div class="well" style="padding: 18px 20px;">
+          <p class="t-sm"><b class="t-strong">Buying 5 kg or more?</b> Wholesale rates apply to every kilo once you reach a tier.</p>
+          <dl class="num t-sm" style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px 28px;">
+            <div><dt class="t-muted" style="display: inline;">5 kg and up</dt> <dd style="display: inline; font-weight: 600; color: var(--text-strong);">₹36/kg</dd></div>
+            <div><dt class="t-muted" style="display: inline;">20 kg and up</dt> <dd style="display: inline; font-weight: 600; color: var(--text-strong);">₹33/kg</dd></div>
+          </dl>
+          <a href="Wholesale.dc.html" class="t-sm" style="display: inline-block; margin-top: 10px; font-weight: 600;">See wholesale rates</a>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="pd-details" style="display: flex; flex-wrap: wrap; gap: 24px 64px; padding-block: 48px; border-top: 1px solid var(--line);">
+      <h2 id="pd-details" class="t-h2" style="flex: 1 1 260px;">About this product</h2>
+      <div style="flex: 2 1 560px; min-width: 0;">
+        <details class="acc" open><summary>Description</summary><div class="acc-body"><p>Everyday hybrid tomatoes, picked ripe and firm so they hold up in curries and keep two or three days on the counter. Sold in fixed packs: the price you see is the price you pay.</p></div></details>
+        <details class="acc"><summary>Storage and freshness</summary><div class="acc-body"><p>Keep at room temperature, stem side down, out of direct sun. Refrigerate only once fully ripe, and use within 2 days of refrigerating.</p></div></details>
+        <details class="acc"><summary>Pack and weight</summary><div class="acc-body"><p>Each pack is weighed before it leaves us and is never lighter than the weight on the label. Count varies with size, usually 8 to 10 tomatoes per kilo.</p></div></details>
+        <details class="acc"><summary>Something wrong with it?</summary><div class="acc-body"><p>Report short, damaged or spoilt items from your order page within <span class="ph">[REFUND WINDOW]</span> of delivery. Our support team reviews every request. <a href="Cancellation.dc.html">Read the cancellation and replacement policy</a>.</p></div></details>
+      </div>
+    </section>
+
+    <section aria-labelledby="pd-reviews" style="display: flex; flex-wrap: wrap; gap: 24px 64px; padding-block: 48px; border-top: 1px solid var(--line);">
+      <div style="flex: 1 1 260px;">
+        <h2 id="pd-reviews" class="t-h2">Reviews</h2>
+        <p class="t-sm t-muted" style="margin-top: 8px;">Only customers who bought this product can review it.</p>
+      </div>
+      <div style="flex: 2 1 560px; min-width: 0;">
+        <div class="well" style="padding: 28px;">
+          <p class="t-h4">No reviews yet</p>
+          <p class="t-muted" style="margin-top: 6px;">Bought tomatoes from us? Tell other shoppers how they were.</p>
+          <sc-if value="{{reviewClosed}}" hint-placeholder-val="{{true}}">
+            <button type="button" class="btn btn-ink" style="margin-top: 18px;" onClick="{{openReview}}" aria-expanded="false" aria-controls="pd-review-form">Write a review</button>
+          </sc-if>
+          <sc-if value="{{reviewOpen}}" hint-placeholder-val="{{false}}">
+            <form id="pd-review-form" onSubmit="{{submitReview}}" noValidate style="margin-top: 20px; display: grid; gap: 18px;">
+              <fieldset style="border: 0; padding: 0; margin: 0;">
+                <legend class="label" style="margin-bottom: 8px;">Your rating</legend>
+                <div style="display: flex; gap: 6px;">
+                  <sc-for list="{{stars}}" as="st" hint-placeholder-count="5">
+                    <label style="display: inline-flex; width: 44px; height: 44px; align-items: center; justify-content: center; border-radius: var(--r-sm); cursor: pointer; color: {{st.color}};">
+                      <input type="radio" name="rating" value="{{st.value}}" class="sr-only" checked="{{st.on}}" onChange="{{st.pick}}">
+                      <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="{{st.fill}}" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"></path></svg>
+                      <span class="sr-only">{{st.value}} out of 5</span>
+                    </label>
+                  </sc-for>
+                </div>
+                <sc-if value="{{ratingError}}" hint-placeholder-val="{{false}}"><p class="error" style="margin-top: 6px;">Choose a rating from 1 to 5 stars.</p></sc-if>
+              </fieldset>
+              <div class="field">
+                <label for="pd-rv-text" class="label">Your review</label>
+                <textarea id="pd-rv-text" class="input" name="review" autocomplete="off" maxlength="600" placeholder="How were they? Firm, ripe, good for curries…" value="{{reviewText}}" onChange="{{onReviewText}}" aria-invalid="{{textInvalid}}" aria-describedby="pd-rv-help"></textarea>
+                <p id="pd-rv-help" class="hint num">{{reviewCount}} of 600 characters. Reviews are checked before they appear.</p>
+                <sc-if value="{{textError}}" hint-placeholder-val="{{false}}"><p class="error">Write at least 20 characters so your review helps others.</p></sc-if>
+              </div>
+              <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                <button type="submit" class="btn btn-primary">Submit review</button>
+                <button type="button" class="btn btn-ghost" onClick="{{closeReview}}">Cancel</button>
+              </div>
+            </form>
+          </sc-if>
+          <sc-if value="{{reviewSent}}" hint-placeholder-val="{{false}}">
+            <p class="ok" role="status" style="margin-top: 16px; font-size: 15px;">Thanks. Your review appears once our team has checked it.</p>
+          </sc-if>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="pd-pair" style="padding-block: 48px; border-top: 1px solid var(--line);">
+      <h2 id="pd-pair" class="t-h2">Goes well with tomatoes</h2>
+      <ul style="margin-top: 22px; display: grid; grid-template-columns: repeat(auto-fill, minmax(196px, 1fr)); gap: 16px;">
+        <sc-for list="{{pairs}}" as="p" hint-placeholder-count="5">
+          <li style="min-width: 0;"><dc-import name="ProductCard" item="{{p}}" dark="{{dark}}" hint-size="100%,440px"></dc-import></li>
+        </sc-for>
+      </ul>
+    </section>
+
+    <section aria-labelledby="pd-recent" style="padding-block: 48px 80px; border-top: 1px solid var(--line);">
+      <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px;">
+        <h2 id="pd-recent" class="t-h2">Recently viewed</h2>
+        <button type="button" class="btn btn-ghost btn-sm" onClick="{{clearRecent}}">Clear history</button>
+      </div>
+      <sc-if value="{{hasRecent}}" hint-placeholder-val="{{true}}">
+        <ul style="margin-top: 22px; display: grid; grid-template-columns: repeat(auto-fill, minmax(196px, 1fr)); gap: 16px;">
+          <sc-for list="{{recent}}" as="p" hint-placeholder-count="4">
+            <li style="min-width: 0;"><dc-import name="ProductCard" item="{{p}}" dark="{{dark}}" hint-size="100%,440px"></dc-import></li>
+          </sc-for>
+        </ul>
+      </sc-if>
+      <sc-if value="{{noRecent}}" hint-placeholder-val="{{false}}"><p class="t-muted" style="margin-top: 16px;">Products you look at will show up here.</p></sc-if>
+    </section>
+  </main>
+
+  <dc-import name="Footer" dark="{{dark}}" hint-size="100%,760px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":4200}}'>
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = {
+      pack: '1kg', qty: 1, cart: { tomato: 0, coriander: 1 }, added: false,
+      review: 'closed', rating: 0, reviewText: '', ratingError: false, textError: false, recentCleared: false
+    };
+  }
+
+  renderVals() {
+    const s = this.state;
+    const dark = this.props.dark ?? false;
+    const B = '/_blob/';
+    const rupees = (n) => '₹' + Number(n).toLocaleString('en-IN');
+    const packs = [
+      { value: '500g', label: '500 g', price: 22, mrp: 26, perUnit: '₹44/kg' },
+      { value: '1kg', label: '1 kg', price: 40, mrp: 48, perUnit: '₹40/kg' },
+      { value: '2kg', label: '2 kg', price: 78, mrp: 94, perUnit: '₹39/kg' }
+    ];
+    const pack = packs.find((p) => p.value === s.pack) || packs[1];
+    const others = {
+      onion: ['Onion', 'प्याज़', '1 kg', 45, '₹45/kg', '1684583e7b1031c43645cbd222ff8d0d'],
+      coriander: ['Coriander', 'धनिया', '1 bunch', 10, '₹10/bunch', '591d27931e70b0646c12012b692f0728'],
+      chilli: ['Green chilli', 'हरी मिर्च', '100 g', 10, '₹100/kg', 'cee1cb3f5f1baed9733148199dd08bcf'],
+      ginger: ['Ginger', 'अदरक', '100 g', 18, '₹180/kg', '1932feaa1fef036c4f9bb795103d9d8e'],
+      garlic: ['Garlic', 'लहसुन', '100 g', 25, '₹250/kg', '06add378e1fe0e411db7b2871f613b8f'],
+      apple: ['Apple, Shimla', 'सेब', '1 kg', 140, '₹140/kg', '8581b06e9c225f563a590d141aab53d4'],
+      spinach: ['Spinach', 'पालक', '1 bunch', 20, '₹20/bunch', 'd7b00861d43b60387799340029aefdd9'],
+      kinnow: ['Kinnow', 'किन्नू', '1 kg', 70, '₹70/kg', 'fd2079b5997095279838843a25a8bb23'],
+      okra: ['Okra', 'भिंडी', '500 g', 35, '₹70/kg', '5bc8dcee307c27bd019357e52ebc8622']
+    };
+    const setCart = (id, n) => this.setState((st) => ({ cart: { ...st.cart, [id]: Math.max(0, n) } }));
+    const card = (id) => {
+      const r = others[id];
+      const qty = s.cart[id] || 0;
+      return {
+        name: r[0], hi: r[1], unit: r[2], price: r[3], mrp: 0, perUnit: r[4], img: B + r[5], badge: id === 'spinach' || id === 'apple' ? 'season' : '', stock: 'in', qty,
+        add: () => setCart(id, 1), inc: () => setCart(id, qty + 1), dec: () => setCart(id, qty - 1)
+      };
+    };
+    const tomatoIn = s.cart.tomato || 0;
+    let count = 0;
+    let total = tomatoIn * pack.price;
+    Object.keys(others).forEach((id) => { const q = s.cart[id] || 0; count += q; total += q * others[id][3]; });
+    count += tomatoIn;
+    const stars = [1, 2, 3, 4, 5].map((v) => ({
+      value: String(v), on: s.rating === v,
+      fill: v <= s.rating ? 'currentColor' : 'none',
+      color: v <= s.rating ? 'var(--olive)' : 'var(--text-muted)',
+      pick: () => this.setState({ rating: v, ratingError: false })
+    }));
+    return {
+      dark,
+      themeClass: dark ? 'dark' : '',
+      packs: packs.map((p) => ({ ...p, priceText: rupees(p.price), on: p.value === s.pack, cls: p.value === s.pack ? 'on' : '', pick: () => this.setState({ pack: p.value }) })),
+      priceText: rupees(pack.price),
+      hasMrp: !!pack.mrp,
+      mrpText: rupees(pack.mrp),
+      saveText: Math.round((1 - pack.price / pack.mrp) * 100) + '% off',
+      qty: String(s.qty),
+      inc: () => this.setState({ qty: Math.min(20, s.qty + 1) }),
+      dec: () => this.setState({ qty: Math.max(1, s.qty - 1) }),
+      lineText: rupees(pack.price * s.qty),
+      add: () => this.setState((st) => ({ cart: { ...st.cart, tomato: (st.cart.tomato || 0) + st.qty }, added: true })),
+      added: s.added,
+      inBasketText: tomatoIn + ' × ' + pack.label + ' in your basket.',
+      cartCount: count,
+      cartTotal: rupees(total),
+      reviewClosed: s.review === 'closed',
+      reviewOpen: s.review === 'open',
+      reviewSent: s.review === 'sent',
+      openReview: () => this.setState({ review: 'open' }),
+      closeReview: () => this.setState({ review: 'closed', ratingError: false, textError: false }),
+      stars,
+      ratingError: s.ratingError,
+      reviewText: s.reviewText,
+      reviewCount: String(s.reviewText.length),
+      onReviewText: (e) => this.setState({ reviewText: e.target.value, textError: false }),
+      textError: s.textError,
+      textInvalid: s.textError ? 'true' : 'false',
+      submitReview: (e) => {
+        e.preventDefault();
+        const ratingError = s.rating === 0;
+        const textError = s.reviewText.trim().length < 20;
+        if (ratingError || textError) return this.setState({ ratingError, textError });
+        this.setState({ review: 'sent' });
+      },
+      pairs: ['onion', 'coriander', 'chilli', 'ginger', 'garlic'].map(card),
+      recent: s.recentCleared ? [] : ['apple', 'spinach', 'kinnow', 'okra'].map(card),
+      hasRecent: !s.recentCleared,
+      noRecent: s.recentCleared,
+      clearRecent: () => this.setState({ recentCleared: true })
+    };
+  }
+}
+</script>
+</body>
+</html>

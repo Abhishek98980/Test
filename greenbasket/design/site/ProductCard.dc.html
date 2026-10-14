@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Product card</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="gb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600&amp;family=Rubik:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<article class="gb lift {{themeClass}}" style="position: relative; display: flex; flex-direction: column; gap: 12px; height: 100%; min-width: 0; padding: 10px 10px 14px; border-radius: var(--r-lg); border: 1px solid var(--line); background: var(--surface); color: var(--text); font-family: Rubik, 'Noto Sans Devanagari', system-ui, sans-serif;">
+  <a href="Product.dc.html" aria-label="{{c.viewLabel}}" style="position: relative; display: flex; align-items: center; justify-content: center; aspect-ratio: 1 / 1; border-radius: var(--r-md); background: var(--well); text-decoration: none;">
+    <img src="{{c.img}}" alt="" width="160" height="160" loading="lazy" style="width: 62%; height: 62%; object-fit: contain; opacity: {{c.imgOpacity}};">
+    <span style="position: absolute; top: 10px; left: 10px; display: flex; flex-wrap: wrap; gap: 6px;">
+      <sc-if value="{{c.isSeason}}" hint-placeholder-val="{{false}}"><span class="badge badge-olive">In season</span></sc-if>
+      <sc-if value="{{c.hasMrp}}" hint-placeholder-val="{{false}}"><span class="badge badge-leaf num">{{c.saveText}}</span></sc-if>
+      <sc-if value="{{c.isOut}}" hint-placeholder-val="{{false}}"><span class="badge badge-ink">Out of stock</span></sc-if>
+    </span>
+  </a>
+  <button type="button" class="icon-btn" aria-label="{{c.saveLabel}}" aria-pressed="{{savedPressed}}" onClick="{{toggleSave}}" style="position: absolute; top: 16px; right: 16px; width: 40px; height: 40px; background: var(--surface); box-shadow: var(--shadow-1); color: {{heartColor}};">
+    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="{{heartFill}}" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg>
+  </button>
+
+  <div style="display: flex; flex-direction: column; gap: 2px; padding-inline: 4px; min-width: 0;">
+    <h3 style="font-size: 16px; line-height: 1.3; letter-spacing: -0.005em; font-weight: 600; overflow-wrap: anywhere;"><a href="Product.dc.html" style="color: var(--text-strong); text-decoration: none;">{{c.name}}</a></h3>
+    <sc-if value="{{showHindi}}" hint-placeholder-val="{{true}}"><span class="hi" style="font-size: 13px; line-height: 1.4; color: var(--text-muted);">{{c.hi}}</span></sc-if>
+    <span class="num" style="font-size: 13px; line-height: 1.4; color: var(--text-muted);">{{c.unit}} · {{c.perUnit}}</span>
+  </div>
+
+  <div style="display: flex; align-items: baseline; gap: 8px; padding-inline: 4px; margin-top: auto;">
+    <span class="price" style="font-size: 19px;">{{c.priceText}}</span>
+    <sc-if value="{{c.hasMrp}}" hint-placeholder-val="{{false}}"><span class="mrp" style="font-size: 13px;"><span class="sr-only">Was </span>{{c.mrpText}}</span></sc-if>
+  </div>
+  <sc-if value="{{c.isLow}}" hint-placeholder-val="{{false}}"><p class="t-xs" style="padding-inline: 4px; color: var(--warning); font-weight: 600;">{{c.lowText}}</p></sc-if>
+  <sc-if value="{{c.hasWs}}" hint-placeholder-val="{{false}}"><p class="t-xs t-muted num" style="padding-inline: 4px;">{{c.wsText}}</p></sc-if>
+
+  <sc-if value="{{c.canAdd}}" hint-placeholder-val="{{true}}">
+    <button type="button" class="btn btn-primary btn-sm btn-block" onClick="{{c.add}}" aria-label="{{c.addLabel}}">
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+      Add
+    </button>
+  </sc-if>
+  <sc-if value="{{c.inCart}}" hint-placeholder-val="{{false}}">
+    <div class="stepper" role="group" aria-label="{{c.groupLabel}}" style="width: 100%;">
+      <button type="button" onClick="{{c.dec}}" aria-label="{{c.decLabel}}">−</button>
+      <span class="qty" aria-live="polite">{{c.qty}}</span>
+      <button type="button" onClick="{{c.inc}}" aria-label="{{c.incLabel}}">+</button>
+    </div>
+  </sc-if>
+  <sc-if value="{{c.canNotify}}" hint-placeholder-val="{{false}}">
+    <button type="button" class="btn btn-outline btn-sm btn-block" onClick="{{c.notify}}">Notify me when it’s back</button>
+  </sc-if>
+  <sc-if value="{{c.notified}}" hint-placeholder-val="{{false}}">
+    <p class="ok" role="status" style="justify-content: center; min-height: 44px;">We’ll message you when it’s back</p>
+  </sc-if>
+</article>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"item":{"editor":null},"dark":{"editor":"boolean","default":false},"showHindi":{"editor":"boolean","default":true},"$preview":{"width":300,"height":480}}'>
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { saved: false, qty: 0, notified: false };
+  }
+
+  sample() {
+    const qty = this.state.qty;
+    const set = (n) => this.setState({ qty: Math.max(0, n) });
+    return {
+      name: 'Tomato', hi: 'टमाटर', unit: '1 kg', perUnit: '₹40/kg', price: 40, mrp: 48,
+      img: '/_blob/90234e112587bcb63afe69728f9038ca', badge: '', stock: 'low', left: 6, ws: '',
+      qty, add: () => set(1), inc: () => set(qty + 1), dec: () => set(qty - 1),
+      notify: () => this.setState({ notified: true }), notified: this.state.notified
+    };
+  }
+
+  renderVals() {
+    const p = this.props.item || this.sample();
+    const qty = p.qty || 0;
+    const out = p.stock === 'out';
+    const rupees = (n) => '₹' + Number(n).toLocaleString('en-IN');
+    const c = {
+      name: p.name, hi: p.hi, unit: p.unit, perUnit: p.perUnit, img: p.img,
+      priceText: rupees(p.price), hasMrp: !!p.mrp, mrpText: p.mrp ? rupees(p.mrp) : '',
+      saveText: p.mrp ? Math.round((1 - p.price / p.mrp) * 100) + '% off' : '',
+      isSeason: p.badge === 'season', isOut: out, imgOpacity: out ? '0.45' : '1',
+      isLow: p.stock === 'low' && !out, lowText: 'Only ' + (p.left || 3) + ' packs left today',
+      hasWs: !!p.ws, wsText: p.ws || '',
+      qty, inCart: !out && qty > 0, canAdd: !out && qty === 0,
+      canNotify: out && !p.notified, notified: out && !!p.notified,
+      add: p.add, inc: p.inc, dec: p.dec, notify: p.notify,
+      viewLabel: 'View ' + p.name + ', ' + p.unit,
+      saveLabel: 'Save ' + p.name + ' for later',
+      addLabel: 'Add ' + p.name + ', ' + p.unit + ', to basket',
+      incLabel: 'Add one more ' + p.name, decLabel: 'Remove one ' + p.name,
+      groupLabel: p.name + ' quantity, ' + qty + ' in basket'
+    };
+    const saved = this.state.saved;
+    return {
+      c,
+      themeClass: (this.props.dark ?? false) ? 'dark' : '',
+      showHindi: this.props.showHindi ?? true,
+      savedPressed: saved ? 'true' : 'false',
+      heartFill: saved ? 'currentColor' : 'none',
+      heartColor: saved ? 'var(--danger)' : 'var(--text-strong)',
+      toggleSave: () => this.setState({ saved: !saved })
+    };
+  }
+}
+</script>
+</body>
+</html>

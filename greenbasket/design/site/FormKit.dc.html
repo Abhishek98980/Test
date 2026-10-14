@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Form kit</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="gb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600&amp;family=Rubik:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+@keyframes gb-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){.gb-spinner{animation:none !important}}
+</style>
+</helmet>
+<div class="gb {{themeClass}}" style="min-height: 100%; background: var(--bg); color: var(--text); font-family: Rubik, 'Noto Sans Devanagari', system-ui, sans-serif;">
+  <div class="wrap" style="padding-block: 56px 80px; display: flex; flex-direction: column; gap: 56px;">
+    <header>
+      <h1 class="t-h1">Form kit</h1>
+      <p class="t-lead t-muted" style="margin-top: 10px; max-width: 48em;">Every form on the site is built from these parts. Labels always sit above the field, help text below it, and errors appear in place, in words that say how to fix them.</p>
+    </header>
+
+    <section aria-labelledby="fk-text" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px 24px;">
+      <h2 id="fk-text" class="t-h3" style="grid-column: 1 / -1;">Text fields</h2>
+      <div class="field">
+        <label for="fk-name" class="label">Full name</label>
+        <input id="fk-name" class="input" type="text" name="name" autocomplete="name" placeholder="Like Simran Kaur…">
+        <p class="hint">As it should appear on your invoice.</p>
+      </div>
+      <div class="field">
+        <label for="fk-focus" class="label">Focused</label>
+        <input id="fk-focus" class="input" type="text" name="landmark" autocomplete="off" value="Near the Sector 17 fountain" style="border-color: var(--accent-text); box-shadow: 0 0 0 4px var(--accent-soft);">
+        <p class="hint">Ring shows where the keyboard is.</p>
+      </div>
+      <div class="field">
+        <label for="fk-err" class="label">Email</label>
+        <input id="fk-err" class="input" type="email" name="email" autocomplete="email" spellcheck="false" value="simran@gmail" aria-invalid="true" aria-describedby="fk-err-msg">
+        <p id="fk-err-msg" class="error"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v5M12 16h.01"></path></svg>Add the end of the address, like simran@gmail.com.</p>
+      </div>
+      <div class="field">
+        <label for="fk-dis" class="label">Disabled <span class="opt">(locked after the order is packed)</span></label>
+        <input id="fk-dis" class="input" type="text" name="slot" autocomplete="off" value="Today, 4–6 PM" disabled style="opacity: 0.6; cursor: not-allowed;">
+      </div>
+      <div class="field">
+        <label for="fk-phone" class="label">Mobile number</label>
+        <div style="display: flex; gap: 8px;">
+          <span class="input num" aria-hidden="true" style="width: auto; display: inline-flex; align-items: center; color: var(--text-muted);">+91</span>
+          <input id="fk-phone" class="input num" type="tel" name="tel-national" autocomplete="tel-national" inputmode="numeric" maxlength="10" spellcheck="false" placeholder="98765 43210…" value="{{phone}}" onChange="{{onPhone}}" aria-invalid="{{phoneInvalid}}" aria-describedby="fk-phone-msg">
+        </div>
+        <p id="fk-phone-msg" aria-live="polite"><sc-if value="{{phoneBad}}" hint-placeholder-val="{{false}}"><span class="error">Indian mobile numbers have 10 digits and start with 6, 7, 8 or 9.</span></sc-if><sc-if value="{{phoneGood}}" hint-placeholder-val="{{false}}"><span class="ok">Looks right. We’ll send a 6-digit code to this number.</span></sc-if></p>
+      </div>
+      <div class="field">
+        <label for="fk-notes" class="label">Delivery instructions <span class="opt">(optional)</span></label>
+        <textarea id="fk-notes" class="input" name="instructions" autocomplete="off" maxlength="200" placeholder="Like “Ring the bell twice, the dog is friendly”…" value="{{notes}}" onChange="{{onNotes}}" aria-describedby="fk-notes-count" style="min-height: 96px;"></textarea>
+        <p id="fk-notes-count" class="hint num" aria-live="polite">{{notesCount}} of 200 characters</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="fk-codes" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px 40px;">
+      <h2 id="fk-codes" class="t-h3" style="grid-column: 1 / -1;">Codes, PIN check and search</h2>
+      <fieldset style="border: 0; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px;">
+        <legend class="label" style="margin-bottom: 8px;">6-digit code sent to +91 98765 43210</legend>
+        <div class="otp-row">
+          <input class="input otp" type="text" inputmode="numeric" name="otp-1" autocomplete="one-time-code" maxlength="1" aria-label="Digit 1" value="4">
+          <input class="input otp" type="text" inputmode="numeric" name="otp-2" autocomplete="off" maxlength="1" aria-label="Digit 2" value="8">
+          <input class="input otp" type="text" inputmode="numeric" name="otp-3" autocomplete="off" maxlength="1" aria-label="Digit 3" value="2">
+          <input class="input otp" type="text" inputmode="numeric" name="otp-4" autocomplete="off" maxlength="1" aria-label="Digit 4" style="border-color: var(--accent-text); box-shadow: 0 0 0 4px var(--accent-soft);">
+          <input class="input otp" type="text" inputmode="numeric" name="otp-5" autocomplete="off" maxlength="1" aria-label="Digit 5">
+          <input class="input otp" type="text" inputmode="numeric" name="otp-6" autocomplete="off" maxlength="1" aria-label="Digit 6">
+        </div>
+        <p class="hint num">Didn’t get it? You can resend in 0:24.</p>
+      </fieldset>
+      <form onSubmit="{{noop}}" class="field">
+        <label for="fk-pin" class="label">PIN code</label>
+        <div style="display: flex; gap: 8px;">
+          <input id="fk-pin" class="input num" type="text" name="postal-code" autocomplete="postal-code" inputmode="numeric" maxlength="6" value="160022" spellcheck="false">
+          <button type="submit" class="btn btn-ink">Check</button>
+        </div>
+        <p class="ok"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg>We deliver to 160022, Chandigarh.</p>
+      </form>
+      <div class="field">
+        <label for="fk-city" class="label">City</label>
+        <select id="fk-city" class="input" name="address-level2" autocomplete="address-level2">
+          <option>Chandigarh</option>
+          <option>Mohali</option>
+          <option>Panchkula</option>
+        </select>
+      </div>
+    </section>
+
+    <section aria-labelledby="fk-choice" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px 40px;">
+      <h2 id="fk-choice" class="t-h3" style="grid-column: 1 / -1;">Choices</h2>
+      <fieldset style="border: 0; padding: 0; margin: 0; display: grid; gap: 10px;">
+        <legend class="label" style="margin-bottom: 10px;">Delivery slot</legend>
+        <sc-for list="{{slots}}" as="sl" hint-placeholder-count="3">
+          <label class="choice {{sl.cls}}">
+            <input type="radio" name="fk-slot" value="{{sl.value}}" checked="{{sl.on}}" disabled="{{sl.full}}" onChange="{{sl.pick}}">
+            <span style="flex: 1; display: flex; justify-content: space-between; gap: 12px;"><span><b class="t-strong num">{{sl.label}}</b><br><span class="t-sm t-muted">{{sl.sub}}</span></span><span class="t-sm num" style="font-weight: 600; color: {{sl.noteColor}};">{{sl.note}}</span></span>
+          </label>
+        </sc-for>
+      </fieldset>
+      <div style="display: flex; flex-direction: column; gap: 22px;">
+        <fieldset style="border: 0; padding: 0; margin: 0;">
+          <legend class="label" style="margin-bottom: 10px;">Consent</legend>
+          <label class="check"><input type="checkbox" name="terms" checked="{{terms}}" onChange="{{onTerms}}"><span>I agree to the <a href="Terms.dc.html">terms of service</a> and the <a href="Privacy.dc.html">privacy policy</a>.</span></label>
+          <label class="check"><input type="checkbox" name="offers" checked="{{offers}}" onChange="{{onOffers}}"><span>Send me offers and the weekly fresh list on WhatsApp. <span class="t-muted">Optional. Turn off any time.</span></span></label>
+        </fieldset>
+        <div>
+          <p class="label" id="fk-seg-l" style="margin-bottom: 10px;">Billing</p>
+          <div class="seg" role="group" aria-labelledby="fk-seg-l">
+            <button type="button" aria-pressed="{{weeklyPressed}}" onClick="{{pickWeekly}}">Weekly</button>
+            <button type="button" aria-pressed="{{monthlyPressed}}" onClick="{{pickMonthly}}">Monthly</button>
+          </div>
+        </div>
+        <div>
+          <p class="label" style="margin-bottom: 10px;">Quantity</p>
+          <div class="stepper" role="group" aria-label="Tomato quantity" style="width: 160px;">
+            <button type="button" aria-label="Remove one tomato" onClick="{{dec}}">−</button>
+            <span class="qty" aria-live="polite">{{qty}}</span>
+            <button type="button" aria-label="Add one more tomato" onClick="{{inc}}">+</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="fk-upload" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px 40px;">
+      <h2 id="fk-upload" class="t-h3" style="grid-column: 1 / -1;">Photo upload and buttons</h2>
+      <div class="field">
+        <span class="label" id="fk-file-l">Photos of the item <span class="opt">(up to 3)</span></span>
+        <label for="fk-file" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; min-height: 148px; padding: 20px; border: 1.5px dashed var(--field-line); border-radius: var(--r-md); background: var(--well); text-align: center; cursor: pointer;">
+          <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-text);"><rect x="3" y="5" width="18" height="14" rx="2"></rect><circle cx="12" cy="12" r="3.5"></circle><path d="M8 5l1.5-2h5L16 5"></path></svg>
+          <span class="t-sm"><b class="t-strong">Take or choose photos</b><br><span class="t-muted">JPG or PNG, up to 5&nbsp;MB each</span></span>
+        </label>
+        <input id="fk-file" type="file" name="photos" accept="image/jpeg,image/png" multiple aria-labelledby="fk-file-l" class="sr-only">
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+          <button type="button" class="btn btn-primary">Add to basket</button>
+          <button type="button" class="btn btn-ink">Continue to payment</button>
+          <button type="button" class="btn btn-outline">Save box</button>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+          <button type="button" class="btn btn-soft btn-sm">Apply coupon</button>
+          <button type="button" class="btn btn-ghost btn-sm">Cancel</button>
+          <button type="button" class="btn btn-danger btn-sm">Cancel subscription</button>
+          <button type="button" class="btn btn-primary btn-sm" disabled>Pick a slot first</button>
+        </div>
+        <button type="button" class="btn btn-primary btn-lg" aria-busy="true" style="align-self: flex-start;"><span class="gb-spinner" aria-hidden="true" style="width: 18px; height: 18px; border-radius: 50%; border: 2.5px solid currentColor; border-right-color: transparent; animation: gb-spin 800ms linear infinite;"></span>Placing order…</button>
+      </div>
+    </section>
+
+    <section aria-labelledby="fk-alerts" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px;">
+      <h2 id="fk-alerts" class="t-h3" style="grid-column: 1 / -1;">Messages</h2>
+      <div role="status" style="display: flex; gap: 12px; padding: 14px 16px; border-radius: var(--r-md); background: var(--success-soft); color: var(--success);"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 2px;"><circle cx="12" cy="12" r="9"></circle><path d="M8 12l3 3 5-6"></path></svg><p class="t-sm"><b>Slot held for 10 minutes.</b> Finish paying before 4:52 PM to keep it.</p></div>
+      <div role="status" style="display: flex; gap: 12px; padding: 14px 16px; border-radius: var(--r-md); background: var(--warning-soft); color: var(--warning);"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 2px;"><path d="M12 3l9 16H3z"></path><path d="M12 10v4M12 17h.01"></path></svg><p class="t-sm"><b>Kinnow is low.</b> Only 4 packs left for today’s slots.</p></div>
+      <div role="alert" style="display: flex; gap: 12px; padding: 14px 16px; border-radius: var(--r-md); background: var(--danger-soft); color: var(--danger);"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="flex: none; margin-top: 2px;"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v5M12 16h.01"></path></svg><p class="t-sm"><b>Payment didn’t go through.</b> Your bank declined it. Try another card or pay by UPI.</p></div>
+      <div role="status" style="display: flex; gap: 12px; padding: 14px 16px; border-radius: var(--r-md); background: var(--muted-bg); color: var(--text);"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="flex: none; margin-top: 2px; color: var(--text-muted);"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5M12 8h.01"></path></svg><p class="t-sm"><b class="t-strong">Cut-off is 10 PM tonight.</b> Edit next week’s subscription basket before then.</p></div>
+    </section>
+
+    <section aria-labelledby="fk-address">
+      <h2 id="fk-address" class="t-h3">A whole form: delivery address</h2>
+      <form onSubmit="{{noop}}" class="card" style="margin-top: 18px; padding: clamp(20px, 3vw, 32px); display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px 24px; max-width: 900px;">
+        <div class="field" style="grid-column: 1 / -1;">
+          <label for="fk-a1" class="label">House, flat or shop number</label>
+          <input id="fk-a1" class="input" type="text" name="address-line1" autocomplete="address-line1" placeholder="Like House 1234…">
+        </div>
+        <div class="field">
+          <label for="fk-a2" class="label">Sector or area</label>
+          <input id="fk-a2" class="input" type="text" name="address-line2" autocomplete="address-line2" placeholder="Like Sector 22-B…">
+        </div>
+        <div class="field">
+          <label for="fk-a3" class="label">Landmark <span class="opt">(optional)</span></label>
+          <input id="fk-a3" class="input" type="text" name="landmark" autocomplete="off" placeholder="Like opposite the gurdwara…">
+        </div>
+        <div class="field">
+          <label for="fk-a4" class="label">PIN code</label>
+          <input id="fk-a4" class="input num" type="text" name="postal-code" autocomplete="postal-code" inputmode="numeric" maxlength="6" placeholder="160022…">
+        </div>
+        <div class="field">
+          <label for="fk-a5" class="label">City</label>
+          <select id="fk-a5" class="input" name="address-level2" autocomplete="address-level2"><option>Chandigarh</option><option>Mohali</option><option>Panchkula</option></select>
+        </div>
+        <fieldset style="grid-column: 1 / -1; border: 0; padding: 0; margin: 0;">
+          <legend class="label" style="margin-bottom: 10px;">Save as</legend>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <button type="button" class="chip on" aria-pressed="true">Home</button>
+            <button type="button" class="chip" aria-pressed="false">Work</button>
+            <button type="button" class="chip" aria-pressed="false">Shop or restaurant</button>
+          </div>
+        </fieldset>
+        <div style="grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 10px;">
+          <button type="submit" class="btn btn-primary">Save address</button>
+          <button type="button" class="btn btn-ghost">Cancel</button>
+        </div>
+      </form>
+    </section>
+
+    <section aria-labelledby="fk-consent">
+      <h2 id="fk-consent" class="t-h3">Cookie consent banner</h2>
+      <div class="card-raised" role="region" aria-label="Cookie choices" style="margin-top: 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px; padding: 20px 24px; max-width: 1000px;">
+        <p class="t-sm" style="flex: 1 1 380px;">We use essential cookies to run your basket and checkout. With your OK we also use analytics cookies to see which pages help. <a href="Privacy.dc.html#cookies">Read how we use cookies</a>.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+          <button type="button" class="btn btn-outline btn-sm">Essential only</button>
+          <button type="button" class="btn btn-outline btn-sm">Choose</button>
+          <button type="button" class="btn btn-ink btn-sm">Accept all</button>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":2400}}'>
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { phone: '98765 4321', notes: '', slot: '4-6', terms: true, offers: false, billing: 'weekly', qty: 2 };
+  }
+
+  renderVals() {
+    const s = this.state;
+    const digits = s.phone.replace(/\D/g, '');
+    const slotDefs = [
+      ['6-8', '6–8 AM', 'Tomorrow, Wednesday', 'Full', true],
+      ['8-10', '8–10 AM', 'Tomorrow, Wednesday', '3 left', false],
+      ['4-6', '4–6 PM', 'Today', 'Open', false]
+    ];
+    return {
+      themeClass: (this.props.dark ?? false) ? 'dark' : '',
+      phone: s.phone,
+      onPhone: (e) => this.setState({ phone: e.target.value }),
+      phoneBad: digits.length > 0 && !(digits.length === 10 && /^[6-9]/.test(digits)),
+      phoneGood: digits.length === 10 && /^[6-9]/.test(digits),
+      phoneInvalid: digits.length > 0 && !(digits.length === 10 && /^[6-9]/.test(digits)) ? 'true' : 'false',
+      notes: s.notes,
+      onNotes: (e) => this.setState({ notes: e.target.value }),
+      notesCount: String(s.notes.length),
+      slots: slotDefs.map((d) => ({
+        value: d[0], label: d[1], sub: d[2], note: d[3], full: d[4], on: s.slot === d[0],
+        cls: d[4] ? 'off' : (s.slot === d[0] ? 'on' : ''),
+        noteColor: d[4] ? 'var(--text-muted)' : (d[3] === 'Open' ? 'var(--success)' : 'var(--warning)'),
+        pick: () => this.setState({ slot: d[0] })
+      })),
+      terms: s.terms,
+      offers: s.offers,
+      onTerms: (e) => this.setState({ terms: e.target.checked }),
+      onOffers: (e) => this.setState({ offers: e.target.checked }),
+      weeklyPressed: s.billing === 'weekly' ? 'true' : 'false',
+      monthlyPressed: s.billing === 'monthly' ? 'true' : 'false',
+      pickWeekly: () => this.setState({ billing: 'weekly' }),
+      pickMonthly: () => this.setState({ billing: 'monthly' }),
+      qty: String(s.qty),
+      inc: () => this.setState({ qty: s.qty + 1 }),
+      dec: () => this.setState({ qty: Math.max(0, s.qty - 1) }),
+      noop: (e) => e.preventDefault()
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Page not found · Greeen Basket</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="gb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600&amp;family=Rubik:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+.big{display:flex;align-items:center;justify-content:center;gap:4px;font-size:clamp(120px,16vw,200px);line-height:1;font-weight:600;letter-spacing:-0.05em;color:var(--accent-text);font-variant-numeric:tabular-nums}
+.big img{width:.82em;height:.82em;margin-inline:.02em}
+@keyframes nf-bob{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-6px) rotate(4deg)}}
+.bob{animation:nf-bob 2.6s ease-in-out infinite}
+@media (prefers-reduced-motion: reduce){.bob{animation:none}}
+.sugg a{display:flex;align-items:center;gap:12px;padding:10px 14px;color:var(--text-strong);text-decoration:none;border-radius:var(--r-sm)}
+@media (hover:hover){.sugg a:hover{background:var(--muted-bg);color:var(--text-strong)}}
+</style>
+</helmet>
+<div class="gb {{themeClass}}" style="min-height: 100%; background: var(--bg); color: var(--text); font-family: Rubik, 'Noto Sans Devanagari', system-ui, sans-serif;">
+  <dc-import name="Header" active="none" dark="{{dark}}" hint-size="100%,190px"></dc-import>
+
+  <main id="main">
+    <section aria-labelledby="nf-h" class="wrap" style="padding-block: clamp(48px, 7vw, 96px) 56px; display: flex; flex-direction: column; align-items: center; text-align: center;">
+      <p class="big" aria-hidden="true"><span>4</span><img class="bob" src="/_blob/90234e112587bcb63afe69728f9038ca" alt="" width="160" height="160"><span>4</span></p>
+      <h1 id="nf-h" class="t-h1" style="margin-top: 18px;">We couldn’t find that page</h1>
+      <p class="t-lead t-muted" style="margin-top: 10px; max-width: 32em;">The link may be old, or the page has moved. Search the store, or pick up from one of these.</p>
+
+      <form role="search" onSubmit="{{submit}}" style="margin-top: 28px; width: 100%; max-width: 560px; text-align: left; position: relative;">
+        <label for="nf-q" class="sr-only">Search the store</label>
+        <div style="display: flex; gap: 8px;">
+          <input id="nf-q" class="input input-pill" type="search" name="q" autocomplete="off" spellcheck="false" placeholder="Search, like kinnow or palak…" value="{{query}}" onInput="{{onQuery}}" aria-describedby="nf-q-msg" style="height: 52px; font-size: 17px;">
+          <button type="submit" class="btn btn-primary" style="min-height: 52px;">Search</button>
+        </div>
+        <p id="nf-q-msg" aria-live="polite" class="t-sm t-muted" style="margin-top: 8px; min-height: 21px;">{{resultText}}</p>
+        <sc-if value="{{hasSugg}}" hint-placeholder-val="{{false}}">
+          <ul class="sugg card" aria-label="Matching products" style="padding: 6px;">
+            <sc-for list="{{sugg}}" as="sg" hint-placeholder-count="4">
+              <li><a href="Product.dc.html"><img src="{{sg.img}}" alt="" width="32" height="32"><span style="flex: 1; min-width: 0;">{{sg.name}} <span class="hi t-muted t-sm">{{sg.hi}}</span></span><span class="t-sm t-muted num">{{sg.unit}} · {{sg.price}}</span></a></li>
+            </sc-for>
+          </ul>
+        </sc-if>
+      </form>
+
+      <nav aria-label="Popular pages" style="margin-top: 24px;">
+        <ul style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;">
+          <li><a href="Main.dc.html#shop" class="chip">Shop all</a></li>
+          <li><a href="Main.dc.html#deals" class="chip">Today’s deals</a></li>
+          <li><a href="FarmBox.dc.html" class="chip">Farm Box</a></li>
+          <li><a href="Subscriptions.dc.html" class="chip">Subscriptions</a></li>
+          <li><a href="Wholesale.dc.html" class="chip">Wholesale</a></li>
+          <li><a href="Account-orders.dc.html" class="chip">My orders</a></li>
+          <li><a href="FAQ.dc.html" class="chip">Help</a></li>
+        </ul>
+      </nav>
+    </section>
+
+    <section aria-labelledby="nf-season" class="wrap" style="padding-bottom: clamp(56px, 7vw, 96px);">
+      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px;">
+        <h2 id="nf-season" class="t-h2">In season now</h2>
+        <a href="Main.dc.html#shop" class="t-sm" style="font-weight: 600;">See everything</a>
+      </div>
+      <ul style="margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px;">
+        <sc-for list="{{season}}" as="p" hint-placeholder-count="5">
+          <li style="min-width: 0;"><dc-import name="ProductCard" item="{{p}}" dark="{{dark}}" hint-size="100%,440px"></dc-import></li>
+        </sc-for>
+      </ul>
+    </section>
+  </main>
+
+  <dc-import name="Footer" dark="{{dark}}" hint-size="100%,760px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":2400}}'>
+class Component extends DCLogic {
+  constructor(...args) {
+    super(...args);
+    this.state = { query: '', submitted: false, qty: {} };
+  }
+
+  renderVals() {
+    const s = this.state;
+    const dark = this.props.dark ?? false;
+    const B = '/_blob/';
+    const P = [
+      ['kinnow', 'Kinnow', 'किन्नू', '1 kg', 70, '₹70/kg', 'fd2079b5997095279838843a25a8bb23', 'season'],
+      ['spinach', 'Spinach', 'पालक', '1 bunch', 20, '₹20/bunch', 'd7b00861d43b60387799340029aefdd9', 'season'],
+      ['carrot', 'Carrot', 'गाजर', '500 g', 30, '₹60/kg', '99f9649155ba9e54671aa750df2ac8bf', 'season'],
+      ['peas', 'Green peas', 'मटर', '500 g', 60, '₹120/kg', '99d528df8f7004e9085c7f2e546e04b7', 'season'],
+      ['guava', 'Guava', 'अमरूद', '500 g', 40, '₹80/kg', '82a29c90957eb1aff44cb26d6d2ac079', 'season'],
+      ['tomato', 'Tomato', 'टमाटर', '1 kg', 40, '₹40/kg', '90234e112587bcb63afe69728f9038ca', ''],
+      ['onion', 'Onion', 'प्याज़', '1 kg', 45, '₹45/kg', '1684583e7b1031c43645cbd222ff8d0d', ''],
+      ['potato', 'Potato', 'आलू', '1 kg', 30, '₹30/kg', '0665993fcaf8a6b84a0bae1442b3275a', ''],
+      ['apple', 'Apple, Shimla', 'सेब', '1 kg', 140, '₹140/kg', '8581b06e9c225f563a590d141aab53d4', 'season'],
+      ['methi', 'Fenugreek', 'मेथी', '1 bunch', 15, '₹15/bunch', '0e0c61ea89660ecc92ca466f7b232d85', 'season'],
+      ['banana', 'Banana', 'केला', '6 pcs', 45, '₹7.50/pc', '590b099cfdb53ca100dc3bed19c350d7', ''],
+      ['coriander', 'Coriander', 'धनिया', '1 bunch', 10, '₹10/bunch', '591d27931e70b0646c12012b692f0728', '']
+    ];
+    const alias = { palak: 'spinach', tamatar: 'tomato', pyaz: 'onion', aloo: 'potato', gajar: 'carrot', matar: 'peas', methi: 'methi', dhaniya: 'coriander', kela: 'banana', seb: 'apple', amrood: 'guava' };
+    const q = s.query.trim().toLowerCase();
+    const hits = q ? P.filter((p) => p[1].toLowerCase().includes(q) || p[2].includes(s.query.trim()) || alias[q] === p[0]).slice(0, 5) : [];
+    const setQ = (id, n) => this.setState((st) => ({ qty: { ...st.qty, [id]: Math.max(0, n) } }));
+    const season = P.filter((p) => p[7] === 'season').slice(0, 5).map((p) => {
+      const qn = s.qty[p[0]] || 0;
+      return {
+        name: p[1], hi: p[2], unit: p[3], price: p[4], mrp: 0, perUnit: p[5], img: B + p[6], badge: 'season', stock: 'in', qty: qn,
+        add: () => setQ(p[0], 1), inc: () => setQ(p[0], qn + 1), dec: () => setQ(p[0], qn - 1)
+      };
+    });
+    let resultText = '';
+    if (q && hits.length) resultText = hits.length === 1 ? '1 product matches.' : hits.length + ' products match.';
+    else if (q && s.submitted) resultText = 'Nothing matches “' + s.query.trim() + '”. Try another word, or browse the shop.';
+    return {
+      dark,
+      themeClass: dark ? 'dark' : '',
+      query: s.query,
+      onQuery: (e) => this.setState({ query: e.target.value, submitted: false }),
+      submit: (e) => { e.preventDefault(); this.setState({ submitted: true }); },
+      resultText,
+      hasSugg: hits.length > 0,
+      sugg: hits.map((p) => ({ name: p[1], hi: p[2], unit: p[3], price: '₹' + p[4], img: B + p[6] })),
+      season
+    };
+  }
+}
+</script>
+</body>
+</html>

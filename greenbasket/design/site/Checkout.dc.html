@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Checkout · Greeen Basket</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="gb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600&amp;family=Rubik:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+@keyframes gb-spin{to{transform:rotate(360deg)}}
+@keyframes gb-pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+@media (prefers-reduced-motion: reduce){.gb-spinner,.gb-pop{animation:none !important}}
+</style>
+</helmet>
+<div class="gb {{themeClass}}" style="min-height: 100%; background: var(--bg); color: var(--text); font-family: Rubik, 'Noto Sans Devanagari', system-ui, sans-serif;">
+  <dc-import name="Header" variant="minimal" dark="{{dark}}" hint-size="100%,80px"></dc-import>
+
+  <main id="main" class="wrap" style="padding-block: 32px 80px;">
+    <sc-if value="{{inFlow}}" hint-placeholder-val="{{true}}">
+      <nav aria-label="Checkout steps" style="margin-bottom: 32px;">
+        <ol style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px;">
+          <sc-for list="{{steps}}" as="st" hint-placeholder-count="4">
+            <li aria-current="{{st.current}}" style="display: flex; flex-direction: column; gap: 8px;">
+              <span style="height: 4px; border-radius: var(--r-pill); background: {{st.bar}};"></span>
+              <sc-if value="{{st.canJump}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{st.jump}}" class="t-sm" style="align-self: flex-start; min-height: 32px; padding: 0; border: 0; background: transparent; text-align: left; cursor: pointer; font-weight: 600; color: var(--accent-text); text-decoration: underline; text-underline-offset: 3px;">{{st.num}}. {{st.label}}</button></sc-if>
+              <sc-if value="{{st.noJump}}" hint-placeholder-val="{{true}}"><span class="t-sm" style="font-weight: {{st.weight}}; color: {{st.color}};">{{st.num}}. {{st.label}}</span></sc-if>
+            </li>
+          </sc-for>
+        </ol>
+      </nav>
+    </sc-if>
+
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 32px 48px;">
+      <div style="flex: 999 1 600px; min-width: 0;">
+
+        <sc-if value="{{isStep1}}" hint-placeholder-val="{{true}}">
+          <section aria-labelledby="co-1" style="display: flex; flex-direction: column; gap: 24px;">
+            <div>
+              <h1 id="co-1" class="t-h2">Where should we deliver?</h1>
+              <p class="t-muted" style="margin-top: 6px;">Signed in as Simran Kaur · +91 98765 43210. <a href="Signup.dc.html">Not you?</a></p>
+            </div>
+            <fieldset style="border: 0; padding: 0; margin: 0; display: grid; gap: 10px;">
+              <legend class="label" style="margin-bottom: 10px;">Saved addresses</legend>
+              <sc-for list="{{addresses}}" as="a" hint-placeholder-count="2">
+                <label class="choice {{a.cls}}">
+                  <input type="radio" name="address" value="{{a.id}}" checked="{{a.on}}" onChange="{{a.pick}}">
+                  <span style="flex: 1; min-width: 0;"><b class="t-strong">{{a.label}}</b> <span class="badge badge-line" style="margin-left: 6px;">{{a.city}}</span><br><span class="t-sm">{{a.line}}</span><br><span class="t-xs t-muted">{{a.note}}</span></span>
+                </label>
+              </sc-for>
+            </fieldset>
+            <sc-if value="{{addrError}}" hint-placeholder-val="{{false}}"><p class="error" role="alert">Choose an address, or add a new one.</p></sc-if>
+            <details class="card" style="padding: 4px 20px;">
+              <summary style="display: flex; align-items: center; gap: 10px; min-height: 56px; cursor: pointer; font-weight: 600; color: var(--accent-text); list-style: none;">+ Add a new address</summary>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px 20px; padding-bottom: 20px;">
+                <div class="field" style="grid-column: 1 / -1;"><label for="co-a1" class="label">House, flat or shop number</label><input id="co-a1" class="input" type="text" name="address-line1" autocomplete="address-line1" placeholder="Like House 1234…"></div>
+                <div class="field"><label for="co-a2" class="label">Sector or area</label><input id="co-a2" class="input" type="text" name="address-line2" autocomplete="address-line2" placeholder="Like Sector 22-B…"></div>
+                <div class="field"><label for="co-a4" class="label">PIN code</label><input id="co-a4" class="input num" type="text" name="postal-code" autocomplete="postal-code" inputmode="numeric" maxlength="6" placeholder="160022…"><p class="hint">We check this before you pick a slot.</p></div>
+                <div class="field"><label for="co-a3" class="label">Landmark <span class="opt">(optional)</span></label><input id="co-a3" class="input" type="text" name="landmark" autocomplete="off" placeholder="Like near the gurdwara…"></div>
+                <div class="field"><label for="co-a5" class="label">City</label><select id="co-a5" class="input" name="address-level2" autocomplete="address-level2"><option>Chandigarh</option><option>Mohali</option><option>Panchkula</option></select></div>
+                <div style="grid-column: 1 / -1;"><button type="button" class="btn btn-ink">Save and use this address</button></div>
+              </div>
+            </details>
+            <div class="field" style="max-width: 420px;">
+              <label for="co-phone" class="label">Phone for the rider</label>
+              <input id="co-phone" class="input num" type="tel" name="tel" autocomplete="tel" inputmode="tel" value="+91 98765 43210">
+              <p class="hint">Our rider calls this number only if they can’t find you.</p>
+            </div>
+            <button type="button" class="btn btn-primary btn-lg" style="align-self: flex-start;" onClick="{{next}}">Continue to delivery slot</button>
+          </section>
+        </sc-if>
+
+        <sc-if value="{{isStep2}}" hint-placeholder-val="{{false}}">
+          <section aria-labelledby="co-2" style="display: flex; flex-direction: column; gap: 24px;">
+            <div>
+              <h1 id="co-2" class="t-h2">Pick a delivery slot</h1>
+              <p class="t-muted" style="margin-top: 6px;">Slots for 160022, Chandigarh. Each slot takes a set number of orders and closes when it’s full.</p>
+            </div>
+            <div class="seg" role="group" aria-label="Delivery day" style="align-self: flex-start;">
+              <sc-for list="{{days}}" as="d" hint-placeholder-count="3">
+                <button type="button" aria-pressed="{{d.pressed}}" onClick="{{d.pick}}">{{d.label}}</button>
+              </sc-for>
+            </div>
+            <fieldset style="border: 0; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px;">
+              <legend class="sr-only">Delivery slot</legend>
+              <sc-for list="{{slots}}" as="sl" hint-placeholder-count="6">
+                <label class="choice {{sl.cls}}">
+                  <input type="radio" name="slot" value="{{sl.id}}" checked="{{sl.on}}" disabled="{{sl.full}}" onChange="{{sl.pick}}">
+                  <span style="flex: 1; display: flex; justify-content: space-between; gap: 10px;"><b class="t-strong num">{{sl.label}}</b><span class="t-sm num" style="font-weight: 600; color: {{sl.noteColor}};">{{sl.note}}</span></span>
+                </label>
+              </sc-for>
+            </fieldset>
+            <sc-if value="{{slotError}}" hint-placeholder-val="{{false}}"><p class="error" role="alert">Choose a slot to continue.</p></sc-if>
+            <sc-if value="{{slotHeld}}" hint-placeholder-val="{{false}}">
+              <div role="status" style="display: flex; gap: 12px; padding: 14px 16px; border-radius: var(--r-md); background: var(--success-soft); color: var(--success);">
+                <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="flex: none; margin-top: 2px;"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+                <p class="t-sm"><b>{{slotLabel}} is held for you for 10 minutes.</b> Finish paying in that time to keep it.</p>
+              </div>
+            </sc-if>
+            <div class="field">
+              <label for="co-notes" class="label">Delivery instructions <span class="opt">(optional)</span></label>
+              <textarea id="co-notes" class="input" name="instructions" autocomplete="off" maxlength="200" placeholder="Like “Leave with the guard if we’re out”…" style="min-height: 96px;"></textarea>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+              <button type="button" class="btn btn-primary btn-lg" onClick="{{next}}">Continue to payment</button>
+              <button type="button" class="btn btn-ghost btn-lg" onClick="{{back}}">Back</button>
+            </div>
+          </section>
+        </sc-if>
+
+        <sc-if value="{{isStep3}}" hint-placeholder-val="{{false}}">
+          <section aria-labelledby="co-3" style="display: flex; flex-direction: column; gap: 24px;">
+            <div>
+              <h1 id="co-3" class="t-h2">How would you like to pay?</h1>
+              <p class="t-muted" style="margin-top: 6px;">Card and net banking payments finish on <span class="ph">[GATEWAY NAME]</span>’s secure page. We never see your card number.</p>
+            </div>
+            <fieldset style="border: 0; padding: 0; margin: 0; display: grid; gap: 10px;">
+              <legend class="sr-only">Payment method</legend>
+              <sc-for list="{{methods}}" as="m" hint-placeholder-count="4">
+                <label class="choice {{m.cls}}">
+                  <input type="radio" name="pay" value="{{m.id}}" checked="{{m.on}}" disabled="{{m.off}}" onChange="{{m.pick}}">
+                  <span style="flex: 1; min-width: 0;"><b class="t-strong">{{m.label}}</b><br><span class="t-sm t-muted">{{m.sub}}</span></span>
+                </label>
+              </sc-for>
+            </fieldset>
+            <sc-if value="{{isUpi}}" hint-placeholder-val="{{true}}">
+              <div class="field" style="max-width: 420px;">
+                <label for="co-upi" class="label">UPI ID</label>
+                <input id="co-upi" class="input" type="text" name="upi" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Like simran@okaxis…" value="{{upi}}" onChange="{{onUpi}}" aria-invalid="{{upiInvalid}}" aria-describedby="co-upi-msg">
+                <p id="co-upi-msg" aria-live="polite"><sc-if value="{{upiBad}}" hint-placeholder-val="{{false}}"><span class="error">A UPI ID looks like name@bank. Check what’s after the @.</span></sc-if><sc-if value="{{upiIdle}}" hint-placeholder-val="{{true}}"><span class="hint">You’ll approve the payment in your UPI app.</span></sc-if></p>
+              </div>
+            </sc-if>
+            <sc-if value="{{isBank}}" hint-placeholder-val="{{false}}"><p class="t-sm" style="padding: 14px 16px; border-radius: var(--r-md); background: var(--muted-bg);">We’ll show our bank details after you place the order. Your slot and stock stay held for <span class="ph">[HOLD WINDOW]</span> while the transfer arrives.</p></sc-if>
+            <sc-if value="{{isCod}}" hint-placeholder-val="{{false}}"><p class="t-sm" style="padding: 14px 16px; border-radius: var(--r-md); background: var(--muted-bg);">We’ll send a code to +91 98765 43210 to confirm this order before we pack it. Keep {{totalText}} ready, or pay the rider by UPI.</p></sc-if>
+            <label class="check"><input type="checkbox" name="gst" checked="{{gst}}" onChange="{{onGst}}">I need a GST invoice for my business</label>
+            <sc-if value="{{gst}}" hint-placeholder-val="{{false}}">
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px 20px;">
+                <div class="field"><label for="co-biz" class="label">Business name</label><input id="co-biz" class="input" type="text" name="organization" autocomplete="organization" placeholder="Like Kaur Dhaba…"></div>
+                <div class="field"><label for="co-gstin" class="label">GSTIN</label><input id="co-gstin" class="input num" type="text" name="gstin" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="15" placeholder="15 characters, like 04ABCDE1234F1Z5…"></div>
+              </div>
+            </sc-if>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+              <button type="button" class="btn btn-primary btn-lg" onClick="{{next}}">Review order</button>
+              <button type="button" class="btn btn-ghost btn-lg" onClick="{{back}}">Back</button>
+            </div>
+          </section>
+        </sc-if>
+
+        <sc-if value="{{isStep4}}" hint-placeholder-val="{{false}}">
+          <section aria-labelledby="co-4" style="display: flex; flex-direction: column; gap: 24px;">
+            <h1 id="co-4" class="t-h2">Check and place your order</h1>
+            <dl class="card" style="padding: 4px 20px;">
+              <div style="display: flex; flex-wrap: wrap; gap: 6px 16px; padding-block: 16px; border-bottom: 1px solid var(--line);"><dt class="t-sm t-muted" style="width: 120px;">Deliver to</dt><dd style="flex: 1; min-width: 200px;">{{addressLine}}</dd><button type="button" class="btn btn-ghost btn-sm" onClick="{{go1}}">Edit</button></div>
+              <div style="display: flex; flex-wrap: wrap; gap: 6px 16px; padding-block: 16px; border-bottom: 1px solid var(--line);"><dt class="t-sm t-muted" style="width: 120px;">Slot</dt><dd style="flex: 1; min-width: 200px;" class="num">{{slotLabel}}</dd><button type="button" class="btn btn-ghost btn-sm" onClick="{{go2}}">Edit</button></div>
+              <div style="display: flex; flex-wrap: wrap; gap: 6px 16px; padding-block: 16px;"><dt class="t-sm t-muted" style="width: 120px;">Payment</dt><dd style="flex: 1; min-width: 200px;">{{methodLabel}}</dd><button type="button" class="btn btn-ghost btn-sm" onClick="{{go3}}">Edit</button></div>
+            </dl>
+            <fieldset style="border: 0; padding: 0; margin: 0; display: grid; gap: 10px;">
+              <legend class="label" style="margin-bottom: 4px;">If an item runs short while we pack</legend>
+              <p class="hint" style="margin-bottom: 6px;">We never swap an item without asking you.</p>
+              <label class="choice {{shortRefundCls}}"><input type="radio" name="short" value="refund" checked="{{shortRefund}}" onChange="{{pickRefund}}"><span><b class="t-strong">Refund the missing item</b><br><span class="t-sm t-muted">Deliver the rest in your slot.</span></span></label>
+              <label class="choice {{shortCallCls}}"><input type="radio" name="short" value="call" checked="{{shortCall}}" onChange="{{pickCall}}"><span><b class="t-strong">Call me first</b><br><span class="t-sm t-muted">If we can’t reach you, we refund the missing item.</span></span></label>
+            </fieldset>
+            <label class="check"><input type="checkbox" name="terms" checked="{{terms}}" onChange="{{onTerms}}" aria-invalid="{{termsInvalid}}" aria-describedby="co-terms-msg"><span>I agree to the <a href="Terms.dc.html">terms of service</a> and the <a href="Cancellation.dc.html">cancellation and replacement policy</a>.</span></label>
+            <p id="co-terms-msg" aria-live="polite"><sc-if value="{{termsError}}" hint-placeholder-val="{{false}}"><span class="error">Tick the box to agree to the terms before placing your order.</span></sc-if></p>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+              <button type="button" class="btn btn-primary btn-lg" onClick="{{place}}" aria-busy="{{placing}}">
+                <sc-if value="{{isPlacing}}" hint-placeholder-val="{{false}}"><span class="gb-spinner" aria-hidden="true" style="width: 18px; height: 18px; border-radius: 50%; border: 2.5px solid currentColor; border-right-color: transparent; animation: gb-spin 800ms linear infinite;"></span>Placing order…</sc-if>
+                <sc-if value="{{notPlacing}}" hint-placeholder-val="{{true}}">Place order · {{totalText}}</sc-if>
+              </button>
+              <button type="button" class="btn btn-ghost btn-lg" onClick="{{back}}">Back</button>
+            </div>
+          </section>
+        </sc-if>
+
+        <sc-if value="{{isStep5}}" hint-placeholder-val="{{false}}">
+          <section aria-labelledby="co-5" style="display: flex; flex-direction: column; gap: 28px;">
+            <div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start;">
+              <span class="gb-pop" aria-hidden="true" style="width: 64px; height: 64px; border-radius: 50%; background: var(--accent); color: var(--on-accent); display: inline-flex; align-items: center; justify-content: center; animation: gb-pop 320ms ease-out both;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span>
+              <h1 id="co-5" class="t-h1">Order placed. Thank you, Simran.</h1>
+              <p class="t-lead">Order <b class="t-strong num">GB-24871</b> arrives <b class="t-strong num">{{slotLabel}}</b> at {{addressShort}}.</p>
+            </div>
+            <div class="card" style="padding: 24px;">
+              <h2 class="t-h4">What happens next</h2>
+              <ol style="margin-top: 16px; display: grid; gap: 16px;">
+                <li style="display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 12px;"><span style="width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: var(--on-accent); display: inline-flex; align-items: center; justify-content: center;"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"></path></svg></span><p><b class="t-strong">Order confirmed</b><br><span class="t-sm t-muted">{{payStatus}}</span></p></li>
+                <li style="display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 12px;"><span style="width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--line-strong);"></span><p><b class="t-strong">Packed</b><br><span class="t-sm t-muted">If anything runs short, we’ll {{shortText}}.</span></p></li>
+                <li style="display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 12px;"><span style="width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--line-strong);"></span><p><b class="t-strong">Out for delivery</b><br><span class="t-sm t-muted">We message you on WhatsApp when the rider leaves.</span></p></li>
+              </ol>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+              <a href="Account-orders.dc.html" class="btn btn-ink btn-lg">Track this order</a>
+              <a href="Main.dc.html" class="btn btn-outline btn-lg">Continue shopping</a>
+            </div>
+            <form onSubmit="{{saveBox}}" noValidate class="well" style="padding: 20px 24px; display: flex; flex-direction: column; gap: 12px;">
+              <h2 class="t-h4">Buy this again next week?</h2>
+              <sc-if value="{{boxNotSaved}}" hint-placeholder-val="{{true}}">
+                <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end;">
+                  <div class="field" style="flex: 1 1 240px;"><label for="co-box" class="label">Save this basket as a Farm Box</label><input id="co-box" class="input" type="text" name="box" autocomplete="off" placeholder="Like “Weekly basics”…" value="{{boxName}}" onChange="{{onBoxName}}"></div>
+                  <button type="submit" class="btn btn-soft">Save Farm Box</button>
+                </div>
+              </sc-if>
+              <sc-if value="{{boxSaved}}" hint-placeholder-val="{{false}}"><p class="ok" role="status" style="font-size: 15px;">Saved as “{{boxNameShown}}”. Find it under Farm Box in your account.</p></sc-if>
+            </form>
+          </section>
+        </sc-if>
+      </div>
+
+      <aside aria-labelledby="co-sum" style="flex: 1 1 340px; min-width: 0;">
+        <div class="card" style="padding: 22px; display: flex; flex-direction: column; gap: 16px;">
+          <h2 id="co-sum" class="t-h4">Order summary</h2>
+          <ul style="display: grid; gap: 12px;">
+            <sc-for list="{{lines}}" as="l" hint-placeholder-count="6">
+              <li style="display: flex; align-items: center; gap: 12px;">
+                <span class="well" style="flex: none; width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; border-radius: var(--r-sm);"><img src="{{l.img}}" alt="" width="32" height="32"></span>
+                <span class="t-sm" style="flex: 1; min-width: 0;"><span class="t-strong">{{l.name}}</span><br><span class="t-muted num">{{l.detail}}</span></span>
+                <span class="t-sm price">{{l.totalText}}</span>
+              </li>
+            </sc-for>
+          </ul>
+          <dl class="num t-sm" style="display: grid; gap: 8px; padding-top: 14px; border-top: 1px solid var(--line);">
+            <div style="display: flex; justify-content: space-between;"><dt>Items</dt><dd>{{subText}}</dd></div>
+            <div style="display: flex; justify-content: space-between; color: var(--accent-text);"><dt>Coupon FRESH10</dt><dd>−{{couponText}}</dd></div>
+            <div style="display: flex; justify-content: space-between;"><dt>Delivery</dt><dd>Free</dd></div>
+            <div style="display: flex; justify-content: space-between; padding-top: 10px; border-top: 1px solid var(--line); font-size: 17px; font-weight: 700; color: var(--text-strong);"><dt>Total</dt><dd>{{totalText}}</dd></div>
+          </dl>
+          <sc-if value="{{hasSlot}}" hint-placeholder-val="{{false}}"><p class="t-sm" style="display: flex; gap: 8px; align-items: center;"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="color: var(--accent-text);"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg><span><b class="t-strong num">{{slotLabel}}</b></span></p></sc-if>
+          <p class="t-xs t-muted">Prices include taxes. Sample prices.</p>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"startStep":{"editor":"enum","options":["1","2","3","4","5"],"default":"1"},"$preview":{"width":1440,"height":1700}}'>
+class Component extends DCLogic {
+  focusError(sel) {
+    setTimeout(() => {
+      const el = document.querySelector(sel || '.gb [aria-invalid="true"]');
+      if (el && el.focus) el.focus();
+    }, 0);
+  }
+
+  constructor(...args) {
+    super(...args);
+    const start = Number(this.props.startStep || 1);
+    this.state = {
+      step: start,
+      address: start > 1 ? 'home' : 'home',
+      day: 'today',
+      slot: start > 1 && start !== 2 ? 'today-4' : (start === 2 ? 'today-4' : ''),
+      method: 'upi',
+      upi: start > 3 ? 'simran@okaxis' : '',
+      upiBad: false,
+      gst: false,
+      short: 'refund',
+      terms: start === 5,
+      termsError: false,
+      addrError: false,
+      slotError: false,
+      placing: false,
+      boxName: '',
+      boxSaved: false
+    };
+  }
+
+  renderVals() {
+    const s = this.state;
+    const dark = this.props.dark ?? false;
+    const B = '/_blob/';
+    const rupees = (n) => '₹' + Number(n).toLocaleString('en-IN');
+    const addresses = [
+      { id: 'home', label: 'Home', city: 'Chandigarh', line: 'House 1234, Sector 22-B, Chandigarh 160022', note: 'Last used 5 days ago' },
+      { id: 'work', label: 'Work', city: 'Mohali', line: 'SCO 45, Phase 7 market, Mohali 160062', note: 'Weekdays only' }
+    ];
+    const dayDefs = [['today', 'Today'], ['tomorrow', 'Tomorrow'], ['thu', 'Fri 16 Oct']];
+    const slotDefs = {
+      today: [['today-4', '4–6 PM', 'open'], ['today-6', '6–8 PM', '3 left'], ['today-8', '8–10 PM', 'full']],
+      tomorrow: [['tom-6', '6–8 AM', 'full'], ['tom-8', '8–10 AM', 'open'], ['tom-10', '10 AM–12 PM', 'open'], ['tom-4', '4–6 PM', '2 left'], ['tom-6p', '6–8 PM', 'open']],
+      thu: [['thu-8', '8–10 AM', 'open'], ['thu-4', '4–6 PM', 'open'], ['thu-6', '6–8 PM', 'open']]
+    };
+    const dayName = { today: 'Today', tomorrow: 'Tomorrow', thu: 'Friday 16 October' };
+    let slotLabel = '';
+    Object.keys(slotDefs).forEach((d) => slotDefs[d].forEach((x) => { if (x[0] === s.slot) slotLabel = dayName[d] + ', ' + x[1]; }));
+    const methods = [
+      { id: 'upi', label: 'UPI', sub: 'Google Pay, PhonePe, Paytm or any UPI app' },
+      { id: 'card', label: 'Card or net banking', sub: 'Visa, Mastercard, RuPay and all major banks' },
+      { id: 'cod', label: 'Cash on delivery', sub: 'Available for this order. We confirm by a code first.' },
+      { id: 'bank', label: 'Bank transfer', sub: 'Best for large wholesale orders' }
+    ];
+    const methodLabel = (methods.find((m) => m.id === s.method) || methods[0]).label + (s.method === 'upi' && s.upi ? ' · ' + s.upi : '');
+    const linesDef = [
+      ['Tomato', '1 kg × 2', 80, '90234e112587bcb63afe69728f9038ca'],
+      ['Kinnow', '1 kg × 1', 70, 'fd2079b5997095279838843a25a8bb23'],
+      ['Apple, Shimla', '1 kg × 1', 140, '8581b06e9c225f563a590d141aab53d4'],
+      ['Coriander', '1 bunch × 1', 10, '591d27931e70b0646c12012b692f0728'],
+      ['Farm Box: Weekly basics', '4 items', 140, '2c8a148c213c5f35e32717ac2f4aff86'],
+      ['Onion, wholesale', '10 kg × 1', 400, '1a9a9f3e89da774510c12b4ced02cb98']
+    ];
+    const sub = linesDef.reduce((n, l) => n + l[2], 0);
+    const coupon = Math.round((sub - 400) * 0.1);
+    const total = sub - coupon;
+    const stepNames = ['Address', 'Delivery slot', 'Payment', 'Review'];
+    const goTo = (n) => this.setState({ step: n, termsError: false });
+    const next = () => {
+      if (s.step === 1 && !s.address) { this.setState({ addrError: true }); return this.focusError('input[name="address"]'); }
+      if (s.step === 2 && !s.slot) { this.setState({ slotError: true }); return this.focusError('input[name="slot"]:not(:disabled)'); }
+      if (s.step === 3 && s.method === 'upi' && !/^[\w.\-]{2,}@[a-z]{2,}$/i.test(s.upi.trim())) { this.setState({ upiBad: true }); return this.focusError('#co-upi'); }
+      this.setState({ step: s.step + 1, addrError: false, slotError: false, upiBad: false });
+    };
+    const addr = addresses.find((a) => a.id === s.address) || addresses[0];
+    return {
+      dark,
+      themeClass: dark ? 'dark' : '',
+      inFlow: s.step < 5,
+      isStep1: s.step === 1, isStep2: s.step === 2, isStep3: s.step === 3, isStep4: s.step === 4, isStep5: s.step === 5,
+      steps: stepNames.map((label, i) => {
+        const n = i + 1;
+        const done = n < s.step;
+        const cur = n === s.step;
+        return {
+          num: String(n), label, current: cur ? 'step' : undefined, canJump: done, noJump: !done, jump: () => goTo(n),
+          bar: done || cur ? 'var(--accent)' : 'var(--line-strong)',
+          weight: cur ? '600' : '500', color: cur ? 'var(--text-strong)' : 'var(--text-muted)'
+        };
+      }),
+      next,
+      back: () => goTo(Math.max(1, s.step - 1)),
+      go1: () => goTo(1), go2: () => goTo(2), go3: () => goTo(3),
+      addresses: addresses.map((a) => ({ ...a, on: s.address === a.id, cls: s.address === a.id ? 'on' : '', pick: () => this.setState({ address: a.id, addrError: false }) })),
+      addrError: s.addrError,
+      days: dayDefs.map((d) => ({ label: d[1], pressed: s.day === d[0] ? 'true' : 'false', pick: () => this.setState({ day: d[0] }) })),
+      slots: slotDefs[s.day].map((x) => {
+        const full = x[2] === 'full';
+        const on = s.slot === x[0];
+        return {
+          id: x[0], label: x[1], full, on, cls: full ? 'off' : (on ? 'on' : ''),
+          note: full ? 'Full' : (x[2] === 'open' ? 'Open' : x[2]),
+          noteColor: full ? 'var(--text-muted)' : (x[2] === 'open' ? 'var(--success)' : 'var(--warning)'),
+          pick: () => this.setState({ slot: x[0], slotError: false })
+        };
+      }),
+      slotError: s.slotError,
+      slotHeld: !!s.slot,
+      hasSlot: !!s.slot,
+      slotLabel: slotLabel || 'No slot chosen yet',
+      methods: methods.map((m) => ({ ...m, on: s.method === m.id, off: false, cls: s.method === m.id ? 'on' : '', pick: () => this.setState({ method: m.id, upiBad: false }) })),
+      isUpi: s.method === 'upi', isBank: s.method === 'bank', isCod: s.method === 'cod',
+      upi: s.upi,
+      onUpi: (e) => this.setState({ upi: e.target.value, upiBad: false }),
+      upiBad: s.upiBad,
+      upiIdle: !s.upiBad,
+      upiInvalid: s.upiBad ? 'true' : 'false',
+      gst: s.gst,
+      onGst: (e) => this.setState({ gst: e.target.checked }),
+      addressLine: addr.label + ' · ' + addr.line,
+      addressShort: addr.line.split(',').slice(0, 2).join(','),
+      methodLabel,
+      shortRefund: s.short === 'refund', shortCall: s.short === 'call',
+      shortRefundCls: s.short === 'refund' ? 'on' : '', shortCallCls: s.short === 'call' ? 'on' : '',
+      pickRefund: () => this.setState({ short: 'refund' }), pickCall: () => this.setState({ short: 'call' }),
+      shortText: s.short === 'refund' ? 'refund the missing item' : 'call you first',
+      terms: s.terms,
+      onTerms: (e) => this.setState({ terms: e.target.checked, termsError: false }),
+      termsError: s.termsError,
+      termsInvalid: s.termsError ? 'true' : 'false',
+      placing: s.placing ? 'true' : 'false',
+      isPlacing: s.placing, notPlacing: !s.placing,
+      place: () => {
+        if (!s.terms) { this.setState({ termsError: true }); return this.focusError('input[name="terms"]'); }
+        if (s.placing) return;
+        this.setState({ placing: true });
+        setTimeout(() => this.setState({ placing: false, step: 5 }), 900);
+      },
+      payStatus: s.method === 'cod' ? 'Pay ' + rupees(total) + ' when it arrives. We’ll text a code to confirm first.' : (s.method === 'bank' ? 'Waiting for your bank transfer. Details are in your email.' : 'Paid ' + rupees(total) + ' by ' + (s.method === 'upi' ? 'UPI' : 'card') + '.'),
+      lines: linesDef.map((l) => ({ name: l[0], detail: l[1], totalText: rupees(l[2]), img: B + l[3] })),
+      subText: rupees(sub),
+      couponText: rupees(coupon),
+      totalText: rupees(total),
+      boxName: s.boxName,
+      onBoxName: (e) => this.setState({ boxName: e.target.value }),
+      saveBox: (e) => { e.preventDefault(); this.setState({ boxSaved: true }); },
+      boxSaved: s.boxSaved,
+      boxNotSaved: !s.boxSaved,
+      boxNameShown: s.boxName.trim() || 'My basket'
+    };
+  }
+}
+</script>
+</body>
+</html>
