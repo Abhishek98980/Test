@@ -112,7 +112,7 @@ body{margin:0}
             </dl>
             <p class="t-xs t-muted">Prices include taxes. Wholesale lines don’t take coupons.</p>
 
-            <form onSubmit="{{applyCoupon}}" noValidate class="field">
+            <form onSubmit="{{applyCoupon}}" novalidate="" class="field">
               <label for="cart-coupon" class="label">Coupon code <span class="opt">(optional)</span></label>
               <div style="display: flex; gap: 8px;">
                 <input id="cart-coupon" class="input" type="text" name="coupon" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Like FRESH10…" value="{{code}}" onChange="{{onCode}}" aria-invalid="{{codeInvalid}}" aria-describedby="cart-coupon-msg">
@@ -138,15 +138,22 @@ body{margin:0}
 
     <section aria-labelledby="cart-forgot" style="margin-top: 64px;">
       <h2 id="cart-forgot" class="t-h2">Often forgotten</h2>
-      <ul style="margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(196px, 1fr)); gap: 16px;">
+      <ul class="cards" style="margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(196px, 1fr)); gap: 16px;">
         <sc-for list="{{forgotten}}" as="p" hint-placeholder-count="5">
           <li style="min-width: 0;"><dc-import name="ProductCard" item="{{p}}" dark="{{dark}}" hint-size="100%,440px"></dc-import></li>
         </sc-for>
       </ul>
     </section>
+
+    <sc-if value="{{hasItems}}" hint-placeholder-val="{{true}}">
+      <div class="m-bar" role="region" aria-label="Basket total">
+        <p class="num"><span class="t-xs t-muted">Total · {{countText}}</span><br><b class="price" style="font-size: 19px;">{{totalText}}</b></p>
+        <a href="Checkout.dc.html" class="btn btn-primary" aria-disabled="{{checkoutDisabled}}">Choose a slot</a>
+      </div>
+    </sc-if>
   </main>
 
-  <dc-import name="Footer" dark="{{dark}}" hint-size="100%,760px"></dc-import>
+  
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":3000}}'>

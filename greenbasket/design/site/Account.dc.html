@@ -44,7 +44,7 @@ body{margin:0}
               <p class="t-sm t-muted num">+91 98765 43210</p>
             </div>
           </div>
-          <nav aria-label="Account sections" class="acct-nav">
+          <nav aria-label="Account sections" class="acct-nav rail-nav">
             <ul style="display: grid; gap: 2px;">
               <sc-for list="{{tabs}}" as="t" hint-placeholder-count="5">
                 <li>
@@ -60,7 +60,7 @@ body{margin:0}
           <hr class="hr">
           <button type="button" class="btn btn-ghost btn-sm" style="justify-content: flex-start; padding: 0 14px;" onClick="{{signOut}}">Log out</button>
         </div>
-        <div class="well" style="padding: 16px 18px;">
+        <div class="well hide-tab" style="padding: 16px 18px;">
           <p class="t-sm"><b class="t-strong">Need a hand?</b> WhatsApp us at <span class="ph">[SUPPORT PHONE]</span>, <span class="ph">[SUPPORT HOURS]</span>.</p>
           <a href="Contact.dc.html" class="t-sm" style="display: inline-block; margin-top: 6px; font-weight: 600;">Contact us</a>
         </div>

@@ -113,7 +113,7 @@ body{margin:0}
           </ul>
         </div>
 
-        <aside aria-labelledby="fb-box" style="flex: 1 1 360px; min-width: 0; position: sticky; top: 24px;">
+        <aside aria-labelledby="fb-box" class="fb-aside" style="flex: 1 1 360px; min-width: 0; position: sticky; top: 24px;">
           <div class="card-raised" style="padding: 22px; display: flex; flex-direction: column; gap: 16px;">
             <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px;">
               <h2 id="fb-box" class="t-h3">Your box</h2>
@@ -228,6 +228,13 @@ body{margin:0}
         <details class="acc"><summary>Can a box arrive every week by itself?</summary><div class="acc-body"><p>Yes, through a <a href="Subscriptions.dc.html">subscription</a>. Pick a plan and fill it with the same items each week.</p></div></details>
       </div>
     </section>
+
+    <sc-if value="{{hasPicks}}" hint-placeholder-val="{{true}}">
+      <div class="m-bar" role="region" aria-label="Your box" style="margin: 0;">
+        <p class="num"><span class="t-xs t-muted">Your box · {{countText}}</span><br><b class="price" style="font-size: 19px;">{{totalText}}</b></p>
+        <a href="#fb-box" class="btn btn-primary">Review box</a>
+      </div>
+    </sc-if>
   </main>
 
   <dc-import name="Footer" dark="{{dark}}" hint-size="100%,760px"></dc-import>

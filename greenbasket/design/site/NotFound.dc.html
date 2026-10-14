@@ -64,7 +64,7 @@ body{margin:0}
         <h2 id="nf-season" class="t-h2">In season now</h2>
         <a href="Main.dc.html#shop" class="t-sm" style="font-weight: 600;">See everything</a>
       </div>
-      <ul style="margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px;">
+      <ul class="cards" style="margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px;">
         <sc-for list="{{season}}" as="p" hint-placeholder-count="5">
           <li style="min-width: 0;"><dc-import name="ProductCard" item="{{p}}" dark="{{dark}}" hint-size="100%,440px"></dc-import></li>
         </sc-for>

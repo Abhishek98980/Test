@@ -462,13 +462,13 @@
     },
     "map": {
       "x": -1007,
-      "y": -820,
+      "y": -1000,
       "w": 1200,
-      "maxH": 640,
+      "maxH": 820,
       "size": "l",
       "fill": "green",
       "page": "site",
-      "text": "Where to find every screen\n• Pages (this page): Home, Product, Cart, Farm Box, Subscriptions, Wholesale, About, Contact us, FAQ, 404\n• Log in, sign up and checkout: Log in 1–3, Sign up 1–4, Checkout 1–5\n• My account: Overview, Orders, Subscription, Profile and settings\n• Policies: Cancellation and replacement, Terms, Privacy\n• Components: Header, Footer, Product card, Form kit\n• Dark mode: 8 screens in dark\nSwitch pages from the canvas page list. Press Play on Home to click through: Log in and Sign up sit in the header."
+      "text": "Where to find every screen\n• Pages (this page): Home, Product, Cart, Farm Box, Subscriptions, Wholesale, About, Contact us, FAQ, 404\n• Log in, sign up and checkout: Log in 1–3, Sign up 1–4, Checkout 1–5\n• My account: Overview, Orders, Subscription, Profile and settings\n• Policies: Cancellation and replacement, Terms, Privacy\n• Components: Header, Footer, Product card, Form kit\n• Dark mode: 8 screens in dark\nEvery screen at other sizes, in its own canvas:\n• Phone: claude.ai/artifact/Gtv8DdbE4oRyDj6h1yzR4q\n• Tablet: claude.ai/artifact/PgNaQc3mCsYksMoqtnFqjV\n• Dark mode, desktop and phone: claude.ai/artifact/G5kp43npf6r3Kq6J84mVdi\nSwitch pages from the canvas page list. Press Play on Home to click through: Log in and Sign up sit in the header."
     }
   },
   "order": [

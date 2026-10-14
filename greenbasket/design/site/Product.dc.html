@@ -104,7 +104,7 @@ body{margin:0}
     <section aria-labelledby="pd-details" style="display: flex; flex-wrap: wrap; gap: 24px 64px; padding-block: 48px; border-top: 1px solid var(--line);">
       <h2 id="pd-details" class="t-h2" style="flex: 1 1 260px;">About this product</h2>
       <div style="flex: 2 1 560px; min-width: 0;">
-        <details class="acc" open><summary>Description</summary><div class="acc-body"><p>Everyday hybrid tomatoes, picked ripe and firm so they hold up in curries and keep two or three days on the counter. Sold in fixed packs: the price you see is the price you pay.</p></div></details>
+        <details class="acc" open=""><summary>Description</summary><div class="acc-body"><p>Everyday hybrid tomatoes, picked ripe and firm so they hold up in curries and keep two or three days on the counter. Sold in fixed packs: the price you see is the price you pay.</p></div></details>
         <details class="acc"><summary>Storage and freshness</summary><div class="acc-body"><p>Keep at room temperature, stem side down, out of direct sun. Refrigerate only once fully ripe, and use within 2 days of refrigerating.</p></div></details>
         <details class="acc"><summary>Pack and weight</summary><div class="acc-body"><p>Each pack is weighed before it leaves us and is never lighter than the weight on the label. Count varies with size, usually 8 to 10 tomatoes per kilo.</p></div></details>
         <details class="acc"><summary>Something wrong with it?</summary><div class="acc-body"><p>Report short, damaged or spoilt items from your order page within <span class="ph">[REFUND WINDOW]</span> of delivery. Our support team reviews every request. <a href="Cancellation.dc.html">Read the cancellation and replacement policy</a>.</p></div></details>
@@ -124,7 +124,7 @@ body{margin:0}
             <button type="button" class="btn btn-ink" style="margin-top: 18px;" onClick="{{openReview}}" aria-expanded="false" aria-controls="pd-review-form">Write a review</button>
           </sc-if>
           <sc-if value="{{reviewOpen}}" hint-placeholder-val="{{false}}">
-            <form id="pd-review-form" onSubmit="{{submitReview}}" noValidate style="margin-top: 20px; display: grid; gap: 18px;">
+            <form id="pd-review-form" onSubmit="{{submitReview}}" novalidate="" style="margin-top: 20px; display: grid; gap: 18px;">
               <fieldset style="border: 0; padding: 0; margin: 0;">
                 <legend class="label" style="margin-bottom: 8px;">Your rating</legend>
                 <div style="display: flex; gap: 6px;">
@@ -159,7 +159,7 @@ body{margin:0}
 
     <section aria-labelledby="pd-pair" style="padding-block: 48px; border-top: 1px solid var(--line);">
       <h2 id="pd-pair" class="t-h2">Goes well with tomatoes</h2>
-      <ul style="margin-top: 22px; display: grid; grid-template-columns: repeat(auto-fill, minmax(196px, 1fr)); gap: 16px;">
+      <ul class="cards" style="margin-top: 22px; display: grid; grid-template-columns: repeat(auto-fill, minmax(196px, 1fr)); gap: 16px;">
         <sc-for list="{{pairs}}" as="p" hint-placeholder-count="5">
           <li style="min-width: 0;"><dc-import name="ProductCard" item="{{p}}" dark="{{dark}}" hint-size="100%,440px"></dc-import></li>
         </sc-for>
@@ -172,7 +172,7 @@ body{margin:0}
         <button type="button" class="btn btn-ghost btn-sm" onClick="{{clearRecent}}">Clear history</button>
       </div>
       <sc-if value="{{hasRecent}}" hint-placeholder-val="{{true}}">
-        <ul style="margin-top: 22px; display: grid; grid-template-columns: repeat(auto-fill, minmax(196px, 1fr)); gap: 16px;">
+        <ul class="cards" style="margin-top: 22px; display: grid; grid-template-columns: repeat(auto-fill, minmax(196px, 1fr)); gap: 16px;">
           <sc-for list="{{recent}}" as="p" hint-placeholder-count="4">
             <li style="min-width: 0;"><dc-import name="ProductCard" item="{{p}}" dark="{{dark}}" hint-size="100%,440px"></dc-import></li>
           </sc-for>
@@ -180,9 +180,14 @@ body{margin:0}
       </sc-if>
       <sc-if value="{{noRecent}}" hint-placeholder-val="{{false}}"><p class="t-muted" style="margin-top: 16px;">Products you look at will show up here.</p></sc-if>
     </section>
+
+    <div class="m-bar" role="region" aria-label="Add to basket">
+      <p class="num"><span class="t-xs t-muted">Tomato · {{packText}}</span><br><b class="price" style="font-size: 19px;">{{priceText}}</b></p>
+      <button type="button" class="btn btn-primary" onClick="{{add}}">Add {{qty}} · {{lineText}}</button>
+    </div>
   </main>
 
-  <dc-import name="Footer" dark="{{dark}}" hint-size="100%,760px"></dc-import>
+  
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"dark":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":4200}}'>
@@ -249,6 +254,7 @@ class Component extends DCLogic {
       inc: () => this.setState({ qty: Math.min(20, s.qty + 1) }),
       dec: () => this.setState({ qty: Math.max(1, s.qty - 1) }),
       lineText: rupees(pack.price * s.qty),
+      packText: pack.label,
       add: () => this.setState((st) => ({ cart: { ...st.cart, tomato: (st.cart.tomato || 0) + st.qty }, added: true })),
       added: s.added,
       inBasketText: tomatoIn + ' × ' + pack.label + ' in your basket.',

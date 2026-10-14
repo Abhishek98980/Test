@@ -24,7 +24,7 @@ body{margin:0}
           <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
           <span>Next delivery slot: <b style="font-weight: 600;">today, 4–6&nbsp;PM</b> <span style="color: var(--on-band-muted);">(example)</span></span>
         </span>
-        <span style="display: inline-flex; flex-wrap: wrap; gap: 4px 20px;">
+        <span class="hd-band-links" style="display: inline-flex; flex-wrap: wrap; gap: 4px 20px;">
           <a href="Wholesale.dc.html" style="color: var(--on-band); text-decoration: none;">Wholesale rates for everyone</a>
           <a href="Contact.dc.html" style="color: var(--on-band); text-decoration: none;">Help and contact</a>
         </span>
@@ -33,19 +33,19 @@ body{margin:0}
   </sc-if>
 
   <div class="chrome" style="border-bottom: 1px solid var(--line);">
-    <div class="wrap" style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; padding-block: 14px;">
+    <div class="wrap hd-row" style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; padding-block: 14px;">
       <a href="Main.dc.html" aria-label="Greeen Basket home" translate="no" style="display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text-strong);">
         <svg aria-hidden="true" width="34" height="34" viewBox="0 0 32 32"><path d="M16 2l12 7v14l-12 7-12-7V9z" style="fill: var(--accent);"></path><path d="M16 23c-5-2-7-7-5-12 5 0 8 4 5 12zm0 0c1-6 4-9 8-9 0 5-3 8-8 9z" style="fill: var(--on-accent);"></path></svg>
-        <span style="font-size: 20px; font-weight: 700; letter-spacing: -0.02em;">Greeen Basket</span>
+        <span class="hd-logo-text" style="font-size: 20px; font-weight: 700; letter-spacing: -0.02em;">Greeen Basket</span>
       </a>
 
       <sc-if value="{{full}}" hint-placeholder-val="{{true}}">
-        <button type="button" class="chip" style="min-height: 48px; padding: 0 16px 0 12px; gap: 8px;">
+        <button type="button" class="chip hd-deliver" style="min-height: 48px; padding: 0 16px 0 12px; gap: 8px;">
           <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-text);"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg>
           <span style="display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15;"><span class="t-xs t-muted">Deliver to</span><span class="num" style="font-weight: 600;">160022, Chandigarh</span></span>
         </button>
 
-        <form role="search" onSubmit="{{onSubmit}}" style="flex: 1 1 300px; position: relative; min-width: 0;">
+        <form role="search" class="hd-search" onSubmit="{{onSubmit}}" style="flex: 1 1 300px; position: relative; min-width: 0;">
           <label for="hd-q" class="sr-only">Search fruits and vegetables</label>
           <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="position: absolute; left: 16px; top: 14px; color: var(--text-muted); pointer-events: none;"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>
           <input id="hd-q" class="input input-pill" type="search" name="q" autocomplete="off" spellcheck="false" enterkeyhint="search" placeholder="Search “tomato”, “methi” or “kinnow”…" value="{{q}}" onChange="{{onQ}}" aria-controls="hd-suggest" aria-expanded="{{suggestExpanded}}" style="padding-left: 46px;">
@@ -64,30 +64,30 @@ body{margin:0}
       </sc-if>
 
       <sc-if value="{{minimal}}" hint-placeholder-val="{{false}}">
-        <span class="t-sm t-muted" style="display: inline-flex; align-items: center; gap: 8px; margin-left: 8px;">
+        <span class="t-sm t-muted hide-phone" style="display: inline-flex; align-items: center; gap: 8px; margin-left: 8px;">
           <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>
           Secure checkout
         </span>
       </sc-if>
 
-      <nav aria-label="Account and basket" style="display: flex; align-items: center; gap: 8px; margin-left: auto;">
+      <nav aria-label="Account and basket" class="hd-actions" style="display: flex; align-items: center; gap: 8px; margin-left: auto;">
         <sc-if value="{{full}}" hint-placeholder-val="{{true}}">
           <sc-if value="{{showAccount}}" hint-placeholder-val="{{true}}">
             <a href="Account.dc.html" class="btn btn-ghost btn-sm">
               <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"></path></svg>
-              Account
+              <span class="hd-label">Account</span>
             </a>
           </sc-if>
           <sc-if value="{{showLogin}}" hint-placeholder-val="{{false}}">
             <a href="Login.dc.html" class="btn btn-ghost btn-sm">
               <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"></path><path d="M10 16l4-4-4-4"></path><path d="M14 12H4"></path></svg>
-              Log in
+              <span class="hd-label">Log in</span>
             </a>
-            <a href="Signup.dc.html" class="btn btn-outline btn-sm">Sign up</a>
+            <a href="Signup.dc.html" class="btn btn-outline btn-sm hd-signup">Sign up</a>
           </sc-if>
           <a href="Cart.dc.html" class="btn btn-ink btn-sm" aria-label="{{cartLabel}}">
             <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h18l-2 10H5z"></path><path d="M8 10l4-6 4 6"></path></svg>
-            Basket
+            <span class="hd-label">Basket</span>
             <span class="badge badge-leaf num" style="min-width: 24px; justify-content: center;">{{cartCount}}</span>
           </a>
         </sc-if>
@@ -98,7 +98,7 @@ body{margin:0}
     </div>
 
     <sc-if value="{{full}}" hint-placeholder-val="{{true}}">
-      <nav aria-label="Departments" class="wrap" style="display: flex; flex-wrap: wrap; gap: 0 28px; overflow-x: auto;">
+      <nav aria-label="Departments" class="wrap hd-dept" style="display: flex; flex-wrap: wrap; gap: 0 28px; overflow-x: auto;">
         <sc-for list="{{nav}}" as="n" hint-placeholder-count="8">
           <a href="{{n.href}}" aria-current="{{n.current}}" style="display: inline-flex; align-items: center; min-height: 48px; border-bottom: 2px solid {{n.bar}}; margin-bottom: -1px; font-size: 15px; font-weight: {{n.weight}}; color: {{n.color}}; text-decoration: none; white-space: nowrap;">{{n.label}}</a>
         </sc-for>

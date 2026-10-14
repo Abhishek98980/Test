@@ -125,7 +125,7 @@ body{margin:0}
         <h2 id="deals-title" class="t-h2">This week’s deals</h2>
         <p class="t-sm t-muted">Deal prices hold until Sunday, or until stock runs out.</p>
       </div>
-      <ul style="display: grid; grid-template-columns: repeat(auto-fill, minmax(196px, 1fr)); gap: 16px;">
+      <ul class="cards" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(196px, 1fr)); gap: 16px;">
         <sc-for list="{{deals}}" as="p" hint-placeholder-count="4">
           <li style="min-width: 0;"><dc-import name="ProductCard" item="{{p}}" dark="{{dark}}" show-hindi="{{showHindi}}" hint-size="100%,440px"></dc-import></li>
         </sc-for>
@@ -173,7 +173,7 @@ body{margin:0}
             <h3 id="{{sec.hid}}" class="t-h3">{{sec.title}} <sc-if value="{{showHindi}}" hint-placeholder-val="{{true}}"><span class="hi t-muted" style="font-size: 16px; font-weight: 400; margin-left: 6px;">{{sec.hi}}</span></sc-if></h3>
             <span class="t-sm t-muted">{{sec.countText}}</span>
           </div>
-          <ul style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px;">
+          <ul class="cards" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px;">
             <sc-for list="{{sec.items}}" as="p" hint-placeholder-count="6">
               <li style="min-width: 0;"><dc-import name="ProductCard" item="{{p}}" dark="{{dark}}" show-hindi="{{showHindi}}" hint-size="100%,420px"></dc-import></li>
             </sc-for>

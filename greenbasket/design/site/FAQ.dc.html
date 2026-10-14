@@ -36,7 +36,7 @@ body{margin:0}
     </section>
 
     <section aria-label="Answers" class="wrap" style="padding-bottom: 56px; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 32px 56px;">
-      <nav aria-label="FAQ topics" class="cats" style="flex: 1 1 232px; min-width: 0; position: sticky; top: 24px;">
+      <nav aria-label="FAQ topics" class="cats rail-nav" style="flex: 1 1 232px; min-width: 0; position: sticky; top: 24px;">
         <ul style="display: grid; gap: 2px;">
           <sc-for list="{{cats}}" as="c" hint-placeholder-count="9">
             <li><button type="button" aria-pressed="{{c.on}}" onClick="{{c.pick}}"><span>{{c.label}}</span><span class="num t-muted" style="font-weight: 400; font-size: 13px;">{{c.count}}</span></button></li>

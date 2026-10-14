@@ -1,0 +1,390 @@
+{
+ "v": 3,
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-10-14T08:05:14Z"
+ },
+ "title": "Greeen Basket · Mobile",
+ "launch": {
+  "view": "canvas"
+ },
+ "boards": {
+  "Main.dc.html": {
+   "x": 0,
+   "y": 0,
+   "w": 390,
+   "h": 8000,
+   "title": "Home",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Product.dc.html": {
+   "x": 470,
+   "y": 0,
+   "w": 390,
+   "h": 5600,
+   "title": "Product page",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Cart.dc.html": {
+   "x": 940,
+   "y": 0,
+   "w": 390,
+   "h": 4200,
+   "title": "Cart",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "FarmBox.dc.html": {
+   "x": 1410,
+   "y": 0,
+   "w": 390,
+   "h": 8000,
+   "title": "Farm Box",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Subscriptions.dc.html": {
+   "x": 1880,
+   "y": 0,
+   "w": 390,
+   "h": 8000,
+   "title": "Subscriptions",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Wholesale.dc.html": {
+   "x": 2350,
+   "y": 0,
+   "w": 390,
+   "h": 8000,
+   "title": "Wholesale",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "About.dc.html": {
+   "x": 2820,
+   "y": 0,
+   "w": 390,
+   "h": 6400,
+   "title": "About",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Contact.dc.html": {
+   "x": 3290,
+   "y": 0,
+   "w": 390,
+   "h": 5800,
+   "title": "Contact us",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "FAQ.dc.html": {
+   "x": 3760,
+   "y": 0,
+   "w": 390,
+   "h": 5200,
+   "title": "FAQ",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "NotFound.dc.html": {
+   "x": 4230,
+   "y": 0,
+   "w": 390,
+   "h": 3200,
+   "title": "404 page",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Login.dc.html": {
+   "x": 0,
+   "y": 8640,
+   "w": 390,
+   "h": 1700,
+   "title": "Log in 1 · Mobile number or email",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Login-2.dc.html": {
+   "x": 470,
+   "y": 8640,
+   "w": 390,
+   "h": 1700,
+   "title": "Log in 2 · Enter code",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Login-3.dc.html": {
+   "x": 940,
+   "y": 8640,
+   "w": 390,
+   "h": 1700,
+   "title": "Log in 3 · Welcome back",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Signup.dc.html": {
+   "x": 1410,
+   "y": 8640,
+   "w": 390,
+   "h": 1800,
+   "title": "Sign up 1 · Mobile number or email",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Signup-2.dc.html": {
+   "x": 1880,
+   "y": 8640,
+   "w": 390,
+   "h": 1700,
+   "title": "Sign up 2 · Verify code",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Signup-3.dc.html": {
+   "x": 2350,
+   "y": 8640,
+   "w": 390,
+   "h": 2200,
+   "title": "Sign up 3 · Details and address",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Signup-4.dc.html": {
+   "x": 2820,
+   "y": 8640,
+   "w": 390,
+   "h": 2000,
+   "title": "Sign up 4 · Welcome",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Checkout.dc.html": {
+   "x": 0,
+   "y": 11480,
+   "w": 390,
+   "h": 2200,
+   "title": "Checkout 1 · Address",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Checkout-2.dc.html": {
+   "x": 470,
+   "y": 11480,
+   "w": 390,
+   "h": 2200,
+   "title": "Checkout 2 · Delivery slot",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Checkout-3.dc.html": {
+   "x": 940,
+   "y": 11480,
+   "w": 390,
+   "h": 2200,
+   "title": "Checkout 3 · Payment",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Checkout-4.dc.html": {
+   "x": 1410,
+   "y": 11480,
+   "w": 390,
+   "h": 2200,
+   "title": "Checkout 4 · Review",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Checkout-5.dc.html": {
+   "x": 1880,
+   "y": 11480,
+   "w": 390,
+   "h": 2200,
+   "title": "Checkout 5 · Order placed",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Account.dc.html": {
+   "x": 0,
+   "y": 14320,
+   "w": 390,
+   "h": 3800,
+   "title": "My account · Overview",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Account-orders.dc.html": {
+   "x": 470,
+   "y": 14320,
+   "w": 390,
+   "h": 5800,
+   "title": "My account · Orders",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Account-subscription.dc.html": {
+   "x": 940,
+   "y": 14320,
+   "w": 390,
+   "h": 5200,
+   "title": "My account · Subscription",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Account-settings.dc.html": {
+   "x": 1410,
+   "y": 14320,
+   "w": 390,
+   "h": 5000,
+   "title": "My account · Profile and settings",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Cancellation.dc.html": {
+   "x": 0,
+   "y": 20760,
+   "w": 390,
+   "h": 7800,
+   "title": "Cancellation and replacement",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Terms.dc.html": {
+   "x": 470,
+   "y": 20760,
+   "w": 390,
+   "h": 6600,
+   "title": "Terms of service",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Privacy.dc.html": {
+   "x": 940,
+   "y": 20760,
+   "w": 390,
+   "h": 8000,
+   "title": "Privacy policy",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Header.dc.html": {
+   "x": 0,
+   "y": 29400,
+   "w": 390,
+   "h": 300,
+   "title": "Header",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Footer.dc.html": {
+   "x": 470,
+   "y": 29400,
+   "w": 390,
+   "h": 1150,
+   "title": "Footer",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "ProductCard.dc.html": {
+   "x": 940,
+   "y": 29400,
+   "w": 180,
+   "h": 390,
+   "title": "Product card",
+   "expand": "fill",
+   "is_interactive": true
+  }
+ },
+ "order": [
+  "ProductCard.dc.html",
+  "Footer.dc.html",
+  "Header.dc.html",
+  "Privacy.dc.html",
+  "Terms.dc.html",
+  "Cancellation.dc.html",
+  "Account-settings.dc.html",
+  "Account-subscription.dc.html",
+  "Account-orders.dc.html",
+  "Account.dc.html",
+  "Checkout-5.dc.html",
+  "Checkout-4.dc.html",
+  "Checkout-3.dc.html",
+  "Checkout-2.dc.html",
+  "Checkout.dc.html",
+  "Signup-4.dc.html",
+  "Signup-3.dc.html",
+  "Signup-2.dc.html",
+  "Signup.dc.html",
+  "Login-3.dc.html",
+  "Login-2.dc.html",
+  "Login.dc.html",
+  "NotFound.dc.html",
+  "FAQ.dc.html",
+  "Contact.dc.html",
+  "About.dc.html",
+  "Wholesale.dc.html",
+  "Subscriptions.dc.html",
+  "FarmBox.dc.html",
+  "Cart.dc.html",
+  "Product.dc.html",
+  "Main.dc.html"
+ ],
+ "notes": {
+  "t-pages": {
+   "x": 0,
+   "y": -300,
+   "text": "Pages",
+   "kind": "title1",
+   "maxW": 4620
+  },
+  "t-login": {
+   "x": 0,
+   "y": 8340,
+   "text": "Log in and sign up",
+   "kind": "title1",
+   "maxW": 3210
+  },
+  "t-checkout": {
+   "x": 0,
+   "y": 11180,
+   "text": "Checkout",
+   "kind": "title1",
+   "maxW": 2270
+  },
+  "t-account": {
+   "x": 0,
+   "y": 14020,
+   "text": "My account",
+   "kind": "title1",
+   "maxW": 1800
+  },
+  "t-policies": {
+   "x": 0,
+   "y": 20460,
+   "text": "Policies",
+   "kind": "title1",
+   "maxW": 1330
+  },
+  "t-parts": {
+   "x": 0,
+   "y": 29100,
+   "text": "Shared parts",
+   "kind": "title1",
+   "maxW": 1120
+  },
+  "about": {
+   "x": -1400,
+   "y": -300,
+   "w": 1000,
+   "maxH": 640,
+   "size": "l",
+   "fill": "green",
+   "text": "Phone · 390 px wide (iPhone 15 size)\n• Rows: Pages, Log in and sign up, Checkout, My account, Policies, Shared parts\n• Product lists become swipe rails; the side menus on My account, FAQ and the policies become a row of pills you swipe\n• Product, Cart and Farm Box keep their main button in a frosted bar at the bottom of the screen\n• Boards are cut at 8,000 px. Open a board full-window to scroll the whole page\n• Press Play on Home to click through, like on the real site"
+  }
+ },
+ "pages": [],
+ "designSystems": []
+}
